@@ -1,6 +1,9 @@
 package com.inhatc.spring.capstone.entity.user;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
@@ -13,4 +16,7 @@ public class Users {
 	권한 
 	이메일 - UNI
 	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 }

@@ -1,9 +1,13 @@
 package com.inhatc.spring.capstone.entity.recuit;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "recruited_member")
 /** 모집된 멤버 */
 public class RecruitedMember {
 	/*
