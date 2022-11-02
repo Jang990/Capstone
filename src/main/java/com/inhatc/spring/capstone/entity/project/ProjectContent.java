@@ -6,10 +6,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.inhatc.spring.capstone.entity.base.ContentBase;
+
 @Entity
 @Table(name = "project_content")
 /** 프로젝트 소개 게시글 테이블 엔티티 */
-public class ProjectContent {
+public class ProjectContent extends ContentBase {
 	/*
 	게시글번호- PK
 	제목
