@@ -1,10 +1,21 @@
 package com.inhatc.spring.capstone.entity;
 
+import java.sql.Timestamp;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import com.inhatc.spring.capstone.entity.project.ProjectContent;
+import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
 @Table(name = "comment")
@@ -19,6 +30,23 @@ public class Comment {
 	 */
 	
 	@Id
+	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private Users writer;
+	
+	@ManyToOne
+	@JoinColumn(name = "project_id")
+	private ProjectContent project;
+	
+	@CreationTimestamp
+	private Timestamp createdTime;
+	
+	@UpdateTimestamp
+	private Timestamp updatedTime;
+	
+	private String content;
 }

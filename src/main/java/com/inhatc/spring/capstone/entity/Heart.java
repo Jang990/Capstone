@@ -7,7 +7,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.entity.project.ProjectContent;
@@ -31,6 +30,7 @@ public class Heart {
 	@JoinColumn(name = "project_content_id")
 	private ProjectContent project;
 	
-	@OneToOne(fetch =FetchType.LAZY)
+	@ManyToOne(fetch =FetchType.LAZY)
+	@JoinColumn(name = "user_id")
 	private Users likedUser;
 }
