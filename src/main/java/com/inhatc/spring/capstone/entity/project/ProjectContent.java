@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.entity.project;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,6 +26,7 @@ public class ProjectContent extends ContentBase {
 	 */
 	
 	@Id
+	@Column(name = "project_content_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 }

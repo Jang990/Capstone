@@ -2,19 +2,18 @@ package com.inhatc.spring.capstone.entity.base;
 
 import java.sql.Timestamp;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
+
+import com.inhatc.spring.capstone.entity.user.Users;
 
 /** 게시글 부모 클래스 */
 @MappedSuperclass
 public class ContentBase {
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-//	private Users author_id; // 게시물 작성자
+	@ManyToOne
+	@JoinColumn(name = "user_id")
+	private Users author_id; // 게시물 작성자
 	private String title; // 제목
 	private String content; // 내용
 	private String used_language; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것

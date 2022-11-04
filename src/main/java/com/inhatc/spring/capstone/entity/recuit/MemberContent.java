@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.entity.recuit;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +25,7 @@ public class MemberContent extends ContentBase {
 	모집현황
 	*/
 	@Id
+	@Column(name = "member_content_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 }
