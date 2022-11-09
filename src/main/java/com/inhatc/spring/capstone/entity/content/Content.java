@@ -52,6 +52,7 @@ public class Content extends CreatedAndUpdated{
 	private int vote_count; // 찬반 카운트
 	
 	@Convert(converter = BooleanToYNConverter.class)
+	@Column(length = 1)
 	private boolean isRecruit;
 	
 	@OneToMany(mappedBy = "id")

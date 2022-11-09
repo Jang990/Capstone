@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.entity.content;
 
+import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -37,5 +38,6 @@ public class ContentVote {
 	private Users likedUser;
 	
 	@Convert(converter = BooleanToYNConverter.class)
+	@Column(length = 1)
 	private boolean yn;
 }
