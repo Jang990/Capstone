@@ -7,8 +7,11 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 import com.inhatc.spring.capstone.constant.FileType;
+import com.inhatc.spring.capstone.entity.project.ProjectContent;
 
 @Entity(name = "file")
 public class SavedFile {
@@ -26,4 +29,8 @@ public class SavedFile {
 	
 	@Enumerated(EnumType.STRING)
 	private FileType type; // JPG, PNG, GIF 등등 타입
+	
+	@ManyToOne
+	@JoinColumn(name = "content")
+	private ProjectContent projectContent;
 }

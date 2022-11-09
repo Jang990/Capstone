@@ -1,13 +1,18 @@
 package com.inhatc.spring.capstone.entity.project;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.entity.base.ContentBase;
+import com.inhatc.spring.capstone.entity.file.SavedFile;
 
 @Entity
 @Table(name = "project_content")
@@ -29,4 +34,7 @@ public class ProjectContent extends ContentBase {
 	@Column(name = "project_content_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@OneToMany(mappedBy = "id")
+	List<SavedFile> files = new ArrayList<>();
 }
