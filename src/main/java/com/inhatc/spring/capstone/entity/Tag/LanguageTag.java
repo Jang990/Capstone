@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.inhatc.spring.capstone.entity.project.ProjectContent;
+import com.inhatc.spring.capstone.entity.content.Content;
 
 @Entity
 @Table(name = "language_tag")
@@ -21,7 +21,7 @@ public class LanguageTag {
 	
 	@ManyToOne
 	@JoinColumn(name = "project_content_id")
-	ProjectContent project;
+	Content project;
 	
 	@ManyToOne
 	@JoinColumn(name = "tag_id")

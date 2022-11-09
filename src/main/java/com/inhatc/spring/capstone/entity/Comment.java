@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import com.inhatc.spring.capstone.entity.project.ProjectContent;
+import com.inhatc.spring.capstone.entity.content.Content;
 import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
@@ -40,7 +40,7 @@ public class Comment {
 	
 	@ManyToOne
 	@JoinColumn(name = "project_id")
-	private ProjectContent project;
+	private Content project;
 	
 	@CreationTimestamp
 	private Timestamp createdTime;

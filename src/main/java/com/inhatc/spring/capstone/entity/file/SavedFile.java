@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.inhatc.spring.capstone.constant.FileType;
-import com.inhatc.spring.capstone.entity.project.ProjectContent;
+import com.inhatc.spring.capstone.entity.content.Content;
 
 @Entity(name = "file")
 public class SavedFile {
@@ -32,5 +32,5 @@ public class SavedFile {
 	
 	@ManyToOne
 	@JoinColumn(name = "content")
-	private ProjectContent projectContent;
+	private Content projectContent;
 }

@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.project;
+package com.inhatc.spring.capstone.entity.content;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +17,7 @@ import com.inhatc.spring.capstone.entity.file.SavedFile;
 @Entity
 @Table(name = "project_content")
 /** 프로젝트 소개 게시글 테이블 엔티티 */
-public class ProjectContent extends ContentBase {
+public class Content extends ContentBase {
 	/*
 	게시글번호- PK
 	제목

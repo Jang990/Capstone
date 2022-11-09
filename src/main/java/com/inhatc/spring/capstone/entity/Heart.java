@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.inhatc.spring.capstone.entity.project.ProjectContent;
+import com.inhatc.spring.capstone.entity.content.Content;
 import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
@@ -28,7 +28,7 @@ public class Heart {
 	
 	@ManyToOne
 	@JoinColumn(name = "project_content_id")
-	private ProjectContent project;
+	private Content project;
 	
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "user_id")
