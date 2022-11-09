@@ -13,9 +13,9 @@ import javax.persistence.Transient;
 import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
-@Table(name = "vote")
+@Table(name = "content_vote")
 /** 추천 투표 이력 테이블 엔티티 */
-public class Vote {
+public class ContentVote {
 	/*
 	추천 번호
 	사용자 번호 - FK 
