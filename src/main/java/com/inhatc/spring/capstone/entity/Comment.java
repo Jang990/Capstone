@@ -1,7 +1,5 @@
 package com.inhatc.spring.capstone.entity;
 
-import java.sql.Timestamp;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -11,16 +9,14 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
+import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.entity.content.Content;
 import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
 @Table(name = "comment")
 /** 댓글 테이블 엔티티 */
-public class Comment {
+public class Comment extends CreatedAndUpdated {
 	/*
 	댓글 번호
 	프로젝트 게시글 번호 - FK
@@ -42,11 +38,5 @@ public class Comment {
 	@JoinColumn(name = "content_id")
 	private Content project;
 	
-	@CreationTimestamp
-	private Timestamp createdTime;
-	
-	@UpdateTimestamp
-	private Timestamp updatedTime;
-	
-	private String content;
+	private String comments;
 }

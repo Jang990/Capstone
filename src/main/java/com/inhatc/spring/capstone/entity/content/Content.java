@@ -1,6 +1,5 @@
 package com.inhatc.spring.capstone.entity.content;
 
-import java.sql.Timestamp; 
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,16 +13,15 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
+import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
 import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
 @Table(name = "content")
 /** 작성글 정보 테이블 엔티티 */
-public class Content {
+public class Content extends CreatedAndUpdated{
 	/*
 	게시글번호- PK
 	제목
@@ -50,11 +48,6 @@ public class Content {
 	private String used_language; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것
 	private int view_count; // 조회수 - 쿠키로 조회수 중복을 제거할 것이다.
 	private int vote_count; // 찬반 카운트
-	
-	@CreationTimestamp
-	private Timestamp date_created;  // 글 등록 시간
-	@UpdateTimestamp
-	private Timestamp last_updated; // 글 수정 시간
 	
 	@OneToMany(mappedBy = "id")
 	List<SavedFile> files = new ArrayList<>();
