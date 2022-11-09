@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.inhatc.spring.capstone.entity.recuit.MemberContent;
+import com.inhatc.spring.capstone.entity.recuit.RecruitedMember;
 
 @Entity
 @Table(name = "position_tag")
@@ -20,8 +20,8 @@ public class PositionTag {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "project_content_id")
-	MemberContent memberContent;
+	@JoinColumn(name = "recruited_id")
+	RecruitedMember member;
 	
 	@ManyToOne
 	@JoinColumn(name = "tag_id")

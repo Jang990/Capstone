@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.entity.recuit;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -16,6 +17,7 @@ public class RecruitedMember {
 	사용자 번호 -FK
 	 */
 	@Id
+	@Column(name="recruited_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 }
