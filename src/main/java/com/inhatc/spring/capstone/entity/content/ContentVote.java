@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.entity.content;
 
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,6 +12,7 @@ import javax.persistence.Table;
 import javax.persistence.Transient;
 
 import com.inhatc.spring.capstone.entity.user.Users;
+import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 @Entity
 @Table(name = "content_vote")
@@ -34,6 +36,6 @@ public class ContentVote {
 	@JoinColumn(name = "user_id")
 	private Users likedUser;
 	
-	@Transient
+	@Convert(converter = BooleanToYNConverter.class)
 	private boolean yn;
 }

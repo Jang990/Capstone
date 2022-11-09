@@ -1,9 +1,10 @@
 package com.inhatc.spring.capstone.entity.content;
 
-import java.util.ArrayList;
+import java.util.ArrayList; 
 import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.Convert;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,7 @@ import javax.persistence.Table;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
 import com.inhatc.spring.capstone.entity.user.Users;
+import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 @Entity
 @Table(name = "content")
@@ -48,6 +50,9 @@ public class Content extends CreatedAndUpdated{
 	private String used_language; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것
 	private int view_count; // 조회수 - 쿠키로 조회수 중복을 제거할 것이다.
 	private int vote_count; // 찬반 카운트
+	
+	@Convert(converter = BooleanToYNConverter.class)
+	private boolean isRecruit;
 	
 	@OneToMany(mappedBy = "id")
 	List<SavedFile> files = new ArrayList<>();
