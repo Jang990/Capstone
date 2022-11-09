@@ -21,7 +21,7 @@ public class LanguageTag {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "project_content_id")
+	@JoinColumn(name = "content_id")
 	Content project;
 	
 	@ManyToOne

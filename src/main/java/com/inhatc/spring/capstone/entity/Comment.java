@@ -39,7 +39,7 @@ public class Comment {
 	private Users writer;
 	
 	@ManyToOne
-	@JoinColumn(name = "project_id")
+	@JoinColumn(name = "content_id")
 	private Content project;
 	
 	@CreationTimestamp

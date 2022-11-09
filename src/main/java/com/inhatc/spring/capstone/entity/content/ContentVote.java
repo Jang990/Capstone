@@ -27,7 +27,7 @@ public class ContentVote {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "project_content_id")
+	@JoinColumn(name = "content_id")
 	private Content project;
 	
 	@ManyToOne(fetch =FetchType.LAZY)

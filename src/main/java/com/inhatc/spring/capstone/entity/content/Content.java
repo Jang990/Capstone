@@ -37,7 +37,7 @@ public class Content {
 	 */
 	
 	@Id
-	@Column(name = "project_content_id")
+	@Column(name = "content_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
