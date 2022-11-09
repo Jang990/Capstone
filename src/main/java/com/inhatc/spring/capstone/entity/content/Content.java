@@ -15,7 +15,7 @@ import com.inhatc.spring.capstone.entity.base.ContentBase;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
 
 @Entity
-@Table(name = "project_content")
+@Table(name = "content")
 /** 프로젝트 소개 게시글 테이블 엔티티 */
 public class Content extends ContentBase {
 	/*
