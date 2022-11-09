@@ -13,6 +13,7 @@ import com.inhatc.spring.capstone.entity.content.Content;
 
 @Entity
 @Table(name = "language_tag")
+/** Java, C#, C++ 등의 언어 태그 엔티티 */
 public class LanguageTag {
 	@Id
 	@Column(name = "language_tag_id")

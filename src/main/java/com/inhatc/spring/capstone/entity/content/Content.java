@@ -22,7 +22,7 @@ import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
 @Table(name = "content")
-/** 프로젝트 소개 게시글 테이블 엔티티 */
+/** 작성글 정보 테이블 엔티티 */
 public class Content {
 	/*
 	게시글번호- PK
@@ -49,6 +49,7 @@ public class Content {
 	private String content; // 내용
 	private String used_language; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것
 	private int view_count; // 조회수 - 쿠키로 조회수 중복을 제거할 것이다.
+	private int vote_count; // 찬반 카운트
 	
 	@CreationTimestamp
 	private Timestamp date_created;  // 글 등록 시간

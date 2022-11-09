@@ -14,6 +14,7 @@ import com.inhatc.spring.capstone.constant.FileType;
 import com.inhatc.spring.capstone.entity.content.Content;
 
 @Entity(name = "file")
+/** 사용자가 서버에 저장한 파일 엔티티 */
 public class SavedFile {
 	@Id
 	@Column(name = "file_id")

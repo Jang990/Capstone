@@ -9,7 +9,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "recruited_member")
-/** 모집된 멤버 */
+/** 모집 멤버 정보 */
 public class RecruitedMember {
 	/*
 	구인 인원 번호 - PK

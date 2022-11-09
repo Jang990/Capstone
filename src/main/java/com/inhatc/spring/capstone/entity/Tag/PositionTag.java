@@ -13,6 +13,7 @@ import com.inhatc.spring.capstone.entity.recuit.RecruitedMember;
 
 @Entity
 @Table(name = "position_tag")
+/** 백엔드, 프론트엔드 등등의 포지션 태그 엔티티 */
 public class PositionTag {
 	@Id
 	@Column(name = "language_tag_id")

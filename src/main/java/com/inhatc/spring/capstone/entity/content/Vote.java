@@ -14,7 +14,7 @@ import com.inhatc.spring.capstone.entity.user.Users;
 
 @Entity
 @Table(name = "vote")
-/** 추천 투표 테이블 엔티티 */
+/** 추천 투표 이력 테이블 엔티티 */
 public class Vote {
 	/*
 	추천 번호

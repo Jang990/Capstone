@@ -11,6 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="tag")
+/** 분야(네트워크, 웹), 언어(Java,C#), 포지션(백엔드, 프론트엔드)를 모아둔 엔티티  */
 public class Tag {
 	@Id
 	@Column(name = "tag_id")
