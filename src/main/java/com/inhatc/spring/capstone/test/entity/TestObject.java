@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.testentity;
+package com.inhatc.spring.capstone.test.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

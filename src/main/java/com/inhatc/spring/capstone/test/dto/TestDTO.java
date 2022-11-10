@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.dto;
+package com.inhatc.spring.capstone.test.dto;
 
 import lombok.*;
 

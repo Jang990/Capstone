@@ -1,12 +1,12 @@
-package com.inhatc.spring.capstone.controller;
+package com.inhatc.spring.capstone.test.controller;
 
 import org.springframework.stereotype.Controller; 
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.inhatc.spring.capstone.dto.TestDTO;
-import com.inhatc.spring.capstone.service.TestService;
+import com.inhatc.spring.capstone.test.dto.TestDTO;
+import com.inhatc.spring.capstone.test.service.TestService;
 
 import lombok.RequiredArgsConstructor;
 

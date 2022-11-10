@@ -1,10 +1,10 @@
-package com.inhatc.spring.capstone.service;
+package com.inhatc.spring.capstone.test.service;
 
 import org.springframework.stereotype.Service;
 
-import com.inhatc.spring.capstone.dto.TestDTO;
-import com.inhatc.spring.capstone.repository.TestObjectRespository;
-import com.inhatc.spring.capstone.testentity.TestObject;
+import com.inhatc.spring.capstone.test.dto.TestDTO;
+import com.inhatc.spring.capstone.test.entity.TestObject;
+import com.inhatc.spring.capstone.test.repository.TestObjectRespository;
 
 import lombok.RequiredArgsConstructor;
 
