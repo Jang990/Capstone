@@ -42,8 +42,6 @@ public class GitHubTest {
 		System.out.println("============ README.md 내용 ==============");
 		System.out.println(readmeContent);
 		System.out.println("========================================");
-		
-		repo.getCollaboratorNames().forEach(System.out::println);
 	}
 	
 	@Test
