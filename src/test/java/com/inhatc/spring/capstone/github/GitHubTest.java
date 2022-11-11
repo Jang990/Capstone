@@ -7,6 +7,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GitHub;
+import org.kohsuke.github.HttpException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Description;
@@ -42,7 +43,22 @@ public class GitHubTest {
 		System.out.println(readmeContent);
 		System.out.println("========================================");
 		
-		System.out.println();
+		repo.getCollaboratorNames().forEach(System.out::println);
+	}
+	
+	@Test
+	@DisplayName("레포지토리 내용 불러오기3")
+	@Description("콜라보레이터 불러오기")
+	public void gitRepoTest3() throws IOException {
+		GHRepository repo = github.getUser("Jang990").getRepository("Spring-Capstone-Project"); // 레포지토리 불러오기
+		System.out.println("==========콜라보레이터 출력 =========");
+		try {
+			repo.getCollaboratorNames().forEach(System.out::println);
+		} catch(HttpException e) {
+			System.out.println("getCollaboratorNames 메서드는 권한이 필요합니다.");
+			System.out.println("오류 메시지:" + e.getMessage());
+		}
+		System.out.println("========================================");
 	}
 	
 
