@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>아이콘 테스트</title>
+</head>
+<body>
+	<h1>아이콘 테스트.</h1>
+	
+	<h2>방법 1</h2>
+	<!-- 방법 1. devicon css 사용 -->
+	<link th:href="@{/devicon/devicon.min.css}" rel="stylesheet" />
+	<i class="devicon-devicon-plain"></i>
+	
+	<br>
+	<br>
+	
+	<h2>방법 2</h2>
+	<!-- 방법 2. 리소스 직접 접근 static/devicon/icon 에 파일있음 -->
+	<img alt="C 아이콘" 
+		th:src="@{/devicon/icons/c/c-original.svg}" 
+		style="width: 100px;">
+</body>
+</html>
