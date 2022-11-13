@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div th:fragment="header">
+	<nav class="navbar" role="navigation" aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="/"> <img src="./img/rogotxt.png"
+				width="60" height="50">
+			</a> <a role="button" class="navbar-burger" aria-label="menu"
+				aria-expanded="false" data-target="navbarBasicExample"> <span
+				aria-hidden="true"></span> <span aria-hidden="true"></span> <span
+				aria-hidden="true"></span>
+			</a>
+		</div>
+
+		<div id="navbarBasicExample" class="navbar-menu">
+			<div class="navbar-start">
+				<a class="navbar-item" href="/project/projectboard"> 프로젝트 </a>
+				<a class="navbar-item"> 구인공고 </a>
+
+			</div>
+
+			<div class="navbar-end">
+				<div class="navbar-item">
+					<div class="buttons">
+						<a class="button is-primary"> <strong>회원가입</strong>
+						</a> <a class="button is-primary is-light"> 로그인 </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+</div>
+</html>
