@@ -48,10 +48,37 @@ class UserServiceTest {
 		UsersJoinDTO usersJoin = createUsersJoinDTO();
 		
 		userService.joinUser(usersJoin);
-		
 		UsersException e = assertThrows(UsersException.class, () -> {userService.joinUser(usersJoin);});
-		System.out.println(e.getMessage());
+		
 		assertEquals(UserErrorDescription.DUPLICATED_USER_ID, e.getErrorDescription());
+		System.out.println(e.getMessage());
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("이메일로 사용자 조회")
+	void searchUser() {
+		UsersJoinDTO usersJoin = createUsersJoinDTO();
+		userService.joinUser(usersJoin);
+		
+		DisplayedUserDTO foundUser = userService.searchUser(usersJoin.getEmail());
+		
+		assertEquals(foundUser.getEmail(), usersJoin.getEmail());
+		assertEquals(foundUser.getName(), usersJoin.getName());
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("이메일로 사용자 조회 실패")
+	void searchUserFail() {
+		UsersJoinDTO usersJoin = createUsersJoinDTO();
+		userService.joinUser(usersJoin);
+		
+		String otherMail = "sss@test.com";
+		UsersException e = assertThrows(UsersException.class, () -> {userService.searchUser(otherMail);});
+		
+		assertEquals(UserErrorDescription.NOT_FOUND_USER, e.getErrorDescription());
+		System.out.println(e.getMessage());
 	}
 
 }
