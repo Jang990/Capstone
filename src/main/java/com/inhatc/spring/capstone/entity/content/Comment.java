@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
-import com.inhatc.spring.capstone.entity.user.Users;
+import com.inhatc.spring.capstone.user.entity.Users;
 
 @Entity
 @Table(name = "comment")

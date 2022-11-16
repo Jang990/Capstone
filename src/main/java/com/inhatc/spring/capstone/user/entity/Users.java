@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.user;
+package com.inhatc.spring.capstone.user.entity;
 
 import java.util.ArrayList; 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.user;
+package com.inhatc.spring.capstone.user.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -8,7 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.inhatc.spring.capstone.constant.Roles;
+import com.inhatc.spring.capstone.user.constant.Roles;
 
 @Entity
 /** 권한 엔티티 */

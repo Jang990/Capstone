@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
-import com.inhatc.spring.capstone.entity.user.Users;
+import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 @Entity

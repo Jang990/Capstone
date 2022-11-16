@@ -17,7 +17,7 @@ import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
-import com.inhatc.spring.capstone.entity.user.Users;
+import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 @Entity

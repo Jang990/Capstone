@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.user;
+package com.inhatc.spring.capstone.user.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
