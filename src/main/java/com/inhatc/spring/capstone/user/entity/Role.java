@@ -10,7 +10,12 @@ import javax.persistence.Id;
 
 import com.inhatc.spring.capstone.user.constant.Roles;
 
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
+@Getter
+@NoArgsConstructor
 /** 권한 엔티티 */
 public class Role {
 	@Id
@@ -20,4 +25,17 @@ public class Role {
 
 	@Enumerated(EnumType.STRING)
 	private Roles role;
+	
+	public static Role createUserRole() {
+		return new Role(Roles.USER); 
+	}
+	
+	public static Role createAdminRole() {
+		return new Role(Roles.ADMIN); 
+	}
+	
+	private Role(Roles role) {
+		this.role = role;
+	}
+	
 }
