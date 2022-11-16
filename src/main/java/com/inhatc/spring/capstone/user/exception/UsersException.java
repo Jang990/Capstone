@@ -1,11 +1,14 @@
 package com.inhatc.spring.capstone.user.exception;
 
+import lombok.Getter;
+
+@Getter
 public class UsersException extends RuntimeException {
-	private final UserErrorMessage errorMessage;
+	private final UserErrorDescription errorDescription;
     
-    public UsersException(UserErrorMessage errorMessage, String userId) {
-    	super(errorMessage.getMessage() + "\n" + "사용자ID: " + userId);
-    	this.errorMessage = errorMessage;
+    public UsersException(UserErrorDescription errorDescription, String userId) {
+    	super(errorDescription.getMessage() + "\n" + "사용자ID: " + userId);
+    	this.errorDescription = errorDescription;
     }
     
 }

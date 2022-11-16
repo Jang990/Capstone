@@ -1,6 +1,7 @@
 package com.inhatc.spring.capstone.user.entity;
 
-import java.util.ArrayList; 
+import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -51,7 +52,7 @@ public class Users {
 		joinColumns = {@JoinColumn(name = "user_id")},
 		inverseJoinColumns = {@JoinColumn(name = "role_id")}
 	)
-	private Set<Role> roles;
+	private Set<Role> roles = new LinkedHashSet<>();
 	
 	public static Users createUser(UsersJoinDTO usersJoin) {
 		return Users.builder()
