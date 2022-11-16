@@ -29,4 +29,13 @@ public class UserService {
 		return new DisplayedUserDTO(user.getName(), user.getEmail());
 	}
 	
+	/** 이메일로 사용자 조회 */
+	public DisplayedUserDTO searchUser(String email) {
+		Users user = userRepository.findByEmail(email).orElseThrow(
+					() -> new UsersException(UserErrorDescription.NOT_FOUND_USER, email)
+				);
+		
+		return new DisplayedUserDTO(user.getName(), user.getEmail());
+	}
+	
 }
