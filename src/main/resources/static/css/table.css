@@ -1,0 +1,105 @@
+main {
+	background: #ffffff;
+	min-height: 650px;
+}
+
+.box1 {
+	width: 385px;
+	height: 240px;
+	margin-right: 15px;
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+		rgba(10, 10, 10, 0.02);
+	color: #4a4a4a;
+	display: block;
+	padding: 1.25rem;
+}
+
+img.boardimg {
+	width: 120px;
+	height: 80px;
+}
+
+img.lan {
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+}
+.res_tbl_wrap {
+	position: relative;
+	overflow: hidden;
+	margin: 0 auto;
+	width: 100%;
+	max-width: 1200px;
+	border-top: 2px solid #121212;
+}
+
+.res_tbl_wrap table {
+	display: table;
+	width: 100%;
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.res_tbl_wrap table thead tr th {
+	border-bottom: 1px solid #121212;
+}
+
+.res_tbl_wrap table thead tr th, .res_tbl_wrap table tbody tr td {
+	text-align: left;
+	padding: 0.8125vw 1.25vw;
+	font-size: 15px;
+	font-size: 1.3vw;
+	line-height: 1.375vw;
+}
+
+.res_tbl_wrap table tbody tr td {
+	border-bottom: 1px solid #efefef;
+}
+
+@media screen and (min-width: 1200px) {
+	.res_tbl_wrap table thead tr th, .res_tbl_wrap table tbody tr td {
+		padding: 12px 20px;
+		font-size: 16px;
+		line-height: 22px;
+	}
+}
+
+@media screen and (max-width: 990px) {
+	.res_tbl_wrap table col {
+		width: 100% !important;
+	}
+	.res_tbl_wrap table thead {
+		display: none;
+	}
+	.res_tbl_wrap table tbody tr {
+		border-bottom: 1px solid #efefef;
+	}
+	.res_tbl_wrap table tbody tr td {
+		width: 100%;
+		display: flex;
+		margin-bottom: 2px;
+		padding: 5px;
+		border-bottom: none;
+		font-size: 14px;
+		line-height: 18px;
+	}
+	.res_tbl_wrap table tbody tr td:first-child, .res_tbl_wrap table tbody tr th:first-child
+		{
+		padding-top: 16px;
+	}
+	.res_tbl_wrap table tbody tr td:last-child, .res_tbl_wrap table tbody tr th:last-child
+		{
+		padding-bottom: 15px;
+	}
+	.res_tbl_wrap table tbody tr td:before {
+		display: inline-block;
+		margin-right: 12px;
+		-webkit-box-flex: 0;
+		-ms-flex: 0 0 100px;
+		flex: 0 0 100px;
+		font-weight: 700;
+		content: attr(data-label);
+	}
+}

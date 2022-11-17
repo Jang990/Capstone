@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+<<<<<<< HEAD
 <html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
@@ -8,4 +9,28 @@
 	<h1>언제든 지워도 됩니다.</h1>
 	<span th:text="${testObj.testStr}"></span>
 </body>
+=======
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+layout:decorate="~{layout/layout1}">
+
+<form layout:fragment="content" class="box">
+  <div class="field">
+    <label class="label">Email</label>
+    <div class="control">
+      <input class="input" type="email" placeholder="e.g. alex@example.com">
+    </div>
+  </div>
+
+  <div class="field">
+    <label class="label">Password</label>
+    <div class="control">
+      <input class="input" type="password" placeholder="********">
+    </div>
+  </div>
+
+  <button class="button is-primary">Sign in</button>
+</form>
+
+>>>>>>> sim
 </html>
