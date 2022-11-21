@@ -1,0 +1,57 @@
+package com.inhatc.spring.capstone.config;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+
+import com.inhatc.spring.capstone.user.service.CustomOAuthUserService;
+
+import lombok.RequiredArgsConstructor;
+
+@Configuration
+@EnableWebSecurity
+@RequiredArgsConstructor
+public class SecurityConfig {
+	
+	private final CustomOAuthUserService OAuthUserService;
+	
+	@Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+		http
+			.authorizeRequests(a -> a
+				.antMatchers("/", "/error", "/webjars/**").permitAll()
+				.mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
+                .mvcMatchers("/", "/users/**", "/item/**", "/images/**").permitAll()
+                .mvcMatchers("/test/**").permitAll()
+                .mvcMatchers("/admin/**").hasRole("ADMIN")
+				.anyRequest().authenticated()
+			)
+			.exceptionHandling(e -> e
+				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
+			)
+			.csrf(c -> c
+				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+			)
+			.logout(l -> l
+				.logoutSuccessUrl("/").permitAll()
+			)
+			.oauth2Login(o -> o
+					.defaultSuccessUrl("/test/oauth") // oauth 테스트를 위해 해당 html로 자동 리다이렉트
+					.userInfoEndpoint().userService(OAuthUserService)
+			);
+
+        return http.build();
+    }
+	
+	@Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+}

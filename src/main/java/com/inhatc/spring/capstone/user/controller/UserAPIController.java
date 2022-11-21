@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserAPIController {
 	@RequestMapping("/user")
 	public Map<String, Object> user(@AuthenticationPrincipal OAuth2User principal) {
-		System.out.println("====>여기: " +  principal.getAuthorities().toString());
 		return Collections.singletonMap("name", principal.getAttribute("name"));
 	}
 }
