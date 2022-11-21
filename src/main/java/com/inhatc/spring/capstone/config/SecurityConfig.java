@@ -29,6 +29,7 @@ public class SecurityConfig {
 				.antMatchers("/", "/error", "/webjars/**").permitAll()
 				.mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
                 .mvcMatchers("/", "/users/**", "/item/**", "/images/**").permitAll()
+                .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/test/**").permitAll()
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
