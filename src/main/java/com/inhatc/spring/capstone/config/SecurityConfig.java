@@ -44,7 +44,7 @@ public class SecurityConfig {
 				.logoutSuccessUrl("/").permitAll()
 			)
 			.oauth2Login(o -> o
-					.defaultSuccessUrl("/test/oauth") // oauth 테스트를 위해 해당 html로 자동 리다이렉트
+					.defaultSuccessUrl("/login") // oauth 테스트를 위해 해당 html로 자동 리다이렉트
 					.userInfoEndpoint().userService(OAuthUserService)
 			);
 
