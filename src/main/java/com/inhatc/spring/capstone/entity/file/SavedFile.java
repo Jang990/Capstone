@@ -11,7 +11,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import com.inhatc.spring.capstone.constant.FileType;
-import com.inhatc.spring.capstone.entity.content.Content;
+import com.inhatc.spring.capstone.content.entity.Content;
 
 @Entity(name = "file")
 /** 사용자가 서버에 저장한 파일 엔티티 */

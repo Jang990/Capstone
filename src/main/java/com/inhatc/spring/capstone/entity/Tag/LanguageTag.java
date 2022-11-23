@@ -9,7 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.inhatc.spring.capstone.entity.content.Content;
+import com.inhatc.spring.capstone.content.entity.Content;
 
 @Entity
 @Table(name = "language_tag")

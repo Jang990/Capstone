@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.content;
+package com.inhatc.spring.capstone.content.entity;
 
 import java.util.ArrayList; 
 import java.util.List;
@@ -57,4 +57,5 @@ public class Content extends CreatedAndUpdated{
 	
 	@OneToMany(mappedBy = "id")
 	List<SavedFile> files = new ArrayList<>();
+	
 }
