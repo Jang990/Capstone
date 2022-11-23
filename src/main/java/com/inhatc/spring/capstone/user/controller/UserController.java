@@ -6,5 +6,5 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @Controller
 @RequestMapping("/users")
 public class UserController {
-	// 일단 컨트롤러 틀만 만들어 놓음
+	// 틀만 남겨놓음
 }

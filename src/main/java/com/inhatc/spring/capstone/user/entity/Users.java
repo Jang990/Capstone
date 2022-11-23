@@ -62,6 +62,11 @@ public class Users {
 				.role(Role.createUserRole())
 				.build();
 	}
+	
+	public Users updateOAuthUser(String name, String picture) {
+		this.name = name;
+		return this;
+	}
 
 
 	@Builder
