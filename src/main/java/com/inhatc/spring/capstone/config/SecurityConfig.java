@@ -38,7 +38,8 @@ public class SecurityConfig {
 				.authenticationEntryPoint(new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED))
 			)
 			.csrf(c -> c
-				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+//				.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
+				.disable()
 			)
 			.logout(l -> l
 				.logoutSuccessUrl("/").permitAll()
