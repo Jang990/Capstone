@@ -41,10 +41,10 @@ public class ContentDTO {
 		this.files = files;
 	}
 	
-	public static ContentDTO of(Users user, Content content) {
+	public static ContentDTO of(Content content) {
 		return ContentDTO.builder()
-				.userId(user.getId())
-				.userEmail(user.getEmail())
+				.userId(content.getWriter().getId())
+				.userEmail(content.getWriter().getEmail())
 				.title(content.getTitle())
 				.content(content.getContent())
 				.usedLanguage(content.getUsedLanguage())
