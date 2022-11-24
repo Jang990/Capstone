@@ -3,8 +3,11 @@ package com.inhatc.spring.capstone.content.dto;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
+import com.inhatc.spring.capstone.user.entity.Users;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,4 +26,31 @@ public class ContentDTO {
 	private boolean isRecruit;
 	
 	List<SavedFile> files = new ArrayList<>();
+
+	@Builder
+	public ContentDTO(Long userId, String userEmail, String title, String content, String usedLanguage, int viewCount,
+			int voteCount, boolean isRecruit, List<SavedFile> files) {
+		this.userId = userId;
+		this.userEmail = userEmail;
+		this.title = title;
+		this.content = content;
+		this.usedLanguage = usedLanguage;
+		this.viewCount = viewCount;
+		this.voteCount = voteCount;
+		this.isRecruit = isRecruit;
+		this.files = files;
+	}
+	
+	public static ContentDTO of(Users user, Content content) {
+		return ContentDTO.builder()
+				.userId(user.getId())
+				.userEmail(user.getEmail())
+				.title(content.getTitle())
+				.content(content.getContent())
+				.usedLanguage(content.getUsedLanguage())
+				.viewCount(content.getViewCount())
+				.voteCount(content.getVoteCount())
+				.isRecruit(content.isRecruit())
+				.build();
+	}
 }

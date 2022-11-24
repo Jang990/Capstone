@@ -22,7 +22,7 @@ public class ContentService {
 	private final UsersRepository userRepository;
 	
 	/** 프로젝트 게시글 생성 */
-	public void createProjectContent(ContentDTO contentDto) {
+	public ContentDTO createProjectContent(ContentDTO contentDto) {
 		Users user = userRepository.findById(contentDto.getUserId())
 				.orElseThrow(
 						() -> new UsersException(UserErrorDescription.NOT_FOUND_USER, 
@@ -32,10 +32,11 @@ public class ContentService {
 		
 		Content content = Content.createContent(user, contentDto);
 		content = contentRepository.save(content);
+		return ContentDTO.of(user, content);
 	}
 	
 	/** 프로젝트 관련 구인 게시글 생성 */
-	public void createRecruitContent(ContentDTO contentDto) {
-		
+	public ContentDTO createRecruitContent(ContentDTO contentDto) {
+		return null;
 	}
 }
