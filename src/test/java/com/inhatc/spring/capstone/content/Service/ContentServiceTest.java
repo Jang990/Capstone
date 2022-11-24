@@ -36,8 +36,6 @@ class ContentServiceTest {
 	private UsersRepository userRepository;
 	
 	@Autowired
-	private ContentRepository contentRepository;
-	@Autowired
 	private ContentService contentService;
 	
 	// 사용자 생성
