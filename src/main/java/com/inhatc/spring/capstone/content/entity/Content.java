@@ -50,7 +50,10 @@ public class Content extends CreatedAndUpdated{
 	@JoinColumn(name = "user_id")
 	private Users writer; // 게시물 작성자
 	private String title; // 제목
+	
+	@Column(columnDefinition = "TEXT", nullable = false) // text는 길이를 설정하지 않음. 속성의 최대 길이를 모르면 text를 사용 적합
 	private String content; // 내용
+	
 	private String usedLanguage; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것
 	private int viewCount; // 조회수 - 쿠키로 조회수 중복을 제거할 것이다.
 	private int voteCount; // 찬반 카운트
