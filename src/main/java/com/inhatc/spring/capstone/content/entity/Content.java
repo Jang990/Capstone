@@ -62,7 +62,7 @@ public class Content extends CreatedAndUpdated{
 	@OneToMany(mappedBy = "id")
 	List<SavedFile> files = new ArrayList<>();
 	
-	public static Content craeteContent(Users writer, ContentDTO contentDto) {
+	public static Content createContent(Users writer, ContentDTO contentDto) {
 		return Content.builder()
 				.writer(writer)
 				.title(contentDto.getTitle())
