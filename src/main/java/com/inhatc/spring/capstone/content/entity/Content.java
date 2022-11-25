@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
 import com.inhatc.spring.capstone.user.entity.Users;
@@ -62,7 +64,7 @@ public class Content extends CreatedAndUpdated{
 	@Column(length = 1)
 	private boolean isRecruit;
 	
-	@OneToMany(mappedBy = "id")
+	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
 	List<SavedFile> files = new ArrayList<>();
 	
 	public static Content createContent(Users writer, ContentDTO contentDto) {
@@ -77,6 +79,15 @@ public class Content extends CreatedAndUpdated{
 				// DTO에서 엔티티 제거 후 MultipartFile 형식으로 바꾸고 여기서 SavedFile 엔티티 생성 예정
 				.files(contentDto.getFiles()) 
 				.build();
+	}
+	
+	public Content modifyContent(DisplayedContentDTO contentDto) {
+		this.title = contentDto.getTitle();
+		this.content = contentDto.getContent();
+		this.usedLanguage = contentDto.getUsedLanguage();
+		this.isRecruit = contentDto.isRecruit();
+		
+		return this;
 	}
 	
 	

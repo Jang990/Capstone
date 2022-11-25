@@ -4,7 +4,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
+import com.inhatc.spring.capstone.content.exception.ContentErrorDescription;
+import com.inhatc.spring.capstone.content.exception.ContentException;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.user.exception.UserErrorDescription;
@@ -36,8 +39,8 @@ public class ContentService {
 	}
 	
 	
-	/** 프로젝트 게시글 조회 = */
-	public ContentDTO viewProjectContent(Long contentId) {
+	/** 프로젝트 게시글 조회 */
+	public DisplayedContentDTO viewProjectContent(Long contentId) {
 		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x - 추후 구현
 		System.out.println(contentRepository.getContentView());
 		
@@ -45,22 +48,21 @@ public class ContentService {
 	}
 	
 	/** 프로젝트 게시글 수정 */
-	public ContentDTO modifyProjectContent(Long contentId) {
-		Content content = contentRepository.findById(contentId)
+	public ContentDTO modifyProjectContent(DisplayedContentDTO contentDTO) {
+		Content content = contentRepository.findById(contentDTO.getContentId())
 				.orElseThrow(
-						() -> new IllegalArgumentException("임의 처리 - 게시글 조회 불가능")
+						() -> new ContentException(ContentErrorDescription.NOT_FOUND_CONTENT, contentDTO.getContentId())
 					);
 		
-		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x - 추후 구현
+		content.modifyContent(contentDTO);
 		
-		System.out.println(contentRepository.getContentView());
-		
-		return null;
+		return ContentDTO.of(content);
 	}
 	
 	
 	/** 프로젝트 관련 구인 게시글 생성 */
 	public ContentDTO createRecruitContent(ContentDTO contentDto) {
+		// 추후 작성
 		return null;
 	}
 }
