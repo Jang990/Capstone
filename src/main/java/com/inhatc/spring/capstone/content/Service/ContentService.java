@@ -25,7 +25,7 @@ public class ContentService {
 	private final UsersRepository userRepository;
 	
 	/** 프로젝트 게시글 생성 */
-	public ContentDTO createProjectContent(ContentDTO contentDto) {
+	public DisplayedContentDTO createProjectContent(ContentDTO contentDto) {
 		Users user = userRepository.findById(contentDto.getUserId())
 				.orElseThrow(
 						() -> new UsersException(UserErrorDescription.NOT_FOUND_USER, 
@@ -35,7 +35,8 @@ public class ContentService {
 		
 		Content content = Content.createContent(user, contentDto);
 		content = contentRepository.save(content);
-		return ContentDTO.of(content);
+		
+		return DisplayedContentDTO.createdContent(content);
 	}
 	
 	
