@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.user.dto.UsersJoinDTO;
@@ -80,9 +81,9 @@ class ContentServiceTest {
 		Users user = createUser();
 		ContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
-		ContentDTO createdContentDto = contentService.createProjectContent(contentDto);
+		DisplayedContentDTO createdContentDto = contentService.createProjectContent(contentDto);
 		
-		assertThat(contentDto).usingRecursiveComparison().isEqualTo(createdContentDto); 
+		checkEqual(contentDto, createdContentDto);
 	}
 	
 	@Test
@@ -95,14 +96,22 @@ class ContentServiceTest {
 			contentDtoList.add(createProjectContentDTO(user, "테스트 게시물 " + i));
 		}
 		
-		List<ContentDTO> dbContentList = new ArrayList<>();
+		List<DisplayedContentDTO> dbContentList = new ArrayList<>();
 		for (int i = 0; i < contentDtoList.size(); i++) {
 			dbContentList.add(contentService.createProjectContent(contentDtoList.get(i)));
 		}
 		
 		for (int i = 0; i < contentDtoList.size(); i++) {
-			assertThat(contentDtoList.get(i)).usingRecursiveComparison().isEqualTo(dbContentList.get(i)); 
+			checkEqual(contentDtoList.get(i), dbContentList.get(i));
 		}
+	}
+	
+	void checkEqual(ContentDTO contentDto, DisplayedContentDTO createdContentDto) {
+		assertEquals(contentDto.getContent(), createdContentDto.getContent());
+		assertEquals(contentDto.getTitle(), createdContentDto.getTitle());
+		assertEquals(contentDto.getUsedLanguage(), createdContentDto.getUsedLanguage());
+		assertEquals(contentDto.getUsedLanguage(), createdContentDto.getUsedLanguage());
+		assertEquals(contentDto.getUserEmail(), createdContentDto.getWriter().getEmail());
 	}
 	
 	@Test
@@ -124,6 +133,13 @@ class ContentServiceTest {
 		createSingleProjectContent();
 		contentService.viewProjectContent(null);
 	}
-
-
+	
+//	@Test
+	@Transactional
+	@DisplayName("Content 수정 성공")
+	void craeteSingleContent() {
+		createSingleProjectContent();
+		contentService.viewProjectContent(null);
+	}
+	
 }
