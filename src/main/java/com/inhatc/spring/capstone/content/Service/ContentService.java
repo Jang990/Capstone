@@ -1,7 +1,5 @@
 package com.inhatc.spring.capstone.content.Service;
 
-import javax.servlet.http.Cookie;
-
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -37,17 +35,29 @@ public class ContentService {
 		return ContentDTO.of(content);
 	}
 	
-	/** 프로젝트 게시글 조회 */
-	public ContentDTO modifyProjectContent(Long contentId, Cookie cookie) {
-		Content content = contentRepository.findById(contentId)
-				.orElseThrow(
-						() -> new IllegalArgumentException("임의 처리")
-					);
-		
-		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x
+	
+	/** 프로젝트 게시글 조회 = */
+	public ContentDTO viewProjectContent(Long contentId) {
+		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x - 추후 구현
+		System.out.println(contentRepository.getContentView());
 		
 		return null;
 	}
+	
+	/** 프로젝트 게시글 수정 */
+	public ContentDTO modifyProjectContent(Long contentId) {
+		Content content = contentRepository.findById(contentId)
+				.orElseThrow(
+						() -> new IllegalArgumentException("임의 처리 - 게시글 조회 불가능")
+					);
+		
+		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x - 추후 구현
+		
+		System.out.println(contentRepository.getContentView());
+		
+		return null;
+	}
+	
 	
 	/** 프로젝트 관련 구인 게시글 생성 */
 	public ContentDTO createRecruitContent(ContentDTO contentDto) {
