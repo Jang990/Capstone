@@ -65,22 +65,31 @@
 			<groupId>nz.net.ultraq.thymeleaf</groupId>
 			<artifactId>thymeleaf-layout-dialect</artifactId>
 		</dependency>
-		
+
 		<!-- 스프링 시큐리티 -->
 		<dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter-security</artifactId>
-        </dependency>
-        
-        <!-- OAuth 인증 -->
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+
+		<!-- OAuth 인증 -->
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-oauth2-client</artifactId>
 		</dependency>
-        <dependency>
-            <groupId>org.springframework.security</groupId>
-            <artifactId>spring-security-oauth2-jose</artifactId>
-        </dependency>
+		<dependency>
+			<groupId>org.springframework.security</groupId>
+			<artifactId>spring-security-oauth2-jose</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-apt</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.querydsl</groupId>
+			<artifactId>querydsl-jpa</artifactId>
+		</dependency>
 
 	</dependencies>
 
@@ -95,6 +104,17 @@
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
 						</exclude>
+						
+						<!-- QueryDSL 설정 -->
+						<execution>
+							<goals>
+								<goal>process</goal>
+							</goals>
+							<configuration>
+								<outputDirectory>src/main/generated</outputDirectory>
+								<processor>com.querydsl.apt.jpa.JPAAnnotationProcessor</processor>
+							</configuration>
+						</execution>
 					</excludes>
 				</configuration>
 			</plugin>
