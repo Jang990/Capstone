@@ -17,6 +17,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.user.dto.UsersJoinDTO;
 import com.inhatc.spring.capstone.user.entity.Users;
@@ -114,6 +115,14 @@ class ContentServiceTest {
 		UsersException e = assertThrows(UsersException.class, () -> {contentService.createProjectContent(contentDto);});
 		
 		assertEquals(UserErrorDescription.NOT_FOUND_USER, e.getErrorDescription()); 
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("QueryDSL 테스트")
+	void getContentViewTest() {
+		createSingleProjectContent();
+		contentService.viewProjectContent(null);
 	}
 
 
