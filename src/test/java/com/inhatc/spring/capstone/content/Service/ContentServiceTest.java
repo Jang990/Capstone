@@ -78,13 +78,14 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("단일 프로젝트 게시글 생성")
-	void createSingleProjectContent() {
+	DisplayedContentDTO createSingleProjectContent() {
 		Users user = createUser();
 		ContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
 		DisplayedContentDTO createdContentDto = contentService.createProjectContent(contentDto);
 		
 		checkEqual(contentDto, createdContentDto);
+		return createdContentDto;
 	}
 	
 	@Test
@@ -129,10 +130,15 @@ class ContentServiceTest {
 	
 	@Test
 	@Transactional
-	@DisplayName("QueryDSL 테스트")
+	@DisplayName("게시글 조회")
 	void getContentViewTest() {
-		createSingleProjectContent();
-		contentService.viewProjectContent(null);
+		DisplayedContentDTO content = createSingleProjectContent();
+		
+		DisplayedContentDTO viewContent = contentService.viewProjectContent(content.getContentId());
+		
+		assertEquals(content.getTitle(), viewContent.getTitle());
+		assertEquals(content.getContent(), viewContent.getContent());
+		assertEquals(content.getViewCount() + 1, viewContent.getViewCount());
 	}
 	
 //	@Test
