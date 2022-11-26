@@ -6,6 +6,7 @@ import java.util.List;
 
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.user.dto.DisplayedUserDTO;
+import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.Builder;
 import lombok.Getter;
@@ -45,9 +46,11 @@ public class DisplayedContentDTO {
 	}
 	
 	@Builder
-	public DisplayedContentDTO(Long contentId, DisplayedUserDTO writer, String title, String content,
-			LocalDateTime accessDate, String usedLanguage, boolean isRecruit, int viewCount,
-			List<DisplayedCommentDTO> comments, List<DisplayedFileDTO> files, int voteCount) {
+	@QueryProjection
+	public DisplayedContentDTO(Long contentId, DisplayedUserDTO writer, String title, 
+			String content, LocalDateTime accessDate, String usedLanguage, 
+			boolean isRecruit, int viewCount, List<DisplayedCommentDTO> comments, 
+			List<DisplayedFileDTO> files, int voteCount) {
 		this.contentId = contentId;
 		this.writer = writer;
 		this.title = title;

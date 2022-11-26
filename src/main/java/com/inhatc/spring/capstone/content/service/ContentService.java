@@ -42,10 +42,17 @@ public class ContentService {
 	
 	/** 프로젝트 게시글 조회 */
 	public DisplayedContentDTO viewProjectContent(Long contentId) {
-		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x - 추후 구현
-		System.out.println(contentRepository.getContentView());
+		Content content = contentRepository.findById(contentId)
+				.orElseThrow(
+						() -> new ContentException(ContentErrorDescription.NOT_FOUND_CONTENT, contentId)
+					);
 		
-		return null;
+		// 쿠키를 받고 만약 이미 방문했다면 조회수 증가 x - 추후 구현
+		content.increaseView();
+		
+		DisplayedContentDTO contentDetails = contentRepository.getContentDetails(contentId);
+		
+		return contentDetails;
 	}
 	
 	/** 프로젝트 게시글 수정 */

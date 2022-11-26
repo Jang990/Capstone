@@ -103,5 +103,10 @@ public class Content extends CreatedAndUpdated{
 		this.isRecruit = isRecruit;
 		this.files = files;
 	}
+
+	/** 조회수 증가 */
+	public void increaseView() {
+		this.viewCount++;
+	}
 	
 }
