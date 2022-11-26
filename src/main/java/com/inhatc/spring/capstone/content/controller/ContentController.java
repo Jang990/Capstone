@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.content.Controller;
+package com.inhatc.spring.capstone.content.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.inhatc.spring.capstone.content.Service.ContentService;
 import com.inhatc.spring.capstone.content.dto.ContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
+import com.inhatc.spring.capstone.content.service.ContentService;
 
 import lombok.RequiredArgsConstructor;
 

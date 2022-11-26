@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.content.Service;
+package com.inhatc.spring.capstone.content.service;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -20,6 +20,7 @@ import com.inhatc.spring.capstone.content.dto.ContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
+import com.inhatc.spring.capstone.content.service.ContentService;
 import com.inhatc.spring.capstone.user.dto.UsersJoinDTO;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.user.exception.UserErrorDescription;
