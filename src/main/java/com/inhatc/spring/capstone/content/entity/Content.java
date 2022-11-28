@@ -15,7 +15,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
-import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.entity.file.SavedFile;
@@ -67,7 +67,7 @@ public class Content extends CreatedAndUpdated{
 	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
 	List<SavedFile> files = new ArrayList<>();
 	
-	public static Content createContent(Users writer, ContentDTO contentDto) {
+	public static Content createContent(Users writer, NewContentDTO contentDto) {
 		return Content.builder()
 				.writer(writer)
 				.title(contentDto.getTitle())
@@ -77,11 +77,11 @@ public class Content extends CreatedAndUpdated{
 				.voteCount(0)
 				.isRecruit(contentDto.isRecruit())
 				// DTO에서 엔티티 제거 후 MultipartFile 형식으로 바꾸고 여기서 SavedFile 엔티티 생성 예정
-				.files(contentDto.getFiles()) 
+				.files(null) // 일단 null 넣어두고 추후 file 관련 추가하면서 DisplayedFiles에 of 추가 
 				.build();
 	}
 	
-	public Content modifyContent(DisplayedContentDTO contentDto) {
+	public Content modifyContent(NewContentDTO contentDto) {
 		this.title = contentDto.getTitle();
 		this.content = contentDto.getContent();
 		this.usedLanguage = contentDto.getUsedLanguage();

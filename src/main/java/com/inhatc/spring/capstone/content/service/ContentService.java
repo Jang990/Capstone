@@ -3,7 +3,7 @@ package com.inhatc.spring.capstone.content.service;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.exception.ContentErrorDescription;
@@ -25,7 +25,7 @@ public class ContentService {
 	private final UsersRepository userRepository;
 	
 	/** 프로젝트 게시글 생성 */
-	public DisplayedContentDTO createProjectContent(ContentDTO contentDto) {
+	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) {
 		Users user = userRepository.findById(contentDto.getUserId())
 				.orElseThrow(
 						() -> new UsersException(UserErrorDescription.NOT_FOUND_USER, 
@@ -56,20 +56,21 @@ public class ContentService {
 	}
 	
 	/** 프로젝트 게시글 수정 */
-	public ContentDTO modifyProjectContent(DisplayedContentDTO contentDTO) {
+	public DisplayedContentDTO modifyProjectContent(NewContentDTO contentDTO) {
 		Content content = contentRepository.findById(contentDTO.getContentId())
 				.orElseThrow(
 						() -> new ContentException(ContentErrorDescription.NOT_FOUND_CONTENT, contentDTO.getContentId())
 					);
 		
 		content.modifyContent(contentDTO);
+		DisplayedContentDTO contentDetails = contentRepository.getContentDetails(content.getId());
 		
-		return ContentDTO.of(content);
+		return contentDetails;
 	}
 	
 	
 	/** 프로젝트 관련 구인 게시글 생성 */
-	public ContentDTO createRecruitContent(ContentDTO contentDto) {
+	public DisplayedContentDTO createRecruitContent(NewContentDTO contentDto) {
 		// 추후 작성
 		return null;
 	}
