@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.inhatc.spring.capstone.content.dto.ContentDTO;
+import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
@@ -57,20 +57,18 @@ class ContentServiceTest {
 	}
 	
 	// 게시글 DTO 생성
-	ContentDTO createProjectContentDTO(Users user, String title) {
+	NewContentDTO createProjectContentDTO(Users user, String title) {
 		String str = ""; // 게시글 내용
 		for (int i = 0; i < 100; i++) {
 			str += "테스트 게시물입니다" + (i * 31) + "\n";
 		}
 		
-		return ContentDTO.builder()
+		return NewContentDTO.builder()
 				.userId(user.getId())
 				.userEmail(user.getEmail())
 				.title(title)
 				.content(str)
 				.usedLanguage("JAVA")
-				.viewCount(0)
-				.voteCount(0)
 				.isRecruit(false)
 				.build();
 	}
@@ -80,7 +78,7 @@ class ContentServiceTest {
 	@DisplayName("단일 프로젝트 게시글 생성")
 	DisplayedContentDTO createSingleProjectContent() {
 		Users user = createUser();
-		ContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
+		NewContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
 		DisplayedContentDTO createdContentDto = contentService.createProjectContent(contentDto);
 		
@@ -93,7 +91,7 @@ class ContentServiceTest {
 	@DisplayName("여러 프로젝트 게시글 생성")
 	void createMultiProjectContent() {
 		Users user = createUser();
-		List<ContentDTO> contentDtoList = new ArrayList<>(); 
+		List<NewContentDTO> contentDtoList = new ArrayList<>(); 
 		for (int i = 0; i < 100; i++) {
 			contentDtoList.add(createProjectContentDTO(user, "테스트 게시물 " + i));
 		}
@@ -108,7 +106,7 @@ class ContentServiceTest {
 		}
 	}
 	
-	void checkEqual(ContentDTO contentDto, DisplayedContentDTO createdContentDto) {
+	void checkEqual(NewContentDTO contentDto, DisplayedContentDTO createdContentDto) {
 		assertEquals(contentDto.getContent(), createdContentDto.getContent());
 		assertEquals(contentDto.getTitle(), createdContentDto.getTitle());
 		assertEquals(contentDto.getUsedLanguage(), createdContentDto.getUsedLanguage());
@@ -121,7 +119,7 @@ class ContentServiceTest {
 	@DisplayName("존재하지 않는 사용자의 게시글 생성 시도")
 	void createContentByNonExistentUser() {
 		Users user = createNonExistentUser();
-		ContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
+		NewContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
 		UsersException e = assertThrows(UsersException.class, () -> {contentService.createProjectContent(contentDto);});
 		
@@ -141,12 +139,27 @@ class ContentServiceTest {
 		assertEquals(content.getViewCount() + 1, viewContent.getViewCount());
 	}
 	
-//	@Test
+	@Test
 	@Transactional
-	@DisplayName("Content 수정 성공")
-	void craeteSingleContent() {
-		createSingleProjectContent();
-		contentService.viewProjectContent(null);
+	@DisplayName("Content 수정")
+	void createSingleContent() {
+		DisplayedContentDTO createdContent = createSingleProjectContent();
+		String modifiedStr = "수정된 문자열";
+		NewContentDTO modifiedContentDetails = NewContentDTO.builder()
+				.contentId(createdContent.getContentId())
+				.title(createdContent.getTitle()+modifiedStr)
+				.content(modifiedStr + modifiedStr + modifiedStr)
+				.usedLanguage("C++")
+				.isRecruit(createdContent.isRecruit())
+				.files(createdContent.getFiles())
+				.build();
+		
+		DisplayedContentDTO modifiedContent = contentService.modifyProjectContent(modifiedContentDetails);
+		
+		assertEquals(createdContent.getContentId(), modifiedContent.getContentId());
+		assertEquals(modifiedContentDetails.getTitle(), modifiedContent.getTitle());
+		assertEquals(modifiedContentDetails.getContent(), modifiedContent.getContent());
+		assertEquals(modifiedContentDetails.getUsedLanguage(), modifiedContent.getUsedLanguage());
 	}
 	
 }
