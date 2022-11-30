@@ -18,7 +18,7 @@ import javax.persistence.Table;
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
-import com.inhatc.spring.capstone.entity.file.SavedFile;
+import com.inhatc.spring.capstone.file.entity.SavedFile;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 

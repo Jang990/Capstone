@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.file;
+package com.inhatc.spring.capstone.file.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,7 +13,10 @@ import javax.persistence.ManyToOne;
 import com.inhatc.spring.capstone.constant.FileType;
 import com.inhatc.spring.capstone.content.entity.Content;
 
+import lombok.Getter;
+
 @Entity(name = "file")
+@Getter
 /** 사용자가 서버에 저장한 파일 엔티티 */
 public class SavedFile {
 	@Id
@@ -34,4 +37,18 @@ public class SavedFile {
 	@ManyToOne
 	@JoinColumn(name = "content")
 	private Content projectContent;
+	
+	public SavedFile updateFile(String originalName, String savedName, String url, int width, int height) {
+		/*
+		 * 수정 사항
+		 * DB에 URL이라는 컬럼 추가할지 말지 선택
+		 */
+		this.originalName = originalName;
+		this.name = savedName;
+//		this.url = url;
+		this.width = width;
+		this.height = height;
+		
+		return this;
+	}
 }
