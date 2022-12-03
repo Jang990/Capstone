@@ -9,10 +9,10 @@ import groovy.util.logging.Log4j2;
 @Controller
 public class projectcontroller {
 	
-	@GetMapping("/projectboard")
+	@GetMapping("test/boxtest2")
 	public String projectboard() {
 		
-		return "/projectboard";
+		return "test/boxtest2";
 	}
 
 }

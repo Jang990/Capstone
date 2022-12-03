@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+
+<th:block layout:fragment="css">
+	<!--  content에 스타일 주기 -->
+	<style>
+main {
+	background: #ffffff;
+	min-height: 650px;
+}
+</style>
+</th:block>
+
+
+<head>
+<meta charset="EUC-KR">
+<script type="text/javascript" src="${ctx }/js/HuskyEZCreator.js" charset="utf-8"></script>
+
+<title>캡스톤 디자인</title>
+</head>
+
+
+
+<body layout:fragment="content">
+
+    <table>
+    <tr>
+    <th>내용</th>
+    <td><textarea id="popContent" name="popContent" cols="108" rows="15"></textarea></td>
+    </tr>
+    </table>
+    
+    <script type="text/javascript"> 
+nhn.husky.EZCreator.createInIFrame({
+    oAppRef: oEditors,
+    elPlaceHolder: "popContent",  //textarea ID
+    sSkinURI: "${ctx }/SmartEditor2Skin.html",  //skin경로
+    fCreator: "createSEditor2",
+});
+
+if(editMode=='I'){
+    if(confirm("등록 하시겠습니까?")==true){
+         try{
+              oEditors.getById["popContent"].exec("UPDATE_CONTENTS_FIELD", []);
+              document.frm.action = regAddr;
+              document.frm.submit();
+              swal("","등록 되었습니다.","success");
+         }catch(exception){
+              swal("","데이터 등록을 실패하였습니다.","error");
+         }
+    }
+}else{
+    if(confirm("수정 하시겠습니까?")==true){
+         if(deleteTarget.length > 0){ 
+
+         document.frm.deleteTarget.value = deleteTarget;
+     }
+     try{
+          oEditors.getById["popContent"].exec("UPDATE_CONTENTS_FIELD", []);
+          document.frm.action = udtAddr;
+          document.frm.submit();
+          swal("","수정 되었습니다.","success");
+     }catch(exception){
+          swal("","데이터 수정을 실패하였습니다.","error");
+     }
+  }
+}
+
+</script>
+    
+    
+</body>
+</html>

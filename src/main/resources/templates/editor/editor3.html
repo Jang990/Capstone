@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<!-- include libraries(jQuery, bootstrap) -->
+<link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
+<script src="http://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script> 
+<script src="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js"></script> 
+<!-- include summernote css/js-->
+<link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
+<!-- include summernote-ko-KR -->
+<script src="js/summernote-ko-KR.js"></script>
+<title>글쓰기</title>
+
+<script>
+$(document).ready(function() {
+	//여기 아래 부분
+	$('#summernote').summernote({
+		height: 500,                 // 에디터 높이
+		  focus: true,                  // 에디터 로딩후 포커스를 맞출지 여부
+		  lang: "ko-KR",					// 한글 설정
+		  placeholder: '내용',
+          disableResizeEditor: true,	// 크기 조절 기능 삭제
+          toolbar: [
+            ['fontname', ['fontname']],
+            ['fontsize', ['fontsize']],
+            ['style', ['bold', 'italic', 'underline','strikethrough', 'clear']],
+            ['color', ['forecolor','color']],
+            ['table', ['table']],
+            ['para', ['ul', 'ol', 'paragraph']],
+            ['height', ['height']],
+            ['insert',['picture','link','video']],
+            ['view', ['fullscreen', 'help']]
+          ],
+        fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+	
+        });
+});
+</script>
+</head>
+<body layout:fragment="content">
+
+<div style="width: 60%; margin: auto;">
+	<form method="post" action="/write">
+	<div class="control">
+  <div class="select">
+    <select id="selectbox" name="selectbox" onchange="chageLangSelect()">
+      <option>백엔드</option>
+      <option>프론트엔드</option>
+    </select>
+  </div>
+   <div class="select">
+    <select id="selectbox" name="Language" onchange="chageLangSelect()">
+      <option value="python">파이썬</option>
+      <option value="java">자바</option>
+      <option value="C">c언어</option>
+      <option value="mysql">mysql</option>
+      <option value="DBeaver">DBeaver</option>
+       </select>
+   
+  </div>
+    <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">
+    <input class="button" type="submit" value="정보 등록" ><p></p>
+      <p><input class="input is-link" type="text"  style="width: 40%;" placeholder="프로젝트 제목"></p>
+	 <input class="input is-link" type="text"  style="width: 80%;"placeholder="깃허브url">
+<input class="button" type="submit" value="정보 등록"><p>
+<table><?php echo $people ?></table>
+</div>
+<script>
+function chageLangSelect(){
+    var langSelect = document.getElementById("selectbox");
+     
+    // select element에서 선택된 option의 value가 저장된다.
+    var selectValue = langSelect.options[langSelect.selectedIndex].value;
+ 
+    // select element에서 선택된 option의 text가 저장된다.
+    var selectText = langSelect.options[langSelect.selectedIndex].text;
+}
+</script>
+
+	
+		
+		<br><br> 
+		<textarea id="summernote" name="content"></textarea>
+		<input type="button" value="글쓰기" style="float: right;" onclick="location.href='/write'">
+		
+	</form>
+
+</div>
+
+  		
+
+
+<script>
+function goWrite(frm) {
+	var title = frm.title.value;
+	var writer = frm.writer.value;
+	var content = frm.content.value;
+	
+	if (title.trim() == ''){
+		alert("제목을 입력해주세요");
+		return false;
+	}
+	if (writer.trim() == ''){
+		alert("작성자를 입력해주세요");
+		return false;
+	}
+	if (content.trim() == ''){
+		alert("내용을 입력해주세요");
+		return false;
+	}
+	frm.submit();
+}
+
+</script>
+
+
+
+</body>
+</html>

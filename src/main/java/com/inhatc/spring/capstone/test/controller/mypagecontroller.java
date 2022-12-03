@@ -7,12 +7,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import groovy.util.logging.Log4j2;
 
 @Controller
-public class editorcontroller {
+public class mypagecontroller {
 	
-	@GetMapping("/test/editor3")
-	public String editorboard() {
+	@GetMapping("/editor/mypage")
+	public String projectboard() {
 		
-		return "/editor/editor3";
+		return "/editor/mypage";
 	}
 
 }
