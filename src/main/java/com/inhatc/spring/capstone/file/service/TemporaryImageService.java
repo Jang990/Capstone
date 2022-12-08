@@ -32,7 +32,7 @@ public class TemporaryImageService {
 		}
 		
 		imgName = fileService.uploadFile(temporaryLocation, oriImgName, ImgFile.getBytes());
-		imgUrl = "/images/item/" + imgName;
+		imgUrl = "/images/temporary/" + imgName;
 		
 		return TempImageDTO.builder()
 				.byteSize(ImgFile.getSize())

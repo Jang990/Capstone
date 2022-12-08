@@ -17,8 +17,8 @@ import lombok.RequiredArgsConstructor;
 @Service
 @RequiredArgsConstructor
 public class ContentImageService {
-	@Value("${itemImgLocation}")
-	private String itemImgLocation;
+	@Value("${contentImgLocation}")
+	private String contentImgLocation;
 
 	private final SavedFileRepository savedFileRepository;
 
@@ -30,8 +30,8 @@ public class ContentImageService {
 		String imgUrl = "";
 
 		if (!StringUtils.isEmpty(oriImgName)) {
-			imgName = fileService.uploadFile(itemImgLocation, oriImgName, ImgFile.getBytes());
-			imgUrl = "/images/item/" + imgName;
+			imgName = fileService.uploadFile(contentImgLocation, oriImgName, ImgFile.getBytes());
+			imgUrl = "/images/content/" + imgName;
 		}
 
 		// 나중에 width, height 값 넣어주기
@@ -47,11 +47,11 @@ public class ContentImageService {
 				.orElseThrow(EntityNotFoundException::new);
 
 		if (!StringUtils.isEmpty(savedImg.getName())) {
-			fileService.deleteFile(itemImgLocation + "/" + savedImg.getName());
+			fileService.deleteFile(contentImgLocation + "/" + savedImg.getName());
 		}
 
 		String oriName = savedImg.getOriginalName();
-		String imgName = fileService.uploadFile(itemImgLocation, oriName, itemImgFile.getBytes());
+		String imgName = fileService.uploadFile(contentImgLocation, oriName, itemImgFile.getBytes());
 		String imgUrl = "/images/item/" + imgName;
 
 		// 나중에 width, height 값 넣어주기
