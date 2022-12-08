@@ -41,4 +41,19 @@ public class TemporaryImageService {
 				.build();
 	}
 	
+	/**
+	 * 임시저장 파일을 실제 저장폴더로 이동함. 
+	 */
+	public TempImageDTO convertTempImgToSavedImg(TempImageDTO tempImg) throws IOException {
+		String tempPath = tempImg.getSavedPath();
+		String targetPath = tempPath.replaceFirst("temporary", "content");
+		fileService.moveFile(tempPath, temporaryLocation);
+		
+		return TempImageDTO.builder()
+			.originalName(tempImg.getOriginalName())
+			.byteSize(tempImg.getByteSize())
+			.savedPath(targetPath)
+			.build();
+	}
+	
 }

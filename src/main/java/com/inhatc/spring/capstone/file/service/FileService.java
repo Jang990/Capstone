@@ -5,6 +5,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.UUID;
 
+import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Service;
 
 import lombok.extern.slf4j.Slf4j;
@@ -33,5 +34,12 @@ public class FileService {
 		else {
 			log.info("파일이 존재하지 않습니다.");
 		}
+	}
+	
+	
+	public void moveFile(String sourcePath, String targetPath) throws IOException {
+		File src = new File(sourcePath);
+		File target = new File(targetPath);
+		FileUtils.moveFile(src, target);
 	}
 }
