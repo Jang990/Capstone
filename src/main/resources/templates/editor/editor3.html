@@ -49,38 +49,42 @@ $(document).ready(function() {
 	<form method="post" action="/write">
 	<div class="control">
   <div class="select">
-    <select id="selectbox" name="selectbox" onchange="chageLangSelect()">
+    <select id="selectbox" name="selectbox" >
       <option>백엔드</option>
       <option>프론트엔드</option>
     </select>
   </div>
    <div class="select">
-    <select id="selectbox" name="Language" onchange="chageLangSelect()">
+    <select id="selectbox" name="Language" >
       <option value="python">파이썬</option>
       <option value="java">자바</option>
       <option value="C">c언어</option>
       <option value="mysql">mysql</option>
       <option value="DBeaver">DBeaver</option>
        </select>
-   
-  </div>
+       
+    </div>
     <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">
-    <input class="button" type="submit" value="정보 등록" ><p></p>
+    <input class="button" type="submit" value="정보 등록" onchange='printName()'><p></p>
+    
       <p><input class="input is-link" type="text"  style="width: 40%;" placeholder="프로젝트 제목"></p>
 	 <input class="input is-link" type="text"  style="width: 80%;"placeholder="깃허브url">
 <input class="button" type="submit" value="정보 등록"><p>
-<table><?php echo $people ?></table>
+<div id='result'></div>
+
 </div>
+
 <script>
-function chageLangSelect(){
-    var langSelect = document.getElementById("selectbox");
-     
-    // select element에서 선택된 option의 value가 저장된다.
-    var selectValue = langSelect.options[langSelect.selectedIndex].value;
- 
-    // select element에서 선택된 option의 text가 저장된다.
-    var selectText = langSelect.options[langSelect.selectedIndex].text;
-}
+
+function printName()  {
+	
+	  
+	
+		  const people =
+			  document.getElementById('people').value;
+		  document.getElementById("result").innerText = people;
+		}
+		
 </script>
 
 	
