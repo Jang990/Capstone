@@ -14,8 +14,8 @@ import lombok.extern.slf4j.Slf4j;
 public class FileService {
 	public String uploadFile(String uploadPath, String oriFileName, byte[] fileData) throws IOException {
 		UUID uuid = UUID.randomUUID();
-        String extension = oriFileName.substring(oriFileName.lastIndexOf("."));
-        String savedFileName = uuid.toString() + extension;
+        String extension = oriFileName.substring(oriFileName.lastIndexOf(".")); // jpg, gif 등등
+        String savedFileName = uuid.toString() + extension; 
         String fileUploadFullUrl = uploadPath + "/" + savedFileName;
         FileOutputStream fos = new FileOutputStream(fileUploadFullUrl);
         fos.write(fileData);
