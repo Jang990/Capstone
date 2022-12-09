@@ -3,8 +3,10 @@ package com.inhatc.spring.capstone.file.dto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
+@ToString
 @NoArgsConstructor
 public class DisplayedImageDTO {
 	private Long byteSize; // 사진 바이트 크기
