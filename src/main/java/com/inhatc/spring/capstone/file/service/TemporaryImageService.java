@@ -26,6 +26,12 @@ public class TemporaryImageService {
 	@Value("${temporaryLocation}")
 	private String temporaryLocation;
 	
+	@Value(value = "${uploadPath}")
+    private String uploadPath; //실제 업로드 장소
+	
+	private final String resourceHandlerURL = "localhost:8080/images/"; // 외부에서 이미지로 접근하는 경로
+
+	
 	private final FileService fileService;
 	
 	/** 이미지 임시저장 폴더에 저장 */
@@ -58,18 +64,19 @@ public class TemporaryImageService {
 	 * 임시저장 파일을 실제 저장폴더로 이동함. 
 	 */
 	public List<DisplayedImageDTO> convertTempImgToSavedImg(List<DisplayedImageDTO> tempImgList, String movedFolderName) throws IOException {
-		List<DisplayedImageDTO> savedImgList = new ArrayList<>(); 
+		List<DisplayedImageDTO> savedImgList = new ArrayList<>();
+		String realUploadPath = uploadPath.replace("file:///", "");
 		for (DisplayedImageDTO tempImg : tempImgList) {
-			String tempPath = tempImg.getSavedPath();
+			String tempPath = tempImg.getSavedPath().replace(resourceHandlerURL, realUploadPath);
 			String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
-			fileService.moveFile(tempPath, temporaryLocation);
+			fileService.moveFile(tempPath, targetPath);
 			
 			savedImgList.add(DisplayedImageDTO.builder()
 				.width(tempImg.getWidth())
 				.height(tempImg.getHeight())
 				.originalName(tempImg.getOriginalName())
 				.byteSize(tempImg.getByteSize())
-				.savedPath(targetPath)
+				.savedPath(targetPath.replace(realUploadPath, resourceHandlerURL))
 				.build()
 			);
 		}

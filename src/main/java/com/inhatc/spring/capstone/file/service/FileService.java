@@ -38,7 +38,9 @@ public class FileService {
 	
 	
 	public void moveFile(String sourcePath, String targetPath) throws IOException {
+		System.out.println("=======>SourcePath: " + sourcePath);
 		File src = new File(sourcePath);
+		System.out.println("=======>targetPath: " + targetPath);
 		File target = new File(targetPath);
 		FileUtils.moveFile(src, target);
 	}
