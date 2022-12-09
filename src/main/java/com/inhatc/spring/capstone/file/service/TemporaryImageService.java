@@ -29,7 +29,7 @@ public class TemporaryImageService {
 	@Value(value = "${uploadPath}")
     private String uploadPath; //실제 업로드 장소
 	
-	private final String resourceHandlerURL = "localhost:8080/images/"; // 외부에서 이미지로 접근하는 경로
+	private final String resourceHandlerURL = "/images/"; // 외부에서 이미지로 접근하는 경로
 
 	
 	private final FileService fileService;
