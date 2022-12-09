@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -76,7 +77,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("단일 프로젝트 게시글 생성")
-	DisplayedContentDTO createSingleProjectContent() {
+	DisplayedContentDTO createSingleProjectContent() throws IOException {
 		Users user = createUser();
 		NewContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
@@ -89,7 +90,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("여러 프로젝트 게시글 생성")
-	void createMultiProjectContent() {
+	void createMultiProjectContent() throws IOException {
 		Users user = createUser();
 		List<NewContentDTO> contentDtoList = new ArrayList<>(); 
 		for (int i = 0; i < 100; i++) {
@@ -129,7 +130,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("게시글 조회")
-	void getContentViewTest() {
+	void getContentViewTest() throws IOException {
 		DisplayedContentDTO content = createSingleProjectContent();
 		
 		DisplayedContentDTO viewContent = contentService.viewProjectContent(content.getContentId());
@@ -142,7 +143,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("Content 수정")
-	void createSingleContent() {
+	void createSingleContent() throws IOException {
 		DisplayedContentDTO createdContent = createSingleProjectContent();
 		String modifiedStr = "수정된 문자열";
 		NewContentDTO modifiedContentDetails = NewContentDTO.builder()
@@ -151,7 +152,7 @@ class ContentServiceTest {
 				.content(modifiedStr + modifiedStr + modifiedStr)
 				.usedLanguage("C++")
 				.isRecruit(createdContent.isRecruit())
-				.files(createdContent.getFiles())
+				.images(null) // 일단 null로 설정
 				.build();
 		
 		DisplayedContentDTO modifiedContent = contentService.modifyProjectContent(modifiedContentDetails);

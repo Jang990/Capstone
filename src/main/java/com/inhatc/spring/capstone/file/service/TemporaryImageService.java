@@ -2,6 +2,8 @@ package com.inhatc.spring.capstone.file.service;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.imageio.ImageIO;
 
@@ -10,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import com.inhatc.spring.capstone.content.service.ContentDocumentService;
 import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
 
 import lombok.RequiredArgsConstructor;
@@ -25,6 +28,7 @@ public class TemporaryImageService {
 	
 	private final FileService fileService;
 	
+	/** 이미지 임시저장 폴더에 저장 */
 	public DisplayedImageDTO saveTemporaryImage(MultipartFile ImgFile) throws IOException {
 		String oriImgName = ImgFile.getOriginalFilename();
 		String imgName = "";
@@ -53,18 +57,24 @@ public class TemporaryImageService {
 	/**
 	 * 임시저장 파일을 실제 저장폴더로 이동함. 
 	 */
-	public DisplayedImageDTO convertTempImgToSavedImg(DisplayedImageDTO tempImg, String movedFolderName) throws IOException {
-		String tempPath = tempImg.getSavedPath();
-		String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
-		fileService.moveFile(tempPath, temporaryLocation);
+	public List<DisplayedImageDTO> convertTempImgToSavedImg(List<DisplayedImageDTO> tempImgList, String movedFolderName) throws IOException {
+		List<DisplayedImageDTO> savedImgList = new ArrayList<>(); 
+		for (DisplayedImageDTO tempImg : tempImgList) {
+			String tempPath = tempImg.getSavedPath();
+			String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
+			fileService.moveFile(tempPath, temporaryLocation);
+			
+			savedImgList.add(DisplayedImageDTO.builder()
+				.width(tempImg.getWidth())
+				.height(tempImg.getHeight())
+				.originalName(tempImg.getOriginalName())
+				.byteSize(tempImg.getByteSize())
+				.savedPath(targetPath)
+				.build()
+			);
+		}
 		
-		return DisplayedImageDTO.builder()
-			.width(tempImg.getWidth())
-			.height(tempImg.getHeight())
-			.originalName(tempImg.getOriginalName())
-			.byteSize(tempImg.getByteSize())
-			.savedPath(targetPath)
-			.build();
+		return savedImgList;
 	}
 	
 }
