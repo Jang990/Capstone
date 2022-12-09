@@ -59,7 +59,7 @@ public class ContentDocumentService {
 	
 	/** 이미지 src를 해당 위치로 변경 */
 	public String changeImageSorce(String contentBody, String movedFolderName) {
-		Document doc = Jsoup.parse(contentBody);
+		Element doc = Jsoup.parseBodyFragment(contentBody).body();
 		Elements elements =  doc.getElementsByTag("img");
 		
 		String tempSrc, savedSrc;
@@ -69,9 +69,7 @@ public class ContentDocumentService {
 			element.attr("src", savedSrc);
 		}
 		
-		System.out.println(doc.toString());
-		
-		return doc.toString();
+		return doc.select("body").html();
 	}
 	
 	/* 나중에 <>같은 태그를 &lt &gt 로 변경하는 메소드도 필요할 수 있다. */
