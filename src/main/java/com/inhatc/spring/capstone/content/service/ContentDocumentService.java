@@ -23,7 +23,6 @@ public class ContentDocumentService {
 	
 	/** 이미지 요소의 내용을 추출 */
 	public List<DisplayedImageDTO> extractImageElement(String contentBody) {
-		System.out.println(contentBody);
 		Document doc = Jsoup.parse(contentBody);
 		Elements elements =  doc.getElementsByTag("img");
 		
@@ -36,7 +35,6 @@ public class ContentDocumentService {
 			width = 0;
 			height = 0;
 			for (String str : styles) {
-				System.out.println("테스트: "+str);
 				if(str.contains("width") && !str.contains("width-") && !str.contains("-width")) {
 					width = Integer.valueOf(str.split("=")[1].replace("px", "").trim());
 				}

@@ -61,7 +61,6 @@ class TemporaryImageServiceTest {
     	DisplayedImageDTO savedTempImage = tempImgService.saveTemporaryImage(tempImage);
 		
     	List<DisplayedImageDTO> tempImgList = new ArrayList<>();
-    	System.out.println("========>" + savedTempImage);
     	tempImgList.add(savedTempImage);
     	
     	//when
