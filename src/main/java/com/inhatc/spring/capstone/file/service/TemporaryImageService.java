@@ -1,13 +1,16 @@
 package com.inhatc.spring.capstone.file.service;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+
+import javax.imageio.ImageIO;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
-import com.inhatc.spring.capstone.file.dto.TempImageDTO;
+import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
 
 import lombok.RequiredArgsConstructor;
 
@@ -22,7 +25,7 @@ public class TemporaryImageService {
 	
 	private final FileService fileService;
 	
-	public TempImageDTO saveTemporaryImage(MultipartFile ImgFile) throws IOException {
+	public DisplayedImageDTO saveTemporaryImage(MultipartFile ImgFile) throws IOException {
 		String oriImgName = ImgFile.getOriginalFilename();
 		String imgName = "";
 		String imgUrl = "";
@@ -31,10 +34,16 @@ public class TemporaryImageService {
 			throw new IllegalArgumentException();
 		}
 		
+		BufferedImage bufferedImage = ImageIO.read(ImgFile.getInputStream());
+	    int width = bufferedImage.getWidth();
+	    int height = bufferedImage.getHeight();
+		
 		imgName = fileService.uploadFile(temporaryLocation, oriImgName, ImgFile.getBytes());
 		imgUrl = "/images/temporary/" + imgName;
 		
-		return TempImageDTO.builder()
+		return DisplayedImageDTO.builder()
+				.width(width)
+				.height(height)
 				.byteSize(ImgFile.getSize())
 				.originalName(oriImgName)
 				.savedPath(imgUrl)
@@ -44,12 +53,14 @@ public class TemporaryImageService {
 	/**
 	 * 임시저장 파일을 실제 저장폴더로 이동함. 
 	 */
-	public TempImageDTO convertTempImgToSavedImg(TempImageDTO tempImg) throws IOException {
+	public DisplayedImageDTO convertTempImgToSavedImg(DisplayedImageDTO tempImg, String movedFolderName) throws IOException {
 		String tempPath = tempImg.getSavedPath();
-		String targetPath = tempPath.replaceFirst("temporary", "content");
+		String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
 		fileService.moveFile(tempPath, temporaryLocation);
 		
-		return TempImageDTO.builder()
+		return DisplayedImageDTO.builder()
+			.width(tempImg.getWidth())
+			.height(tempImg.getHeight())
 			.originalName(tempImg.getOriginalName())
 			.byteSize(tempImg.getByteSize())
 			.savedPath(targetPath)

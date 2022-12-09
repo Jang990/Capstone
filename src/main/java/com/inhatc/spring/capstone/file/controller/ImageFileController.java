@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.inhatc.spring.capstone.file.dto.TempImageDTO;
+import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
 import com.inhatc.spring.capstone.file.service.TemporaryImageService;
 
 import lombok.RequiredArgsConstructor;
@@ -28,12 +28,12 @@ public class ImageFileController {
 	 */
 	@ResponseBody
 	@PostMapping("/api/image")
-	public ResponseEntity<TempImageDTO> saveTempImg(MultipartFile img) {
+	public ResponseEntity<DisplayedImageDTO> saveTempImg(MultipartFile img) {
 		if(img == null || img.isEmpty()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
 		}
 		
-		TempImageDTO imgDTO = null;
+		DisplayedImageDTO imgDTO = null;
 		try {
 			imgDTO = tempImageService.saveTemporaryImage(img);
 		} catch (IOException e) {
