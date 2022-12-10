@@ -67,7 +67,8 @@ public class TemporaryImageService {
 		List<DisplayedImageDTO> savedImgList = new ArrayList<>();
 		String realUploadPath = uploadPath.replace("file:///", "");
 		for (DisplayedImageDTO tempImg : tempImgList) {
-			String tempPath = tempImg.getSavedPath().replace(resourceHandlerURL, realUploadPath);
+//			String tempPath = tempImg.getSavedPath().replace(resourceHandlerURL, realUploadPath);
+			String tempPath = FileService.resourcePathToSavedPath(tempImg.getSavedPath());
 			String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
 			fileService.moveFile(tempPath, targetPath);
 			
@@ -76,7 +77,7 @@ public class TemporaryImageService {
 				.height(tempImg.getHeight())
 				.originalName(tempImg.getOriginalName())
 				.byteSize(tempImg.getByteSize())
-				.savedPath(targetPath.replace(realUploadPath, resourceHandlerURL))
+				.savedPath(FileService.savedPathToResourcePath(targetPath))
 				.build()
 			);
 		}

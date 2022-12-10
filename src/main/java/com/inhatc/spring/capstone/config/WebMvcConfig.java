@@ -14,12 +14,14 @@ public class WebMvcConfig implements WebMvcConfigurer {    // alt + shift + p ->
 
     @Value(value = "${uploadPath}")     // 프로퍼티 값 읽어오기
     String uploadPath;
+    @Value(value = "${resourceHandlerUrl}")
+    String resourceHandlerUrl;
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
     	//  /images/~~라고 들어올 경우에 
     	//  로컬경로(uploadPath)에 실제 파일을 매핑시켜서 보여준다.
-        registry.addResourceHandler("/images/**")         
+        registry.addResourceHandler(resourceHandlerUrl+"**")         
                 .addResourceLocations(uploadPath);
     }
 }
