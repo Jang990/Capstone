@@ -12,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import org.thymeleaf.util.StringUtils;
 
+import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.service.ContentDocumentService;
 import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
@@ -80,5 +81,12 @@ public class ContentImageService {
 		
 		// 저장경로 변경으로 인한 ContentBody부분을 수정해서 리턴
 		return changedContentBody;
+	}
+	
+	/** 이미지 삭제 */
+	public void deleteSavedImg(SavedFile savedImg) {
+		String savedImgPath = FileService.resourcePathToSavedPath(savedImg.getSavedPath());
+		fileService.deleteFile(savedImgPath);
+		savedFileRepository.delete(savedImg);
 	}
 }

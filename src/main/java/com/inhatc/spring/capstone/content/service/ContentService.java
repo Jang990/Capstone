@@ -13,6 +13,8 @@ import com.inhatc.spring.capstone.content.exception.ContentErrorDescription;
 import com.inhatc.spring.capstone.content.exception.ContentException;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
+import com.inhatc.spring.capstone.file.entity.SavedFile;
+import com.inhatc.spring.capstone.file.repository.SavedFileRepository;
 import com.inhatc.spring.capstone.file.service.ContentImageService;
 import com.inhatc.spring.capstone.file.service.TemporaryImageService;
 import com.inhatc.spring.capstone.user.entity.Users;
@@ -31,6 +33,7 @@ public class ContentService {
 	private final UsersRepository userRepository;
 	
 	private final ContentImageService contentImageService;
+	private final SavedFileRepository savedFileRepository;
 	
 	/** 프로젝트 게시글 생성 */
 	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) throws IOException {
@@ -78,6 +81,15 @@ public class ContentService {
 		DisplayedContentDTO contentDetails = contentRepository.getContentDetails(content.getId());
 		
 		return contentDetails;
+	}
+	
+	/** 프로젝트 게시글 삭제 */
+	public void deleteProjectContent(Long contentId) {
+		List<SavedFile> savedImgs = savedFileRepository.getContentImgs(contentId);
+		for (SavedFile savedImg : savedImgs) {
+			contentImageService.deleteSavedImg(savedImg);
+		}
+		contentRepository.deleteById(contentId);
 	}
 	
 	

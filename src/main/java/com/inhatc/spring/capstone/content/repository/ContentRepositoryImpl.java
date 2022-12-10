@@ -52,6 +52,5 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 				).get(0);
 		
 		return contentDetail;
-		
 	}
 }
