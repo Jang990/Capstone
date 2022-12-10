@@ -55,7 +55,6 @@ public class ContentService {
 		
 		// 만약 이미지가 포함된 글이라면 이미지를 서버에 저장해야 함
 		if(tempImgDto.size() != 0) {
-			System.out.println("====>d여기");
 			// 1. 이미지 이동(임시저장폴더->저장폴더로 이미지 위치 변경)
 			List<DisplayedImageDTO> savedImgDto = new ArrayList<>();
 			String savedImgFolder = "content";
