@@ -27,7 +27,7 @@ public class SecurityConfig {
 		http
 			.authorizeRequests(a -> a
 				.antMatchers("/", "/error", "/webjars/**").permitAll()
-				.mvcMatchers("/css/**", "/js/**", "/img/**").permitAll()
+				.mvcMatchers("/css/**", "/js/**", "/img/**","/divicon/**").permitAll()
                 .mvcMatchers("/", "/users/**", "/item/**", "/images/**").permitAll()
                 .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/test/**").permitAll()

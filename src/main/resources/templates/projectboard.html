@@ -10,16 +10,45 @@ main {
 	background: #ffffff;
 	min-height: 650px;
 }
+
+.box1 {
+	width: 385px;
+	height: 240px;
+	margin-right: 15px;
+	margin-bottom: 20px;
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+		rgba(10, 10, 10, 0.02);
+	color: #4a4a4a;
+	display: block;
+	padding: 1.25rem;
+}
+
+img.boardimg {
+	width: 120px;
+	height: 80px;
+}
+
+img.lan {
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+}
 </style>
 </th:block>
 
-
 <head>
-<title>프로젝트</title>
+<title>캡스톤 디자인</title>
 
 </head>
 <main layout:fragment="content">
-	<form class="columns is-mobile">
+	<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-mobile is-centered mt-6 mb-6">
+			<img src="./img/rogo.png" width="360" height="240">
+		</div>
+	</div>
+	<form class="columns is-mobile" action="/get-test">
 		<div class="column is-half is-offset-one-quarter">
 			<div class="notification is-white">
 				<input class="input is-normal" type="search" name="searchtxt"
@@ -28,8 +57,31 @@ main {
 			</div>
 		</div>
 	</form>
-</main>
+	
+	<table>
+	<tr>
+		<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
+		<td th:each="project : ${project_}">
+			<div class="box1" onclick="location.href='https://www.naver.com/'">
+				<img class="boardimg "
+					src="https://bulma.io/images/placeholders/128x128.png"> <img
+					class="lan" align="right" src="./java/java-original-wordmark.svg">
+				<p>
+					<strong><span th:text="${project.title}"></span></strong>
+				</p>
 
+				<p style="margin-top: 7px">
+					<span th:text="${project.email}"></span>
+					<span th:text="${project.writer}">이름</span>
+				</p>
+				<p style="vertical-align: right; text-align: right;"><span th:text="${project.accessDate}"></span></p>
+				<p style="vertical-align: right; text-align: right;">좋아요 <span th:text="${project.viewCount}"></span>개</p>
+
+			</div>
+		</td>
+	</tr>
+	</table>
+</main>
 
 
 </html>

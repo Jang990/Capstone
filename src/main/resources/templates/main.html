@@ -23,7 +23,8 @@ main {
 			<img src="./img/rogo.png" width="360" height="240">
 		</div>
 	</div>
-	<form class="columns is-mobile">
+	<form class="columns is-mobile" action="test/search_action">
+		<!-- 테스트 붙여줘야 권한이 나옴 -->
 		<div class="column is-half is-offset-one-quarter">
 			<div class="notification is-white">
 				<input class="input is-normal" type="search" name="searchtxt"
@@ -34,11 +35,10 @@ main {
 	</form>
 	<div class="column is-half is-offset-one-quarter">
 		<div class="columns is-mobile is-centered">
-			<span class="tag is-primary is-light mr-4"># 태그1</span> <span
-				class="tag is-link is-light mr-4"># 태그2</span> <span
-				class="tag is-info is-light mr-4"># 태그3</span> <span
-				class="tag is-success is-light mr-4"># 태그4</span> <span
-				class="tag is-warning is-light"># 태그5</span>
+			<span th:each="tag: ${tags}" class="tag is-primary is-light is-large" style="margin-right:20px;">
+				<b th:text=${tag}></b>
+			</span>
+
 		</div>
 	</div>
 </main>
