@@ -64,7 +64,7 @@ class TemporaryImageServiceTest {
     	tempImgList.add(savedTempImage);
     	
     	//when
-    	DisplayedImageDTO savedImage = tempImgService.convertTempImgToSavedImg(tempImgList, savedFolderName).get(0);
+    	DisplayedImageDTO savedImage = tempImgService.moveTempFileToSavedFolder(tempImgList.get(0), savedFolderName);
 		
     	
     	// then

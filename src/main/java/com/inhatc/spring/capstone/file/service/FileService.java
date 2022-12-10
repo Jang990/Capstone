@@ -54,7 +54,12 @@ public class FileService {
 	public void moveFile(String sourcePath, String targetPath) throws IOException {
 		File src = new File(sourcePath);
 		File target = new File(targetPath);
-		FileUtils.moveFile(src, target);
+		if(src.exists()) {
+			FileUtils.moveFile(src, target);
+		}
+		else {
+			log.info(sourcePath + "파일이 존재하지 않습니다.");
+		}
 	}
 	
 	public static String resourcePathToSavedPath(String resourcePath) {

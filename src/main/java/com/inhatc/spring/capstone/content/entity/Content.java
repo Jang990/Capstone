@@ -13,6 +13,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
+import com.inhatc.spring.capstone.content.service.ContentDocumentService;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.file.entity.SavedFile;
 import com.inhatc.spring.capstone.user.entity.Users;
@@ -106,11 +107,8 @@ public class Content extends CreatedAndUpdated{
 		this.viewCount++;
 	}
 	
-	public Content modifyContentBody(String modifyContentBody) {
-		// img src 경로에 temporary가 있으면 throw 익셉션을 해야 함
-		
-		this.content = modifyContentBody;
-		
+	public Content changeImageSrc(ContentDocumentService docService) {
+		this.content = docService.changeImageSorce(this.content, "content");
 		return this;
 	}
 	

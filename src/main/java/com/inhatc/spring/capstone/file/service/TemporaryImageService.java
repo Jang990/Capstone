@@ -60,29 +60,19 @@ public class TemporaryImageService {
 				.build();
 	}
 	
-	/**
-	 * 임시저장 파일을 실제 저장폴더로 이동함. 
-	 */
-	public List<DisplayedImageDTO> convertTempImgToSavedImg(List<DisplayedImageDTO> tempImgList, String movedFolderName) throws IOException {
-		List<DisplayedImageDTO> savedImgList = new ArrayList<>();
-		String realUploadPath = uploadPath.replace("file:///", "");
-		for (DisplayedImageDTO tempImg : tempImgList) {
-//			String tempPath = tempImg.getSavedPath().replace(resourceHandlerURL, realUploadPath);
-			String tempPath = FileService.resourcePathToSavedPath(tempImg.getSavedPath());
-			String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
-			fileService.moveFile(tempPath, targetPath);
-			
-			savedImgList.add(DisplayedImageDTO.builder()
+	/** 임시저장 파일을 실제 저장폴더로 이동 */
+	public DisplayedImageDTO moveTempFileToSavedFolder(DisplayedImageDTO tempImg, String movedFolderName) throws IOException {
+		String tempPath = FileService.resourcePathToSavedPath(tempImg.getSavedPath());
+		String targetPath = tempPath.replaceFirst("temporary", movedFolderName);
+		fileService.moveFile(tempPath, targetPath);
+		
+		return DisplayedImageDTO.builder()
 				.width(tempImg.getWidth())
 				.height(tempImg.getHeight())
 				.originalName(tempImg.getOriginalName())
 				.byteSize(tempImg.getByteSize())
 				.savedPath(FileService.savedPathToResourcePath(targetPath))
-				.build()
-			);
-		}
-		
-		return savedImgList;
+				.build();
 	}
 	
 }

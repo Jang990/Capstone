@@ -1,6 +1,7 @@
 package com.inhatc.spring.capstone.content.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -35,6 +36,9 @@ public class ContentService {
 	private final ContentImageService contentImageService;
 	private final SavedFileRepository savedFileRepository;
 	
+	private final ContentDocumentService contentDocumentService;
+	private final TemporaryImageService tempImageService;
+	
 	/** 프로젝트 게시글 생성 */
 	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) throws IOException {
 		Users user = userRepository.findById(contentDto.getUserId())
@@ -45,11 +49,30 @@ public class ContentService {
 					);
 		
 		Content content = Content.createContent(user, contentDto);
+		
+		// content에서 이미지 Element 추출
+		List<DisplayedImageDTO> tempImgDto = contentDocumentService.extractImageElement(content.getContent());
+		
+		// 만약 이미지가 포함된 글이라면 이미지를 서버에 저장해야 함
+		if(tempImgDto.size() != 0) {
+			System.out.println("====>d여기");
+			// 1. 이미지 이동(임시저장폴더->저장폴더로 이미지 위치 변경)
+			List<DisplayedImageDTO> savedImgDto = new ArrayList<>();
+			String savedImgFolder = "content";
+			for (DisplayedImageDTO tempImg : tempImgDto) {
+				// 이동한 이미지를 다시 Temp로 되돌리는 기능 필요
+				savedImgDto.add(tempImageService.moveTempFileToSavedFolder(tempImg, savedImgFolder));
+			}
+			
+			// 2. 임시저장경로("/images/temporary/...")로 되어있는 src를 이동한 저장경로로("/images/content/...") 바꿈
+			content.changeImageSrc(contentDocumentService);
+			
+			// 3. 파일 정보 저장
+			contentImageService.saveContentImgs(content, savedImgDto);
+		}
+		
 		content = contentRepository.save(content);
 		
-		// 저장돼 있는 이미지 정보 DB에 저장
-		String modifyContentBody = contentImageService.saveContentImg(content);
-		content.modifyContentBody(modifyContentBody);
 		
 		return DisplayedContentDTO.createdContent(content);
 	}
