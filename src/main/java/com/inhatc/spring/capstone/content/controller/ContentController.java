@@ -57,7 +57,11 @@ public class ContentController {
 	@PutMapping("/{contentId}")
 	public String modifyProjectContent(NewContentDTO contentDto, @PathVariable("contentId")Long contentId) {
 		// 컨트롤러에서 수정할 권한이 있는지 확인? - 미완료
-		contentService.modifyProjectContent(contentDto);
+		try {
+			contentService.modifyProjectContent(contentDto);
+		} catch (IOException e) {
+			return "임시저장폴더 -> 실제 저장폴더로 이미지 파일 이동 실패";
+		}
 		
 		// Model로 업데이트한 콘텐츠 보내기
 		contentService.viewProjectContent(contentId);

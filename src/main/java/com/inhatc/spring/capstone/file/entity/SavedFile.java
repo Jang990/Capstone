@@ -79,4 +79,11 @@ public class SavedFile {
 		
 		this.type = FileType.PNG; // 꼭 필요한가?
 	}
+	
+	/** 화면에 표시되는 width height 변경 */
+	public SavedFile modifySavedImgSize(DisplayedImageDTO modifiedImg) {
+		this.width = modifiedImg.getWidth();
+		this.height = modifiedImg.getHeight();
+		return this;
+	}
 }

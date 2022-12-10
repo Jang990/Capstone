@@ -23,4 +23,19 @@ public class DisplayedImageDTO {
 		this.originalName = originalName;
 		this.savedPath = savedPath;
 	}
+	
+	
+	@Override
+	public boolean equals(Object obj) {
+		if(!(obj instanceof DisplayedImageDTO))
+			return false;
+		
+		DisplayedImageDTO di = (DisplayedImageDTO) obj;
+		
+		return this.byteSize == di.byteSize
+				&& this.width == di.width
+				&& this.height == di.height
+				&& this.originalName.equals(di.originalName)
+				&& this.savedPath.equals(di.savedPath);
+	}
 }

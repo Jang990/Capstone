@@ -19,4 +19,10 @@ public class SavedFileRepositoryImpl implements SavedFileRepositoryCustom {
 				.where(savedFile.projectContent.id.eq(contentId))
 				.fetch();
 	}
+	
+	public SavedFile getImage(String savedPath) {
+		return query.selectFrom(savedFile)
+				.where(savedFile.savedPath.eq(savedPath))
+				.fetchFirst();
+	}
 }
