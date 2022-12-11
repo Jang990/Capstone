@@ -19,6 +19,6 @@ public class TagService {
 	
 	/** 유사한 태그 검색 */
 	public List<DisplayedTagDTO> searchSimilarTags(String tag, Pageable pageable) {
-		return tagRepository.getSimlarTags(tag, pageable);
+		return tagRepository.getSimilarTags(tag, pageable);
 	}
 }

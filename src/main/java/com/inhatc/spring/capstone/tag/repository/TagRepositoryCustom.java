@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 
 public interface TagRepositoryCustom {
-	List<DisplayedTagDTO> getSimlarTags(String tagKeyword, Pageable pageable);
+	List<DisplayedTagDTO> getSimilarTags(String tagKeyword, Pageable pageable);
 }

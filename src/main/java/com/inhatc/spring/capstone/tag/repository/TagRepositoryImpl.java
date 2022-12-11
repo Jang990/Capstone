@@ -17,7 +17,7 @@ import lombok.RequiredArgsConstructor;
 public class TagRepositoryImpl implements TagRepositoryCustom {
 	private final JPAQueryFactory query;
 	
-	public List<DisplayedTagDTO> getSimlarTags(String tagKeyword, Pageable pageable) {
+	public List<DisplayedTagDTO> getSimilarTags(String tagKeyword, Pageable pageable) {
 		return  query.selectFrom(tag)
 				.where(tag.name.contains(tagKeyword))
 				.offset(pageable.getOffset())
