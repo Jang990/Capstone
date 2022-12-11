@@ -60,14 +60,16 @@ img.lan {
 			<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
 			<td th:each="recruiment : ${recruiment_}">
 				<div class="box1">
-					<table class="table">
+					<z
+					<table class="table" th:each="member : ${recruiment_member}">
 						<tr>
-					<td><span th:text="${recruiment.ends}"></span></td>
-						<td><span th:text="${recruiment.usedLanguage}"></span></td>
-						<td><span th:text="${recruiment.count}"></span>
+					<td><span th:text="${member.ends}"></span></td>
+						<td><span th:text="${member.usedLanguage}"></span></td>
+						<td><span th:text="${member.count}"></span>
 						</td>
 						</tr>
 					</table>
+					</div>
 					<div>
 						<strong><span th:text="${recruiment.title}"></span></strong>
 						<div style="margin-top: 7px;vertical-align: bottom;">
