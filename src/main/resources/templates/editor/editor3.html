@@ -46,7 +46,7 @@ $(document).ready(function() {
 <body layout:fragment="content">
 
 <div style="width: 60%; margin: auto;">
-	<form method="post" action="/write">
+	<form method="post" action="/test/editor4">
 	<div class="control">
   <div class="select">
     <select id="selectbox" name="selectbox" >
@@ -62,40 +62,66 @@ $(document).ready(function() {
       <option value="mysql">mysql</option>
       <option value="DBeaver">DBeaver</option>
        </select>
-       
+     </div>  
+     <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">
+     <input class="button" type="submit" value="정보 등록">
     </div>
-    <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">
-    <input class="button" type="submit" value="정보 등록" onchange='printName()'><p></p>
     
-      <p><input class="input is-link" type="text"  style="width: 40%;" placeholder="프로젝트 제목"></p>
-	 <input class="input is-link" type="text"  style="width: 80%;"placeholder="깃허브url">
-<input class="button" type="submit" value="정보 등록"><p>
-<div id='result'></div>
+    <p>
+    </form> 
+    
+    
+ </div>
+ <form method="post" action="/test/editor4">
+ <div style="width: 60%; margin: auto;">
+ 	 <input class="input" type="text"  style="width: 80%;"placeholder="깃허브url">
+	 <input class="button" type="submit" value="깃허브 연결하기"><p>
+   <br><br> 
+   </div>
+   </form> 
+   
+   
+   
+   
+   
+   <form method="post" action="/test/editor4">
+   <div style="width: 60%; margin: auto;">
+    <p>
+  <input class="input is-medium" name="title" type="text"  style="width: 100%;" placeholder="프로젝트 제목" maxlength="50"></p>
+   
+		<textarea id="summernote" name="content" maxlength="2048"></textarea>
+		<input class="button" type="submit" value="글쓰기">
+		</div>
+		
+</form>
 
-</div>
+
+
+
 
 <script>
 
 function printName()  {
 	
 	  
+	var temp;
+
+	function input(){
+	var input = document.getElementById("input").value;
+	temp = input;
+	}
+
+	function output(){
+	document.getElementById("output").value = temp;
+	}
 	
-		  const people =
-			  document.getElementById('people').value;
-		  document.getElementById("result").innerText = people;
+
+
 		}
 		
 </script>
 
 	
-		
-		<br><br> 
-		<textarea id="summernote" name="content"></textarea>
-		<input type="button" value="글쓰기" style="float: right;" onclick="location.href='/write'">
-		
-	</form>
-
-</div>
 
   		
 
