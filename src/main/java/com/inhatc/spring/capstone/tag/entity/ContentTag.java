@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.Tag;
+package com.inhatc.spring.capstone.tag.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,12 +9,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import com.inhatc.spring.capstone.entity.content.Content;
+import com.inhatc.spring.capstone.content.entity.Content;
 
 @Entity
 @Table(name = "language_tag")
-/** Java, C#, C++ 등의 언어 태그 엔티티 */
-public class LanguageTag {
+/** 컨텐츠에 어떤 태그들이 포함되어 있는지 확인하는 엔티티 */
+public class ContentTag {
 	@Id
 	@Column(name = "language_tag_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

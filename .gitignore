@@ -34,3 +34,7 @@ build/
 
 ### OAuth Secret Key ###
 application-oauth.properties
+
+### QueryDsl ###
+generated
+

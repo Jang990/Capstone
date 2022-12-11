@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.content;
+package com.inhatc.spring.capstone.content.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
