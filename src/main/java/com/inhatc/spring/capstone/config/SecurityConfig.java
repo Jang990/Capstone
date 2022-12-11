@@ -31,6 +31,7 @@ public class SecurityConfig {
                 .mvcMatchers("/", "/users/**", "/item/**", "/images/**").permitAll()
                 .mvcMatchers("/login").permitAll()
                 .mvcMatchers("/test/**").permitAll()
+                .mvcMatchers("/**").permitAll() // 일단 모든 것 허용
                 .mvcMatchers("/admin/**").hasRole("ADMIN")
 				.anyRequest().authenticated()
 			)
