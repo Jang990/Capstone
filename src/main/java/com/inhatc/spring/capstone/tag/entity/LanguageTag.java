@@ -1,4 +1,4 @@
-package com.inhatc.spring.capstone.entity.Tag;
+package com.inhatc.spring.capstone.tag.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

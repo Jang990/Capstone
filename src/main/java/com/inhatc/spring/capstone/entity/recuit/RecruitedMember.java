@@ -13,7 +13,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.content.entity.Content;
-import com.inhatc.spring.capstone.entity.Tag.PositionTag;
+import com.inhatc.spring.capstone.tag.entity.PositionTag;
 
 @Entity
 @Table(name = "recruited_member")
