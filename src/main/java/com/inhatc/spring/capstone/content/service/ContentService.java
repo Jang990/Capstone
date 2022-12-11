@@ -109,24 +109,39 @@ public class ContentService {
 					);
 		
 		List<DisplayedImageDTO> sourceImgs = contentDocumentService.extractImageElement(sourceContent.getContent()); 
+		System.out.println("소스 속 이미지들===");
+		for (DisplayedImageDTO displayedImageDTO : sourceImgs) {
+			System.out.println(displayedImageDTO);
+		}
+		System.out.println();
 		List<DisplayedImageDTO> modifiedImgs = contentDocumentService.extractImageElement(modifiedContentDTO.getContent());
+		System.out.println("바뀐 소스 속에 이미지들===");
+		for (DisplayedImageDTO displayedImageDTO : modifiedImgs) {
+			System.out.println(displayedImageDTO);
+		}
 		
 		sourceContent.modifyContent(modifiedContentDTO);
 		
 		// 이미지가 없는 콘텐츠임
 		if(modifiedImgs.size() == 0 && sourceImgs.size() == 0) {
 			// 아무일 없음
+			System.out.println("이미지 없어요");
 		}
 		// 수정하면서 아예 없던 이미지가 새로 생김 - 전부 임시저장->저장
 		else if(modifiedImgs.size() > 0 && sourceImgs.size() == 0) {
+			System.out.println("이미지 전부 저장");
 			saveTempContentImg(sourceContent, modifiedImgs);
 		}
 		// 수정하면서 이미지가 전부 삭제됨 - 전부 삭제
 		else if(sourceImgs.size() > 0 && modifiedImgs.size() == 0) {
+			System.out.println("이미지 전부 삭제");
 			contentImageService.deleteSavedContentImg(sourceContent.getId());
 		}
-		// 이미지가 있음 - 변경을 체크해야 함
+		// 이미지가 있음 - 혹시모를 변경을 체크해야 함
 		else {
+			// 이 부분만 오류가난다. 나머지는 다 정상 작동
+			
+			System.out.println("이미지 변동");
 			// modifiedImgs에 temporary에 저장된것은 새로운 것이다.
 			List<DisplayedImageDTO> deleteImgs = new ArrayList<>(); // 삭제된 이미지
 			List<DisplayedImageDTO> existImgs = new ArrayList<>(); // 기존 존재하던 이미지
@@ -140,26 +155,34 @@ public class ContentService {
 			});
 			
 			// 사라진 경우 delete
+			System.out.println("===삭제한 이미지");
 			for (DisplayedImageDTO img : deleteImgs) {
+				System.out.println("삭제: " + img);
 				contentImageService.deleteSavedImg(img);
 			}
 			
 			List<DisplayedImageDTO> checkImgs = new ArrayList<>(); // 변화가 있거나 새로 생긴 이미지
 			modifiedImgs.stream().forEach((imgDto) -> {
-				if(!existImgs.contains(imgDto)) 
+				System.out.println("===체크할 이미지");
+				if(!existImgs.contains(imgDto)) {
+					System.out.println("체크: " + imgDto);
 					checkImgs.add(imgDto);
+				}
 			});
 			
 			List<DisplayedImageDTO> tempImgs = new ArrayList<>(); // 임시 저장소에 있는 이미지
 			List<DisplayedImageDTO> updateImgs = new ArrayList<>(); // 변화가 생긴 이미지
 			// 변화가 있는 이미지
+			System.out.println("===변화한이미지");
 			for (DisplayedImageDTO img : checkImgs) {
 				// 임시저장소에 저장된 새로 생긴 이미지
 				if(img.getSavedPath().substring(1).split("/")[1].equals("temporary")) {
+					System.out.println("임시저장되어 있는 이미지: " + img);
 					tempImgs.add(img);
 				}
 				// 기존 파일이지만 변화가 있는 이미지 (ex) width, hegith)
 				else {
+					System.out.println("사이즈 변화 이미지:" + img);
 					updateImgs.add(img);
 				}
 			}
