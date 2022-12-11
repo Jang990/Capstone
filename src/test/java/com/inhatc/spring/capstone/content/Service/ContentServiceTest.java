@@ -6,6 +6,7 @@ import static org.mockito.ArgumentMatchers.contains;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -21,6 +22,7 @@ import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.content.service.ContentService;
+import com.inhatc.spring.capstone.file.service.TemporaryImageService;
 import com.inhatc.spring.capstone.user.dto.UsersJoinDTO;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.user.exception.UserErrorDescription;
@@ -40,6 +42,8 @@ class ContentServiceTest {
 	
 	@Autowired
 	private ContentService contentService;
+//	@Autowired
+//	private TemporaryImageService tempImageService;
 	
 	// 사용자 생성
 	Users createUser() {
@@ -57,11 +61,13 @@ class ContentServiceTest {
 	}
 	
 	// 게시글 DTO 생성
-	NewContentDTO createProjectContentDTO(Users user, String title) {
+	NewContentDTO createProjectContentDTO(Users user, String title) throws IOException {
 		String str = ""; // 게시글 내용
-		for (int i = 0; i < 100; i++) {
+		str += "<div>";
+		for (int i = 0; i < 5; i++) {
 			str += "테스트 게시물입니다" + (i * 31) + "\n";
 		}
+		str += "</div>";
 		
 		return NewContentDTO.builder()
 				.userId(user.getId())
@@ -73,10 +79,8 @@ class ContentServiceTest {
 				.build();
 	}
 	
-	@Test
-	@Transactional
-	@DisplayName("단일 프로젝트 게시글 생성")
-	DisplayedContentDTO createSingleProjectContent() {
+	// 단일 프로젝트 생성
+	DisplayedContentDTO createSingleProjectContent() throws IOException {
 		Users user = createUser();
 		NewContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
@@ -88,8 +92,23 @@ class ContentServiceTest {
 	
 	@Test
 	@Transactional
-	@DisplayName("여러 프로젝트 게시글 생성")
-	void createMultiProjectContent() {
+	@DisplayName("이미지가 없는 단일 프로젝트 게시글 생성")
+	void createSingleProjectContentTest() throws IOException {
+		Users user = createUser();
+		NewContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
+		
+		// 이미지가 있는경우 이렇게 테스트하면 되지만 나중에 테스트시에 해당 파일이 없으면 테스트 실패 - 따로 단위테스트를 해야할 것  같다.
+//		NewContentDTO contentDto = createContentWithImage(user, "테스트 게시물");
+		
+		DisplayedContentDTO createdContentDto = contentService.createProjectContent(contentDto);
+		
+		checkEqual(contentDto, createdContentDto);
+	}
+	
+	@Test
+	@Transactional
+	@DisplayName("이미지가 없는 여러 프로젝트 게시글 생성")
+	void createMultiProjectContent() throws IOException {
 		Users user = createUser();
 		List<NewContentDTO> contentDtoList = new ArrayList<>(); 
 		for (int i = 0; i < 100; i++) {
@@ -107,7 +126,7 @@ class ContentServiceTest {
 	}
 	
 	void checkEqual(NewContentDTO contentDto, DisplayedContentDTO createdContentDto) {
-		assertEquals(contentDto.getContent(), createdContentDto.getContent());
+//		assertEquals(contentDto.getContent(), createdContentDto.getContent()); // 본문 내용은 HTML 문서상에서 올바르게 나오면 되기 때문에 약간 차이가 있을 수 있음
 		assertEquals(contentDto.getTitle(), createdContentDto.getTitle());
 		assertEquals(contentDto.getUsedLanguage(), createdContentDto.getUsedLanguage());
 		assertEquals(contentDto.getUsedLanguage(), createdContentDto.getUsedLanguage());
@@ -117,7 +136,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("존재하지 않는 사용자의 게시글 생성 시도")
-	void createContentByNonExistentUser() {
+	void createContentByNonExistentUser() throws IOException {
 		Users user = createNonExistentUser();
 		NewContentDTO contentDto = createProjectContentDTO(user, "테스트 게시물");
 		
@@ -129,7 +148,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("게시글 조회")
-	void getContentViewTest() {
+	void getContentViewTest() throws IOException {
 		DisplayedContentDTO content = createSingleProjectContent();
 		
 		DisplayedContentDTO viewContent = contentService.viewProjectContent(content.getContentId());
@@ -142,7 +161,7 @@ class ContentServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("Content 수정")
-	void createSingleContent() {
+	void createSingleContent() throws IOException {
 		DisplayedContentDTO createdContent = createSingleProjectContent();
 		String modifiedStr = "수정된 문자열";
 		NewContentDTO modifiedContentDetails = NewContentDTO.builder()
@@ -151,7 +170,7 @@ class ContentServiceTest {
 				.content(modifiedStr + modifiedStr + modifiedStr)
 				.usedLanguage("C++")
 				.isRecruit(createdContent.isRecruit())
-				.files(createdContent.getFiles())
+				.images(null) // 일단 null로 설정
 				.build();
 		
 		DisplayedContentDTO modifiedContent = contentService.modifyProjectContent(modifiedContentDetails);

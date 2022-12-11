@@ -3,6 +3,8 @@ package com.inhatc.spring.capstone.content.dto;
 import java.util.ArrayList; 
 import java.util.List;
 
+import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
+
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,11 +24,11 @@ public class NewContentDTO {
 	
 	private boolean isRecruit;
 	
-	List<DisplayedFileDTO> files = new ArrayList<>();
+	List<DisplayedImageDTO> images = new ArrayList<>();
 
 	@Builder
 	public NewContentDTO(Long contentId, Long userId, String userEmail, String title, String content, 
-			String usedLanguage, boolean isRecruit, List<DisplayedFileDTO> files) {
+			String usedLanguage, boolean isRecruit, List<DisplayedImageDTO> images) {
 		this.contentId = contentId;
 		this.userId = userId;
 		this.userEmail = userEmail;
@@ -34,6 +36,7 @@ public class NewContentDTO {
 		this.content = content;
 		this.usedLanguage = usedLanguage;
 		this.isRecruit = isRecruit;
-		this.files = files;
+		this.images = images;
 	}
+	
 }

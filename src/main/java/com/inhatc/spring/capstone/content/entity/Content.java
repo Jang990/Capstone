@@ -1,24 +1,21 @@
 package com.inhatc.spring.capstone.content.entity;
 
-import java.util.ArrayList; 
 import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
-import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
+import com.inhatc.spring.capstone.content.service.ContentDocumentService;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
-import com.inhatc.spring.capstone.entity.file.SavedFile;
+import com.inhatc.spring.capstone.file.entity.SavedFile;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
@@ -64,8 +61,9 @@ public class Content extends CreatedAndUpdated{
 	@Column(length = 1)
 	private boolean isRecruit;
 	
-	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
-	List<SavedFile> files = new ArrayList<>();
+	// 딱히 필요가 없을 것 같다. 이미 이미지 정보는 content 필드 쪽에 있다
+//	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
+//	List<SavedFile> files = new ArrayList<>();
 	
 	public static Content createContent(Users writer, NewContentDTO contentDto) {
 		return Content.builder()
@@ -77,7 +75,7 @@ public class Content extends CreatedAndUpdated{
 				.voteCount(0)
 				.isRecruit(contentDto.isRecruit())
 				// DTO에서 엔티티 제거 후 MultipartFile 형식으로 바꾸고 여기서 SavedFile 엔티티 생성 예정
-				.files(null) // 일단 null 넣어두고 추후 file 관련 추가하면서 DisplayedFiles에 of 추가 
+//				.files(null) // 일단 null 넣어두고 추후 file 관련 추가하면서 DisplayedFiles에 of 추가 
 				.build();
 	}
 	
@@ -101,12 +99,17 @@ public class Content extends CreatedAndUpdated{
 		this.viewCount = viewCount;
 		this.voteCount = voteCount;
 		this.isRecruit = isRecruit;
-		this.files = files;
+//		this.files = files;
 	}
 
 	/** 조회수 증가 */
 	public void increaseView() {
 		this.viewCount++;
+	}
+	
+	public Content changeImageSrc(ContentDocumentService docService) {
+		this.content = docService.changeImageSorce(this.content, "content");
+		return this;
 	}
 	
 }
