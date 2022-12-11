@@ -40,7 +40,7 @@ img.lan {
 </th:block>
 
 <head>
-<title>캡스톤 디자인</title>
+<title>구인 공고</title>
 
 </head>
 <main layout:fragment="content">
@@ -53,30 +53,33 @@ img.lan {
 			</div>
 		</div>
 	</form>
-	
-	
+
+
 	<table>
-	<tr>
-		<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
-		<td th:each="project : ${project_}">
-			<div class="box1">
-				<img class="boardimg "
-					src="https://bulma.io/images/placeholders/128x128.png"> <img
-					class="lan" align="right" src="devicon/icons/java/java-original-wordmark.svg">
-				<div>
-					<strong><span th:text="${project.title}"></span></strong>
-					<div style="margin-top: 7px;">
-					<span style="font-size: 5px;" th:text="${project.email}"></span>
-					<span style="font-size: 5px;" th:text="${project.writer}"></span>
+		<tr>
+			<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
+			<td th:each="recruiment : ${recruiment_}">
+				<div class="box1">
+					<table class="table">
+						<tr>
+					<td><span th:text="${recruiment.ends}"></span></td>
+						<td><span th:text="${recruiment.usedLanguage}"></span></td>
+						<td><span th:text="${recruiment.count}"></span>
+						</td>
+						</tr>
+					</table>
+					<div>
+						<strong><span th:text="${recruiment.title}"></span></strong>
+						<div style="margin-top: 7px;vertical-align: bottom;">
+							<span style="font-size: 5px;" th:text="${recruiment.email}"></spsan>
+							<span style="font-size: 5px;" th:text="${recruiment.writer}"></span>
+						</div>
+					</div>
+					<div style="vertical-align: bottom;"><p style="text-align: right;font-size: 10px;">
+					<span th:text="${recruiment.viewCount}"></span></p></div>
 				</div>
-				</div>
-<div style="vertical-align: bottom;">
-				<p style="vertical-align: right; margin-bottom:-1px; font-size:10px; text-align: right;"><span th:text="${project.accessDate}"></span></p>
-				<p style="vertical-align: right; font-size:10px; text-align: right;">좋아요 <span th:text="${project.viewCount}"></span>개</p>
-	</div>			
-			</div>
-		</td>
-	</tr>
+			</td>
+		</tr>
 	</table>
 </main>
 

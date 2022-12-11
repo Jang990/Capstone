@@ -30,6 +30,10 @@ public class projectcontroller {
 		String email="";//이메일
 		int viewCount=0;//조회수
 		
+		
+	
+		
+		
 		public projectDto(String title,String email,String writer,String accessDate,String usedLanguage,int viewCount) {
 		this.title = title;
 		this.writer =writer;
