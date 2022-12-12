@@ -18,8 +18,8 @@ import lombok.ToString;
 @ToString
 @Getter
 @NoArgsConstructor
-//@Entity
-//@Table(name = "language_tag")
+@Entity
+@Table(name = "Content_Tag")
 /** 
  * 컨텐츠에 어떤 태그들이 포함되어 있는지 확인하는 엔티티 
  * Content - Content에 포함된 태그들 - 태그
@@ -27,7 +27,7 @@ import lombok.ToString;
  */
 public class ContentTag {
 	@Id
-	@Column(name = "language_tag_id")
+	@Column(name = "content_tag_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	

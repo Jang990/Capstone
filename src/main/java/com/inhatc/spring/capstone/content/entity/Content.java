@@ -8,6 +8,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -15,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
@@ -74,11 +76,7 @@ public class Content extends CreatedAndUpdated{
 //	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
 //	List<SavedFile> files = new ArrayList<>();
 	
-	@ManyToMany(cascade = CascadeType.ALL)
-	@JoinTable(name="Content_Tag", 
-		joinColumns = {@JoinColumn(name = "content_id")},
-		inverseJoinColumns = {@JoinColumn(name = "tag_id")}
-	)
+	@OneToMany(fetch = FetchType.LAZY)
 	private Set<Tag> tags = new LinkedHashSet<>();
 	
 	public static Content createContent(Users writer, NewContentDTO contentDto) {
