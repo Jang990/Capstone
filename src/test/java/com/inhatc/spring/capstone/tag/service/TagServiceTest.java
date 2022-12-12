@@ -1,16 +1,17 @@
 package com.inhatc.spring.capstone.tag.service;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.*; 
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.tag.constant.TagType;
@@ -96,7 +97,43 @@ class TagServiceTest {
 		}
 	}
 	
-	// 프론트엔드에서 새로 만들어진 태그
+	@Test
+	@DisplayName("여러 에러 태그 저장 테스트")
+	@Transactional
+	void saveCustomTagTest3() {
+		List<DisplayedTagDTO> newTagList = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			if(i%3 == 0)
+				newTagList.add(createNewTag("Test 생성 태그" + i));
+			else if(i%3 == 1)
+				newTagList.add(createSavedCustomTag("저장되어 있는 태그"+i));
+			else
+				newTagList.add(createErrorTag("에러태그"+i)); 
+		}
+		
+		for (int i = 0; i < newTagList.size(); i++) {
+			DisplayedTagDTO displayedTagDTO = newTagList.get(i);
+			if(i%3 == 0)
+				tagService.saveCustomTag(displayedTagDTO);
+			else if(i%3 == 1)
+				tagService.saveCustomTag(displayedTagDTO);
+			else
+				assertThrows(IllegalArgumentException.class, () -> {tagService.saveCustomTag(displayedTagDTO);});
+		}
+	}
+	
+	@Test
+	@DisplayName("여러 에러 태그 가져오기 테스트")
+	@Transactional
+	void getErrorTagTest() {
+		DisplayedTagDTO errorTag1 = createMismatchErrorTag("에러 태그");
+		IllegalArgumentException e1 = assertThrows(IllegalArgumentException.class, () -> {tagService.getTag(errorTag1);});
+		
+		DisplayedTagDTO errorTag2 = createNotFoundErrorTag("에러 태그2");
+		EntityNotFoundException e2 = assertThrows(EntityNotFoundException.class, () -> {tagService.getTag(errorTag2);});
+	}
+	
+	// save - 프론트엔드에서 새로 만들어진 태그
 	DisplayedTagDTO createNewTag(String tagName) {
 		return DisplayedTagDTO.builder()
 				.tagName(tagName)
@@ -104,7 +141,7 @@ class TagServiceTest {
 				.build();
 	}
 	
-	// 저장되어 있는 Custom 태그
+	// save- 저장되어 있는 Custom 태그
 	DisplayedTagDTO createSavedCustomTag(String tagName) {
 		DisplayedTagDTO displayedTagDTO = DisplayedTagDTO.builder()
 			.tagName(tagName)
@@ -114,7 +151,7 @@ class TagServiceTest {
 		return tagService.saveCustomTag(displayedTagDTO);
 	}
 	
-	// 에러 발생 태그(id가 없지만 New가 아님)
+	// save - 에러 발생 태그(id가 없지만 New가 아님)
 	DisplayedTagDTO createErrorTag(String tagName) {
 		return DisplayedTagDTO.builder()
 				.tagName(tagName)
@@ -122,7 +159,7 @@ class TagServiceTest {
 				.build();
 	}
 	
-	// 에러 발생 태그(id 존재 하지 않음)
+	// get - 에러 발생 태그(id 존재 하지 않음)
 	DisplayedTagDTO createNotFoundErrorTag(String tagName) {
 		return DisplayedTagDTO.builder()
 				.tagId(Long.MIN_VALUE)
@@ -131,8 +168,8 @@ class TagServiceTest {
 				.build(); 
 	}
 	
-	// 에러 발생 태그(기존 저장된 id와 tagName이 매칭되지 않음)
-	DisplayedTagDTO craeteMismatchErrorTag(String tagName) {
+	// get - 에러 발생 태그(기존 저장된 id와 tagName이 매칭되지 않음)
+	DisplayedTagDTO createMismatchErrorTag(String tagName) {
 		DisplayedTagDTO displayedTagDTO = DisplayedTagDTO.builder()
 				.tagName(tagName)
 				.tagType(TagType.NEW.toString())
@@ -141,8 +178,8 @@ class TagServiceTest {
 		displayedTagDTO = tagService.saveCustomTag(displayedTagDTO);
 		
 		return DisplayedTagDTO.builder()
-				.tagId(Long.MIN_VALUE)
-				.tagName(displayedTagDTO.getTagName())
+				.tagId(displayedTagDTO.getTagId())
+				.tagName(displayedTagDTO.getTagName()+"오류 문자가 포함됨")
 				.tagType(TagType.TECH.toString())
 				.build(); 
 	}		
