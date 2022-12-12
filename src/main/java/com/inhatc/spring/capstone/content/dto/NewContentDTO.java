@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
+import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @NoArgsConstructor
 /** 콘텐츠 수정 또는 생성 시 사용되는 DTO */
 public class NewContentDTO {
@@ -25,10 +28,11 @@ public class NewContentDTO {
 	private boolean isRecruit;
 	
 	List<DisplayedImageDTO> images = new ArrayList<>();
+	List<DisplayedTagDTO> tags = new ArrayList<>();
 
 	@Builder
 	public NewContentDTO(Long contentId, Long userId, String userEmail, String title, String content, 
-			String usedLanguage, boolean isRecruit, List<DisplayedImageDTO> images) {
+			String usedLanguage, boolean isRecruit, List<DisplayedImageDTO> images, List<DisplayedTagDTO> tags) {
 		this.contentId = contentId;
 		this.userId = userId;
 		this.userEmail = userEmail;
@@ -37,6 +41,7 @@ public class NewContentDTO {
 		this.usedLanguage = usedLanguage;
 		this.isRecruit = isRecruit;
 		this.images = images;
+		this.tags = tags;
 	}
 	
 }

@@ -2,8 +2,12 @@ package com.inhatc.spring.capstone.content.service;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
+
+import javax.persistence.EntityNotFoundException;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -15,10 +19,15 @@ import com.inhatc.spring.capstone.content.exception.ContentErrorDescription;
 import com.inhatc.spring.capstone.content.exception.ContentException;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
-import com.inhatc.spring.capstone.file.entity.SavedFile;
 import com.inhatc.spring.capstone.file.repository.SavedFileRepository;
 import com.inhatc.spring.capstone.file.service.ContentImageService;
 import com.inhatc.spring.capstone.file.service.TemporaryImageService;
+import com.inhatc.spring.capstone.tag.constant.TagType;
+import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
+import com.inhatc.spring.capstone.tag.entity.Tag;
+import com.inhatc.spring.capstone.tag.repository.TagRepository;
+import com.inhatc.spring.capstone.tag.service.ContentTagService;
+import com.inhatc.spring.capstone.tag.service.TagService;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.user.exception.UserErrorDescription;
 import com.inhatc.spring.capstone.user.exception.UsersException;
@@ -34,11 +43,11 @@ public class ContentService {
 	
 	private final ContentRepository contentRepository;
 	private final UsersRepository userRepository;
-	private final SavedFileRepository savedFileRepository;
 	
 	private final ContentImageService contentImageService;
 	private final ContentDocumentService contentDocumentService;
 	private final TemporaryImageService tempImageService;
+	private final ContentTagService contentTagService;
 	
 	/** 프로젝트 게시글 생성 */
 	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) throws IOException {
@@ -53,20 +62,21 @@ public class ContentService {
 		
 		// content에서 이미지 Element 추출
 		List<DisplayedImageDTO> tempImgDto = contentDocumentService.extractImageElement(content.getContent());
-		
 		// 만약 이미지가 포함된 글이라면 이미지를 서버에 저장해야 함
 		if(tempImgDto.size() > 0) {
 			saveTempContentImg(content, tempImgDto);
 		}
 		
-		content = contentRepository.save(content);
 		
+		List<DisplayedTagDTO> tags = contentDto.getTags();
+		// 컨텐츠와 관련된 태그들 저장하고 가져오기
+		Set<Tag> savedTags = contentTagService.saveContentTags(tags);
+		content.setSavedTags(savedTags);
+		
+		content = contentRepository.save(content);
 		
 		return DisplayedContentDTO.createdContent(content);
 	}
-	
-	
-	
 	
 	private void saveTempContentImg(Content content, List<DisplayedImageDTO> tempImgDto) throws IOException {
 		// 1. 이미지 이동(임시저장폴더->저장폴더로 이미지 위치 변경)
@@ -108,6 +118,11 @@ public class ContentService {
 						() -> new ContentException(ContentErrorDescription.NOT_FOUND_CONTENT, modifiedContentDTO.getContentId())
 					);
 		
+		// 태그 변동
+		Set<Tag> savedTags = contentTagService.modifiedContentTags(sourceContent.getId(), modifiedContentDTO.getTags());
+		sourceContent.modifyContent(modifiedContentDTO, savedTags);
+		
+		
 		List<DisplayedImageDTO> sourceImgs = contentDocumentService.extractImageElement(sourceContent.getContent()); 
 		System.out.println("소스 속 이미지들===");
 		for (DisplayedImageDTO displayedImageDTO : sourceImgs) {
@@ -120,7 +135,6 @@ public class ContentService {
 			System.out.println(displayedImageDTO);
 		}
 		
-		sourceContent.modifyContent(modifiedContentDTO);
 		
 		// 이미지가 없는 콘텐츠임
 		if(modifiedImgs.size() == 0 && sourceImgs.size() == 0) {
@@ -193,7 +207,6 @@ public class ContentService {
 				contentImageService.updateContentImg(updateImg);
 			}
 		}
-		
 		
 		DisplayedContentDTO contentDetails = contentRepository.getContentDetails(sourceContent.getId());
 		
