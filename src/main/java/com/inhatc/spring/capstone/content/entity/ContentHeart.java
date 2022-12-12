@@ -16,9 +16,9 @@ import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 @Entity
-@Table(name = "content_vote")
+@Table(name = "content_heart")
 /** 추천 투표 이력 테이블 엔티티 */
-public class ContentVote {
+public class ContentHeart {
 	/*
 	추천 번호
 	사용자 번호 - FK 
@@ -36,8 +36,4 @@ public class ContentVote {
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private Users likedUser;
-	
-	@Convert(converter = BooleanToYNConverter.class)
-	@Column(length = 1)
-	private boolean yn;
 }
