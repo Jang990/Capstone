@@ -11,6 +11,7 @@ import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedFileDTO;
 import com.inhatc.spring.capstone.content.dto.QDisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
+import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 import com.inhatc.spring.capstone.user.dto.DisplayedUserDTO;
 import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
@@ -46,7 +47,10 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 												// 일단 값은 안채워 넣음
 												Projections.fields(DisplayedFileDTO.class)
 										),
-										content1.voteCount
+										content1.voteCount,
+										list(
+											Projections.fields(DisplayedTagDTO.class)
+										)
 								)
 						)
 				).get(0);

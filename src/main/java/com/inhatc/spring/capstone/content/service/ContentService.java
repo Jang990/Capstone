@@ -120,7 +120,7 @@ public class ContentService {
 		
 		// 태그 변동
 		Set<Tag> savedTags = contentTagService.modifiedContentTags(sourceContent.getId(), modifiedContentDTO.getTags());
-		sourceContent.modifyContent(modifiedContentDTO,savedTags);
+		sourceContent.modifyContent(modifiedContentDTO, savedTags);
 		
 		
 		List<DisplayedImageDTO> sourceImgs = contentDocumentService.extractImageElement(sourceContent.getContent()); 

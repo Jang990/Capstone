@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.inhatc.spring.capstone.content.entity.Content;
+import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 import com.inhatc.spring.capstone.user.dto.DisplayedUserDTO;
 import com.querydsl.core.annotations.QueryProjection;
 
@@ -27,6 +28,7 @@ public class DisplayedContentDTO {
 	
 	List<DisplayedCommentDTO> comments;
 	List<DisplayedFileDTO> files = new ArrayList<>();
+	List<DisplayedTagDTO> tags = new ArrayList<>();
 	
 	private int voteCount; // 찬반 카운트
 	
@@ -41,6 +43,7 @@ public class DisplayedContentDTO {
 				.isRecruit(content.isRecruit())
 				.viewCount(0)
 				.comments(new ArrayList<>())
+				.tags(content.getTags().stream().map(DisplayedTagDTO::of).toList())
 				.files(new ArrayList<>()) // 나중에 파일 입출력 모듈 구현 후 수정
 				.build();
 	}
@@ -50,7 +53,7 @@ public class DisplayedContentDTO {
 	public DisplayedContentDTO(Long contentId, DisplayedUserDTO writer, String title, 
 			String content, LocalDateTime accessDate, String usedLanguage, 
 			boolean isRecruit, int viewCount, List<DisplayedCommentDTO> comments, 
-			List<DisplayedFileDTO> files, int voteCount) {
+			List<DisplayedFileDTO> files, int voteCount, List<DisplayedTagDTO> tags) {
 		this.contentId = contentId;
 		this.writer = writer;
 		this.title = title;
@@ -62,6 +65,7 @@ public class DisplayedContentDTO {
 		this.comments = comments;
 		this.files = files;
 		this.voteCount = voteCount;
+		this.tags = tags;
 	}
 	
 	
