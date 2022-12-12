@@ -199,23 +199,48 @@ class ContentServiceTest {
 	@DisplayName("Content 수정")
 	void createSingleContent() throws IOException {
 		DisplayedContentDTO createdContent = createSingleProjectContent();
+		
+		List<DisplayedTagDTO> beforeTags = createdContent.getTags();
+		
 		String modifiedStr = "수정된 문자열";
+		
+		// 수정된 태그
+		List<DisplayedTagDTO> modifiedTags = new ArrayList<>(); // 이전 태그를 전부 없애버림
+		DisplayedTagDTO addTag = DisplayedTagDTO.builder()
+				.tagType(TagType.NEW.toString())
+				.tagName("수정되면서 새로 만들어진 태그")
+				.build(); // 추가된 태그
+		modifiedTags.add(addTag);
+		
 		NewContentDTO modifiedContentDetails = NewContentDTO.builder()
 				.contentId(createdContent.getContentId())
 				.title(createdContent.getTitle()+modifiedStr)
 				.content(modifiedStr + modifiedStr + modifiedStr)
 				.usedLanguage("C++")
 				.isRecruit(createdContent.isRecruit())
+				.tags(modifiedTags)
 				.images(null) // 일단 null로 설정
 				.build();
 		
 		DisplayedContentDTO modifiedContentDto = contentService.modifyProjectContent(modifiedContentDetails);
 		Content modifiedContent = contentRepository.findById(modifiedContentDto.getContentId()).get();
 		
+		System.out.println("최종결과");
+		modifiedContent.getTags().forEach(System.out::println);
+		
+		System.out.println("DB내용");
+		tagRepository.findAll().forEach(System.out::println);
+		
 		assertEquals(createdContent.getContentId(), modifiedContent.getId());
 		assertEquals(modifiedContentDetails.getTitle(), modifiedContent.getTitle());
 		assertEquals(modifiedContentDetails.getContent(), modifiedContent.getContent());
 		assertEquals(modifiedContentDetails.getUsedLanguage(), modifiedContent.getUsedLanguage());
+		
+		// 삭제된 태그들은 taggedCount가 0이 된다.
+		assertEquals(tagRepository.findById(beforeTags.get(0).getTagId()).get().getTaggedCount(), 0);
+		assertEquals(tagRepository.findById(beforeTags.get(1).getTagId()).get().getTaggedCount(), 0);
+		// 추가된 태그는 taggedCount가 1이 된다.
+		assertEquals(modifiedContent.getTags().stream().findFirst().get().getTaggedCount(), 1);
 	}
 	
 }
