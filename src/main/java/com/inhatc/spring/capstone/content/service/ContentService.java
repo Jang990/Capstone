@@ -69,11 +69,9 @@ public class ContentService {
 		
 		
 		List<DisplayedTagDTO> tags = contentDto.getTags();
-		if(tags != null && tags.size() > 0) {
-			// 컨텐츠와 관련된 태그들 저장하고 가져오기
-			Set<Tag> savedTags = contentTagService.saveContentTags(tags);
-			content.setSavedTags(savedTags);
-		}
+		// 컨텐츠와 관련된 태그들 저장하고 가져오기
+		Set<Tag> savedTags = contentTagService.saveContentTags(tags);
+		content.setSavedTags(savedTags);
 		
 		content = contentRepository.save(content);
 		

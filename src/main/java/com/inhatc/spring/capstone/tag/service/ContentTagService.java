@@ -59,6 +59,10 @@ public class ContentTagService {
 	}
 	/** 컨텐츠에 있는 태그를 불러오거나 저장해서 저장한 값을 가져옴  */
 	public Set<Tag> saveContentTags(List<DisplayedTagDTO> tags) {
+		if(tags == null) {
+			return new LinkedHashSet<>();
+		}
+		
 		Set<Tag> savedTags = new LinkedHashSet<>();
 		for (DisplayedTagDTO savedTag : tags) {
 			if(savedTag.getTagType().equals(TagType.NEW.toString())) {
