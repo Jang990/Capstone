@@ -16,12 +16,14 @@ import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Getter
 @ToString
 @Entity
 @Table(name="tag")
+@NoArgsConstructor
 /** 커스텀(사용자가 알아서 만든 태그), Tech(Java, Springboot, Bootstrap 등등)를 모아둔 엔티티  */
 public class Tag {
 	@Id

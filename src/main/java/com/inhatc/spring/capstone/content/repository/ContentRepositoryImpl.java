@@ -1,6 +1,8 @@
 package com.inhatc.spring.capstone.content.repository;
 
 import static com.inhatc.spring.capstone.content.entity.QContent.content1;
+import static com.inhatc.spring.capstone.tag.entity.QContentTag.contentTag;
+import static com.inhatc.spring.capstone.tag.entity.QTag.tag;
 import static com.inhatc.spring.capstone.user.entity.QUsers.users;
 import static com.querydsl.core.group.GroupBy.list;
 
@@ -12,6 +14,7 @@ import com.inhatc.spring.capstone.content.dto.DisplayedFileDTO;
 import com.inhatc.spring.capstone.content.dto.QDisplayedContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
+import com.inhatc.spring.capstone.tag.dto.QDisplayedTagDTO;
 import com.inhatc.spring.capstone.user.dto.DisplayedUserDTO;
 import com.querydsl.core.group.GroupBy;
 import com.querydsl.core.types.Projections;
@@ -27,6 +30,8 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 		DisplayedContentDTO contentDetail = query
 				.from(content1)
 				.join(content1.writer, users)
+				.innerJoin(contentTag).on(contentTag.content.eq(content1))
+				.innerJoin(tag).on(tag.eq(contentTag.tag))
 				.where(content1.id.eq(contentId))
 				.transform(
 						GroupBy.groupBy(content1.id).list(
@@ -49,7 +54,8 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 										),
 										content1.voteCount,
 										list(
-											Projections.fields(DisplayedTagDTO.class)
+//												Projections.fields(DisplayedTagDTO.class)
+												new QDisplayedTagDTO(tag.id, tag.name, tag.type.stringValue())
 										)
 								)
 						)

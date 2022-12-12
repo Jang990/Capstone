@@ -7,7 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import com.inhatc.spring.capstone.content.entity.Content;
 
@@ -19,7 +21,11 @@ import lombok.ToString;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "Content_Tag")
+@Table(name = "Content_Tag", uniqueConstraints = {
+//		@UniqueConstraint(
+//				columnNames = {"content_id", "tag_id"}
+//		)
+})
 /** 
  * 컨텐츠에 어떤 태그들이 포함되어 있는지 확인하는 엔티티 
  * Content - Content에 포함된 태그들 - 태그
@@ -32,15 +38,14 @@ public class ContentTag {
 	private Long id;
 	
 	@ManyToOne
-	@JoinColumn(name = "content_id")
-	Content project;
+	Content content;
 	
 	@ManyToOne
 	@JoinColumn(name = "tag_id")
 	Tag tag;
 
 	public ContentTag(Content project, Tag tag) {
-		this.project = project;
+		this.content = project;
 		this.tag = tag;
 	}
 	

@@ -82,7 +82,7 @@ public class ContentTagService {
 		Content sourceContent = contentRepository.findById(contentId).orElseThrow(EntityNotFoundException::new);
 
 		// 기존에 있던 것 전부 -- 해줌
-		sourceContent.getTags().forEach(tag -> tag.delelteTagToContent());
+		sourceContent.getTags().stream().map(ct -> ct.getTag()).forEach(tag -> tag.delelteTagToContent());
 		
 		// save 다시해 줌 
 		return saveContentTags(modifiedTags);

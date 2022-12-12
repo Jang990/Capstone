@@ -1,6 +1,5 @@
 package com.inhatc.spring.capstone.tag.service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
@@ -8,7 +7,6 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.inhatc.spring.capstone.tag.constant.TagType;
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 import com.inhatc.spring.capstone.tag.entity.Tag;
 import com.inhatc.spring.capstone.tag.repository.TagRepository;
@@ -25,22 +23,6 @@ public class TagService {
 	public List<DisplayedTagDTO> searchSimilarTags(String tag, Pageable pageable) {
 		return tagRepository.getSimilarTags(tag, pageable);
 	}
-	
-	/** 태그 저장 */
-//	public DisplayedTagDTO saveCustomTag(DisplayedTagDTO tagDto) {
-//		if(!tagDto.getTagType().toUpperCase().equals(TagType.NEW.toString())) {
-//			return getExistTag(tagDto);
-//		}
-//
-//		Tag savedTag = Tag.createCustomTag(tagDto.getTagName());
-//		savedTag = tagRepository.save(savedTag);
-//		
-//		return DisplayedTagDTO.builder()
-//				.tagId(savedTag.getId())
-//				.tagName(savedTag.getName())
-//				.tagType(savedTag.getType().toString())
-//				.build();
-//	}
 	
 	/** 커스텀 태그 저장 */
 	public Tag createCustomTag(DisplayedTagDTO contentTagDto) {
@@ -62,6 +44,5 @@ public class TagService {
 		existTag.addTagToContent();
 		return existTag;
 	}
-
 	
 }

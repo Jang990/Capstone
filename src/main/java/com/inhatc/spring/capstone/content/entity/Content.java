@@ -18,11 +18,13 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.service.ContentDocumentService;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.file.entity.SavedFile;
+import com.inhatc.spring.capstone.tag.entity.ContentTag;
 import com.inhatc.spring.capstone.tag.entity.Tag;
 import com.inhatc.spring.capstone.user.entity.Role;
 import com.inhatc.spring.capstone.user.entity.Users;
@@ -30,12 +32,14 @@ import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.ToString;
 
 @Entity
 @Getter
-@ToString
+@ToString(exclude = {"tags"})
 @Table(name = "content")
+@NoArgsConstructor
 /** 작성글 정보 테이블 엔티티 */
 public class Content extends CreatedAndUpdated{
 	/*
@@ -76,8 +80,9 @@ public class Content extends CreatedAndUpdated{
 //	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
 //	List<SavedFile> files = new ArrayList<>();
 	
-	@OneToMany(fetch = FetchType.LAZY)
-	private Set<Tag> tags = new LinkedHashSet<>();
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "content_id")
+	private Set<ContentTag> tags = new LinkedHashSet<>();
 	
 	public static Content createContent(Users writer, NewContentDTO contentDto) {
 		return Content.builder()
@@ -98,7 +103,7 @@ public class Content extends CreatedAndUpdated{
 		this.content = contentDto.getContent();
 		this.usedLanguage = contentDto.getUsedLanguage();
 		this.isRecruit = contentDto.isRecruit();
-		this.tags = savedTags;
+		setSavedTags(savedTags);
 		
 		return this;
 	}
@@ -129,7 +134,12 @@ public class Content extends CreatedAndUpdated{
 
 	/** 저장된 태그 설정 */
 	public void setSavedTags(Set<Tag> savedTags) {
-		this.tags = savedTags;
+		Set<ContentTag> tags = new LinkedHashSet<>();
+		for (Tag contentTag : savedTags) {
+			tags.add(new ContentTag(this, contentTag));
+		}
+		
+		this.tags = tags;
 	}
 	
 }

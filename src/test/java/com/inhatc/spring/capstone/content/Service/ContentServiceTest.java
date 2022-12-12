@@ -25,7 +25,9 @@ import com.inhatc.spring.capstone.content.service.ContentService;
 import com.inhatc.spring.capstone.file.service.TemporaryImageService;
 import com.inhatc.spring.capstone.tag.constant.TagType;
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
+import com.inhatc.spring.capstone.tag.entity.ContentTag;
 import com.inhatc.spring.capstone.tag.entity.Tag;
+import com.inhatc.spring.capstone.tag.repository.ContentTagRepository;
 import com.inhatc.spring.capstone.tag.repository.TagRepository;
 import com.inhatc.spring.capstone.tag.service.TagService;
 import com.inhatc.spring.capstone.user.dto.UsersJoinDTO;
@@ -48,6 +50,8 @@ class ContentServiceTest {
 	private TagRepository tagRepository;
 	@Autowired
 	private ContentRepository contentRepository;
+	@Autowired
+	private ContentTagRepository contentTagRepository;
 	
 	@Autowired
 	private ContentService contentService;
@@ -240,7 +244,7 @@ class ContentServiceTest {
 		assertEquals(tagRepository.findById(beforeTags.get(0).getTagId()).get().getTaggedCount(), 0);
 		assertEquals(tagRepository.findById(beforeTags.get(1).getTagId()).get().getTaggedCount(), 0);
 		// 추가된 태그는 taggedCount가 1이 된다.
-		assertEquals(modifiedContent.getTags().stream().findFirst().get().getTaggedCount(), 1);
+		assertEquals(modifiedContent.getTags().stream().findFirst().get().getTag().getTaggedCount(), 1);
 	}
 	
 }

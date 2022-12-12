@@ -12,8 +12,10 @@ import com.querydsl.core.annotations.QueryProjection;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 @Getter
+@ToString
 @NoArgsConstructor
 /** 사용자가 게시물에 들어왔을 때 보여질 정보 */
 public class DisplayedContentDTO {
@@ -43,7 +45,7 @@ public class DisplayedContentDTO {
 				.isRecruit(content.isRecruit())
 				.viewCount(0)
 				.comments(new ArrayList<>())
-				.tags(content.getTags().stream().map(DisplayedTagDTO::of).toList())
+				.tags(content.getTags().stream().map(ct->ct.getTag()).map(DisplayedTagDTO::of).toList())
 				.files(new ArrayList<>()) // 나중에 파일 입출력 모듈 구현 후 수정
 				.build();
 	}
