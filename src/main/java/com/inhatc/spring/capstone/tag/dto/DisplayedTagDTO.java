@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.tag.dto;
 
+import com.inhatc.spring.capstone.tag.entity.Tag;
 import com.querydsl.core.annotations.QueryProjection;
 
 import lombok.*;
@@ -19,6 +20,14 @@ public class DisplayedTagDTO {
 		this.tagId = tagId;
 		this.tagName = tagName;
 		this.tagType = tagType;
+	}
+	
+	public static DisplayedTagDTO of(Tag tag) {
+		return DisplayedTagDTO.builder()
+				.tagId(tag.getId())
+				.tagName(tag.getName())
+				.tagType(tag.getType().toString())
+				.build();
 	}
 	
 }

@@ -27,36 +27,41 @@ public class TagService {
 	}
 	
 	/** 태그 저장 */
-	public DisplayedTagDTO saveCustomTag(DisplayedTagDTO tagDto) {
-		if(!tagDto.getTagType().toUpperCase().equals(TagType.NEW.toString())) {
-			return getTag(tagDto);
-		}
-
-		Tag savedTag = Tag.createCustomTag(tagDto.getTagName());
-		savedTag = tagRepository.save(savedTag);
-		
-		return DisplayedTagDTO.builder()
-				.tagId(savedTag.getId())
-				.tagName(savedTag.getName())
-				.tagType(savedTag.getType().toString())
-				.build();
+//	public DisplayedTagDTO saveCustomTag(DisplayedTagDTO tagDto) {
+//		if(!tagDto.getTagType().toUpperCase().equals(TagType.NEW.toString())) {
+//			return getExistTag(tagDto);
+//		}
+//
+//		Tag savedTag = Tag.createCustomTag(tagDto.getTagName());
+//		savedTag = tagRepository.save(savedTag);
+//		
+//		return DisplayedTagDTO.builder()
+//				.tagId(savedTag.getId())
+//				.tagName(savedTag.getName())
+//				.tagType(savedTag.getType().toString())
+//				.build();
+//	}
+	
+	/** 커스텀 태그 저장 */
+	public Tag createCustomTag(DisplayedTagDTO contentTagDto) {
+		Tag savedTag = Tag.createCustomTag(contentTagDto);
+		return tagRepository.save(savedTag);
 	}
 	
-	/** 태그 가져오기 */
-	public DisplayedTagDTO getTag(DisplayedTagDTO tagDto) {
-		if(tagDto.getTagId() == null) 
+	/** 이미 존재하는 태그 가져오기 */
+	public Tag getExistTag(DisplayedTagDTO contentTagDto) {
+		if(contentTagDto.getTagId() == null) 
 			throw new IllegalArgumentException();
 		
-		Tag tag = tagRepository.findById(tagDto.getTagId()).orElseThrow(EntityNotFoundException::new);
+		Tag existTag = tagRepository.findById(contentTagDto.getTagId()).orElseThrow(EntityNotFoundException::new);
 		
-		if(!tag.getName().equals(tagDto.getTagName())
-				|| !tag.getType().toString().equals(tagDto.getTagType().toUpperCase()))
+		if(!existTag.getName().equals(contentTagDto.getTagName())
+				|| !existTag.getType().toString().equals(contentTagDto.getTagType().toUpperCase()))
 			throw new IllegalArgumentException();
 		
-		return DisplayedTagDTO.builder()
-				.tagId(tag.getId())
-				.tagName(tag.getName())
-				.tagType(tag.getType().toString())
-				.build();
+		existTag.addTagToContent();
+		return existTag;
 	}
+
+	
 }

@@ -39,10 +39,14 @@ public class Tag {
 	@Column(nullable = false)
 	private int taggedCount;
 	
-	public static Tag createCustomTag(String tagName) {
+	public static Tag createCustomTag(DisplayedTagDTO tagDto) {
+		if(!tagDto.getTagType().toUpperCase().equals(TagType.NEW.toString())) {
+			throw new IllegalArgumentException();
+		}
+		
 		return Tag.builder()
 				.type(TagType.CUSTOM)
-				.name(tagName)
+				.name(tagDto.getTagName())
 				.taggedCount(1)
 				.build();
 	}
@@ -53,6 +57,16 @@ public class Tag {
 		this.type = type;
 		this.name = name;
 		this.taggedCount = taggedCount;
+	}
+	
+	/** 콘텐츠에 태그 추가 */
+	public void addTagToContent() {
+		this.taggedCount++;
+	}
+	
+	/** 콘텐츠에 태그 제거 */
+	public void delelteTagToContent() {
+		this.taggedCount--;
 	}
 	
 }

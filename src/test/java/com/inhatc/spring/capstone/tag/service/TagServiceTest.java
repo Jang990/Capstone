@@ -34,10 +34,10 @@ class TagServiceTest {
 	void queryTest() {
 		for (int i = 0; i < 30; i++) {
 			if(i%2 == 0) {
-				tagRepository.save(Tag.createCustomTag("테스트관련태그 " + i));
+				tagRepository.save(Tag.createCustomTag(DisplayedTagDTO.builder().tagName("테스트관련태그 " + i).tagType(TagType.NEW.toString()).build()));
 			}
 			else {
-				tagRepository.save(Tag.createCustomTag("테스트관련Tag1 " + i));
+				tagRepository.save(Tag.createCustomTag(DisplayedTagDTO.builder().tagName("테스트관련Tag1 " + i).tagType(TagType.NEW.toString()).build()));
 			}
 		}
 		
@@ -55,7 +55,7 @@ class TagServiceTest {
 		
 		List<DisplayedTagDTO> savedTagList = new ArrayList<>();
 		for (DisplayedTagDTO displayedTagDTO : newTagList) {
-			savedTagList.add(tagService.saveCustomTag(displayedTagDTO));
+			savedTagList.add(DisplayedTagDTO.of(tagService.createCustomTag(displayedTagDTO)));
 		}
 		
 		for (int i = 0; i < savedTagList.size(); i++) {
@@ -83,7 +83,14 @@ class TagServiceTest {
 		
 		List<DisplayedTagDTO> savedTagList = new ArrayList<>();
 		for (DisplayedTagDTO displayedTagDTO : newTagList) {
-			savedTagList.add(tagService.saveCustomTag(displayedTagDTO));
+			DisplayedTagDTO savedTag;
+			if(displayedTagDTO.getTagType().equals(TagType.NEW.toString())) {
+				savedTag = DisplayedTagDTO.of(tagService.createCustomTag(displayedTagDTO));
+			}
+			else {
+				savedTag = DisplayedTagDTO.of(tagService.getExistTag(displayedTagDTO)); 
+			}
+			savedTagList.add(savedTag);
 		}
 		
 		for (int i = 0; i < savedTagList.size(); i++) {
@@ -114,11 +121,11 @@ class TagServiceTest {
 		for (int i = 0; i < newTagList.size(); i++) {
 			DisplayedTagDTO displayedTagDTO = newTagList.get(i);
 			if(i%3 == 0)
-				tagService.saveCustomTag(displayedTagDTO);
+				tagService.createCustomTag(displayedTagDTO);
 			else if(i%3 == 1)
-				tagService.saveCustomTag(displayedTagDTO);
+				tagService.getExistTag(displayedTagDTO);
 			else
-				assertThrows(IllegalArgumentException.class, () -> {tagService.saveCustomTag(displayedTagDTO);});
+				assertThrows(IllegalArgumentException.class, () -> {tagService.createCustomTag(displayedTagDTO);});
 		}
 	}
 	
@@ -127,10 +134,10 @@ class TagServiceTest {
 	@Transactional
 	void getErrorTagTest() {
 		DisplayedTagDTO errorTag1 = createMismatchErrorTag("에러 태그");
-		IllegalArgumentException e1 = assertThrows(IllegalArgumentException.class, () -> {tagService.getTag(errorTag1);});
+		IllegalArgumentException e1 = assertThrows(IllegalArgumentException.class, () -> {tagService.getExistTag(errorTag1);});
 		
 		DisplayedTagDTO errorTag2 = createNotFoundErrorTag("에러 태그2");
-		EntityNotFoundException e2 = assertThrows(EntityNotFoundException.class, () -> {tagService.getTag(errorTag2);});
+		EntityNotFoundException e2 = assertThrows(EntityNotFoundException.class, () -> {tagService.getExistTag(errorTag2);});
 	}
 	
 	// save - 프론트엔드에서 새로 만들어진 태그
@@ -148,7 +155,7 @@ class TagServiceTest {
 			.tagType(TagType.NEW.toString())
 			.build();
 		
-		return tagService.saveCustomTag(displayedTagDTO);
+		return DisplayedTagDTO.of(tagService.createCustomTag(displayedTagDTO));
 	}
 	
 	// save - 에러 발생 태그(id가 없지만 New가 아님)
@@ -175,7 +182,7 @@ class TagServiceTest {
 				.tagType(TagType.NEW.toString())
 				.build();
 			
-		displayedTagDTO = tagService.saveCustomTag(displayedTagDTO);
+		displayedTagDTO = DisplayedTagDTO.of(tagService.createCustomTag(displayedTagDTO));
 		
 		return DisplayedTagDTO.builder()
 				.tagId(displayedTagDTO.getTagId())

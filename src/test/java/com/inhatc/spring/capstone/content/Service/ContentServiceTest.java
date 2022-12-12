@@ -99,7 +99,7 @@ class ContentServiceTest {
 				);
 		
 		
-		Tag savedTag = Tag.createCustomTag("테스트 이미 저장되어 있는 태그 2");
+		Tag savedTag = Tag.builder().name("테스트 이미 저장되어 있는 태그 2").type(TagType.CUSTOM).build();
 		tagRepository.save(savedTag);
 		tags.add(
 				DisplayedTagDTO.builder()

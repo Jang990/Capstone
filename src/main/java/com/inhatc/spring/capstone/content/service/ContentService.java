@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -21,9 +22,11 @@ import com.inhatc.spring.capstone.file.dto.DisplayedImageDTO;
 import com.inhatc.spring.capstone.file.repository.SavedFileRepository;
 import com.inhatc.spring.capstone.file.service.ContentImageService;
 import com.inhatc.spring.capstone.file.service.TemporaryImageService;
+import com.inhatc.spring.capstone.tag.constant.TagType;
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 import com.inhatc.spring.capstone.tag.entity.Tag;
 import com.inhatc.spring.capstone.tag.repository.TagRepository;
+import com.inhatc.spring.capstone.tag.service.ContentTagService;
 import com.inhatc.spring.capstone.tag.service.TagService;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.user.exception.UserErrorDescription;
@@ -46,6 +49,7 @@ public class ContentService {
 	private final ContentDocumentService contentDocumentService;
 	private final TemporaryImageService tempImageService;
 	private final TagService tagService;
+	private final ContentTagService contentTagService;
 	
 	/** 프로젝트 게시글 생성 */
 	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) throws IOException {
@@ -68,29 +72,14 @@ public class ContentService {
 		
 		List<DisplayedTagDTO> tags = contentDto.getTags();
 		if(tags != null && tags.size() > 0) {
-			Set<Tag> savedTags = getContentTags(tags);
+			// 컨텐츠와 관련된 태그들 저장하고 가져오기
+			Set<Tag> savedTags = contentTagService.saveContentTags(tags);
 			content.setSavedTags(savedTags);
 		}
 		
 		content = contentRepository.save(content);
 		
-		
 		return DisplayedContentDTO.createdContent(content);
-	}
-	
-	// 컨텐츠와 관련된 태그들 저장하고 가져오기
-	private Set<Tag> getContentTags(List<DisplayedTagDTO> tags) {
-		Set<Tag> savedTags = new LinkedHashSet<>();
-		for (DisplayedTagDTO displayedTagDTO : tags) {
-			savedTags.add(
-					tagRepository.findById(
-							// 관련 태그들을 저장하거나 가져와야함
-							tagService.saveCustomTag(displayedTagDTO).getTagId()
-						)
-						.orElseThrow(EntityNotFoundException::new)
-				);
-		}
-		return savedTags;
 	}
 	
 	private void saveTempContentImg(Content content, List<DisplayedImageDTO> tempImgDto) throws IOException {
