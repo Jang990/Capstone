@@ -37,14 +37,13 @@ public class Tag {
 	private String name;
 	
 	@Column(nullable = false)
-	@ColumnDefault(value = "1")
 	private int taggedCount;
 	
 	public static Tag createCustomTag(String tagName) {
 		return Tag.builder()
 				.type(TagType.CUSTOM)
 				.name(tagName)
-				.taggedCount(0)
+				.taggedCount(1)
 				.build();
 	}
 	
