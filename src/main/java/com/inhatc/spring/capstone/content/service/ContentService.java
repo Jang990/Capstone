@@ -43,12 +43,10 @@ public class ContentService {
 	
 	private final ContentRepository contentRepository;
 	private final UsersRepository userRepository;
-	private final TagRepository tagRepository;
 	
 	private final ContentImageService contentImageService;
 	private final ContentDocumentService contentDocumentService;
 	private final TemporaryImageService tempImageService;
-	private final TagService tagService;
 	private final ContentTagService contentTagService;
 	
 	/** 프로젝트 게시글 생성 */
@@ -122,6 +120,11 @@ public class ContentService {
 						() -> new ContentException(ContentErrorDescription.NOT_FOUND_CONTENT, modifiedContentDTO.getContentId())
 					);
 		
+		// 태그 변동
+		Set<Tag> savedTags = contentTagService.modifiedContentTags(sourceContent.getId(), modifiedContentDTO.getTags());
+		sourceContent.modifyContent(modifiedContentDTO,savedTags);
+		
+		
 		List<DisplayedImageDTO> sourceImgs = contentDocumentService.extractImageElement(sourceContent.getContent()); 
 		System.out.println("소스 속 이미지들===");
 		for (DisplayedImageDTO displayedImageDTO : sourceImgs) {
@@ -134,7 +137,6 @@ public class ContentService {
 			System.out.println(displayedImageDTO);
 		}
 		
-		sourceContent.modifyContent(modifiedContentDTO);
 		
 		// 이미지가 없는 콘텐츠임
 		if(modifiedImgs.size() == 0 && sourceImgs.size() == 0) {
@@ -207,7 +209,6 @@ public class ContentService {
 				contentImageService.updateContentImg(updateImg);
 			}
 		}
-		
 		
 		DisplayedContentDTO contentDetails = contentRepository.getContentDetails(sourceContent.getId());
 		

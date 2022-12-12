@@ -93,11 +93,12 @@ public class Content extends CreatedAndUpdated{
 				.build();
 	}
 	
-	public Content modifyContent(NewContentDTO contentDto) {
+	public Content modifyContent(NewContentDTO contentDto, Set<Tag> savedTags) {
 		this.title = contentDto.getTitle();
 		this.content = contentDto.getContent();
 		this.usedLanguage = contentDto.getUsedLanguage();
 		this.isRecruit = contentDto.isRecruit();
+		this.tags = savedTags;
 		
 		return this;
 	}

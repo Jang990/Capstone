@@ -28,8 +28,6 @@ public class ContentTagService {
 	
 //	private final ContentTagRepository contentTagRepository;
 	private final ContentRepository contentRepository;
-	private final TagRepository tagRepository;
-	
 	private final TagService tagService;
 	
 	/** 컨텐츠에 있는 태그 저장 */
@@ -71,6 +69,19 @@ public class ContentTagService {
 			}
 		}
 		return savedTags;
+	}
+	
+	/** 컨텐츠에 태그 삭제 */
+	
+	/** 컨텐츠를 수정할 때 태그 변동을 계산 */
+	public Set<Tag> modifiedContentTags(Long contentId, List<DisplayedTagDTO> modifiedTags) {
+		Content sourceContent = contentRepository.findById(contentId).orElseThrow(EntityNotFoundException::new);
+
+		// 기존에 있던 것 전부 -- 해줌
+		sourceContent.getTags().forEach(tag -> tag.delelteTagToContent());
+		
+		// save 다시해 줌 
+		return saveContentTags(modifiedTags);
 	}
 	
 }
