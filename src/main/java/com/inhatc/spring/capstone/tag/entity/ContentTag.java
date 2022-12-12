@@ -11,9 +11,20 @@ import javax.persistence.Table;
 
 import com.inhatc.spring.capstone.content.entity.Content;
 
-@Entity
-@Table(name = "language_tag")
-/** 컨텐츠에 어떤 태그들이 포함되어 있는지 확인하는 엔티티 */
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@ToString
+@Getter
+@NoArgsConstructor
+//@Entity
+//@Table(name = "language_tag")
+/** 
+ * 컨텐츠에 어떤 태그들이 포함되어 있는지 확인하는 엔티티 
+ * Content - Content에 포함된 태그들 - 태그
+ * 중간 테이블 역할
+ */
 public class ContentTag {
 	@Id
 	@Column(name = "language_tag_id")
@@ -27,4 +38,10 @@ public class ContentTag {
 	@ManyToOne
 	@JoinColumn(name = "tag_id")
 	Tag tag;
+
+	public ContentTag(Content project, Tag tag) {
+		this.project = project;
+		this.tag = tag;
+	}
+	
 }

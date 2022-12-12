@@ -32,7 +32,7 @@ public class NewContentDTO {
 
 	@Builder
 	public NewContentDTO(Long contentId, Long userId, String userEmail, String title, String content, 
-			String usedLanguage, boolean isRecruit, List<DisplayedImageDTO> images) {
+			String usedLanguage, boolean isRecruit, List<DisplayedImageDTO> images, List<DisplayedTagDTO> tags) {
 		this.contentId = contentId;
 		this.userId = userId;
 		this.userEmail = userEmail;
@@ -41,6 +41,7 @@ public class NewContentDTO {
 		this.usedLanguage = usedLanguage;
 		this.isRecruit = isRecruit;
 		this.images = images;
+		this.tags = tags;
 	}
 	
 }

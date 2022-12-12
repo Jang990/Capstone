@@ -1,7 +1,10 @@
 package com.inhatc.spring.capstone.content.entity;
 
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Convert;
 import javax.persistence.Entity;
@@ -9,6 +12,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
@@ -16,14 +21,18 @@ import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.service.ContentDocumentService;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.file.entity.SavedFile;
+import com.inhatc.spring.capstone.tag.entity.Tag;
+import com.inhatc.spring.capstone.user.entity.Role;
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
 import lombok.Builder;
 import lombok.Getter;
+import lombok.ToString;
 
 @Entity
 @Getter
+@ToString
 @Table(name = "content")
 /** 작성글 정보 테이블 엔티티 */
 public class Content extends CreatedAndUpdated{
@@ -64,6 +73,13 @@ public class Content extends CreatedAndUpdated{
 	// 딱히 필요가 없을 것 같다. 이미 이미지 정보는 content 필드 쪽에 있다
 //	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
 //	List<SavedFile> files = new ArrayList<>();
+	
+	@ManyToMany(cascade = CascadeType.ALL)
+	@JoinTable(name="Content_Tag", 
+		joinColumns = {@JoinColumn(name = "content_id")},
+		inverseJoinColumns = {@JoinColumn(name = "tag_id")}
+	)
+	private Set<Tag> tags = new LinkedHashSet<>();
 	
 	public static Content createContent(Users writer, NewContentDTO contentDto) {
 		return Content.builder()
@@ -110,6 +126,11 @@ public class Content extends CreatedAndUpdated{
 	public Content changeImageSrc(ContentDocumentService docService) {
 		this.content = docService.changeImageSorce(this.content, "content");
 		return this;
+	}
+
+	/** 저장된 태그 설정 */
+	public void setSavedTags(Set<Tag> savedTags) {
+		this.tags = savedTags;
 	}
 	
 }
