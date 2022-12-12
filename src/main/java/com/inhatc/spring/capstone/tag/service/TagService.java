@@ -50,7 +50,7 @@ public class TagService {
 		Tag tag = tagRepository.findById(tagDto.getTagId()).orElseThrow(EntityNotFoundException::new);
 		
 		if(!tag.getName().equals(tagDto.getTagName())
-				|| !tag.getType().toString().equals(tagDto.getTagName().toUpperCase()))
+				|| !tag.getType().toString().equals(tagDto.getTagType().toUpperCase()))
 			throw new IllegalArgumentException();
 		
 		return DisplayedTagDTO.builder()
