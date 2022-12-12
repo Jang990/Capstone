@@ -14,6 +14,7 @@ public class DisplayedTagDTO {
 	private String tagType; // 태그 타입  ex) Custom인지 Tech인지
 
 	@QueryProjection
+	@Builder
 	public DisplayedTagDTO(Long tagId, String tagName, String tagType) {
 		this.tagId = tagId;
 		this.tagName = tagName;
