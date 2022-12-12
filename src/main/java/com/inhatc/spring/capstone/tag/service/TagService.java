@@ -26,25 +26,37 @@ public class TagService {
 		return tagRepository.getSimilarTags(tag, pageable);
 	}
 	
+	/** 태그 저장 */
 	public DisplayedTagDTO saveCustomTag(DisplayedTagDTO tagDto) {
-		Tag savedTag;
 		if(!tagDto.getTagType().toUpperCase().equals(TagType.NEW.toString())) {
-			
-			if(tagDto.getTagId() == null) 
-				throw new IllegalArgumentException();
-			
-			savedTag = tagRepository.findById(tagDto.getTagId()).orElseThrow(EntityNotFoundException::new);
+			return getTag(tagDto);
 		}
-		else {
-			savedTag = Tag.createCustomTag(tagDto.getTagName());
-			savedTag = tagRepository.save(savedTag);
-		}
-		
+
+		Tag savedTag = Tag.createCustomTag(tagDto.getTagName());
+		savedTag = tagRepository.save(savedTag);
 		
 		return DisplayedTagDTO.builder()
 				.tagId(savedTag.getId())
 				.tagName(savedTag.getName())
 				.tagType(savedTag.getType().toString())
+				.build();
+	}
+	
+	/** 태그 가져오기 */
+	public DisplayedTagDTO getTag(DisplayedTagDTO tagDto) {
+		if(tagDto.getTagId() == null) 
+			throw new IllegalArgumentException();
+		
+		Tag tag = tagRepository.findById(tagDto.getTagId()).orElseThrow(EntityNotFoundException::new);
+		
+		if(!tag.getName().equals(tagDto.getTagName())
+				|| !tag.getType().toString().equals(tagDto.getTagName().toUpperCase()))
+			throw new IllegalArgumentException();
+		
+		return DisplayedTagDTO.builder()
+				.tagId(tag.getId())
+				.tagName(tag.getName())
+				.tagType(tag.getType().toString())
 				.build();
 	}
 }
