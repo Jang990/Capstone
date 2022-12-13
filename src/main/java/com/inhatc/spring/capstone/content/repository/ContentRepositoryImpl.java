@@ -52,7 +52,7 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 												// 일단 값은 안채워 넣음
 												Projections.fields(DisplayedFileDTO.class)
 										),
-										content1.voteCount,
+										content1.heartCount,
 										list(
 //												Projections.fields(DisplayedTagDTO.class)
 												new QDisplayedTagDTO(tag.id, tag.name, tag.type.stringValue())

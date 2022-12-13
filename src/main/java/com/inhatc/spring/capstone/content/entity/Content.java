@@ -70,7 +70,7 @@ public class Content extends CreatedAndUpdated{
 	
 	private String usedLanguage; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것
 	private int viewCount; // 조회수 - 쿠키로 조회수 중복을 제거할 것이다.
-	private int voteCount; // 찬반 카운트
+	private int heartCount; // 하트 카운트
 	
 	@Convert(converter = BooleanToYNConverter.class)
 	@Column(length = 1)
@@ -91,7 +91,7 @@ public class Content extends CreatedAndUpdated{
 				.content(contentDto.getContent())
 				.usedLanguage(contentDto.getUsedLanguage())
 				.viewCount(0)
-				.voteCount(0)
+				.heartCount(0)
 				.isRecruit(contentDto.isRecruit())
 				// DTO에서 엔티티 제거 후 MultipartFile 형식으로 바꾸고 여기서 SavedFile 엔티티 생성 예정
 //				.files(null) // 일단 null 넣어두고 추후 file 관련 추가하면서 DisplayedFiles에 of 추가 
@@ -110,14 +110,14 @@ public class Content extends CreatedAndUpdated{
 	
 	
 	@Builder
-	public Content(Users writer, String title, String content, String usedLanguage, int viewCount, int voteCount,
+	public Content(Users writer, String title, String content, String usedLanguage, int viewCount, int heartCount,
 			boolean isRecruit, List<SavedFile> files) {
 		this.writer = writer;
 		this.title = title;
 		this.content = content;
 		this.usedLanguage = usedLanguage;
 		this.viewCount = viewCount;
-		this.voteCount = voteCount;
+		this.heartCount = heartCount;
 		this.isRecruit = isRecruit;
 //		this.files = files;
 	}

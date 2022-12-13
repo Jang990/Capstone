@@ -32,7 +32,7 @@ public class DisplayedContentDTO {
 	List<DisplayedFileDTO> files = new ArrayList<>();
 	List<DisplayedTagDTO> tags = new ArrayList<>();
 	
-	private int voteCount; // 찬반 카운트
+	private int heartCount; // 하트 카운트
 	
 	public static DisplayedContentDTO createdContent(Content content) {
 		return DisplayedContentDTO.builder()
@@ -55,7 +55,7 @@ public class DisplayedContentDTO {
 	public DisplayedContentDTO(Long contentId, DisplayedUserDTO writer, String title, 
 			String content, LocalDateTime accessDate, String usedLanguage, 
 			boolean isRecruit, int viewCount, List<DisplayedCommentDTO> comments, 
-			List<DisplayedFileDTO> files, int voteCount, List<DisplayedTagDTO> tags) {
+			List<DisplayedFileDTO> files, int heartCount, List<DisplayedTagDTO> tags) {
 		this.contentId = contentId;
 		this.writer = writer;
 		this.title = title;
@@ -66,7 +66,7 @@ public class DisplayedContentDTO {
 		this.viewCount = viewCount;
 		this.comments = comments;
 		this.files = files;
-		this.voteCount = voteCount;
+		this.heartCount = heartCount;
 		this.tags = tags;
 	}
 	
