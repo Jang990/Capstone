@@ -3,6 +3,7 @@ package com.inhatc.spring.capstone.content.Service;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.io.IOException;
+import java.util.NoSuchElementException;
 
 import javax.persistence.EntityNotFoundException;
 
@@ -56,7 +57,7 @@ class ContentHeartServiceTest {
 	@Test
 	@Transactional
 	@DisplayName("좋아요 누르기 테스트")
-	public void likeContent() {
+	public void likeContentTest() {
 		Users createdUser = createUser();
 		NewContentDTO craetedContent = createProjectContentDTO(createdUser, "테스트 게시글");
 		Content content = Content.createContent(createdUser, craetedContent);
@@ -67,12 +68,24 @@ class ContentHeartServiceTest {
 		ContentHeart heart = heartRepository.findByContent_IdAndLikedUser_Email(content.getId(), createdUser.getEmail()).get();
 		assertEquals(heart.getLikedUser(), createdUser);
 		assertEquals(heart.getContent(), content);
+		assertEquals(content.getHeartCount(), 1);
 	}
 
 	@Test
 	@Transactional
 	@DisplayName("좋아요 취소 테스트")
-	public void dislikeContent() {
-
+	public void dislikeContentTest() {
+		Users createdUser = createUser();
+		NewContentDTO craetedContent = createProjectContentDTO(createdUser, "테스트 게시글");
+		Content content = Content.createContent(createdUser, craetedContent);
+		content = contentRepository.save(content);
+		heartService.likeContent(content.getId(), createdUser.getEmail());
+		
+		heartService.dislikeContent(content.getId(), createdUser.getEmail());
+		
+		Long contentId = content.getId();
+		String email = createdUser.getEmail();
+		assertThrows(NoSuchElementException.class , () -> {heartRepository.findByContent_IdAndLikedUser_Email(contentId, email).get();});
+		assertEquals(content.getHeartCount(), 0);
 	}
 }
