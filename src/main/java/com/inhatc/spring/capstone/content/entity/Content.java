@@ -127,6 +127,15 @@ public class Content extends CreatedAndUpdated{
 		this.viewCount++;
 	}
 	
+	/** 하트 증가 */
+	public void increaseHeart() {
+		this.heartCount++;
+	}
+	/** 하트 감소 */
+	public void decreaseHeart() {
+		this.heartCount--;
+	}
+	
 	public Content changeImageSrc(ContentDocumentService docService) {
 		this.content = docService.changeImageSorce(this.content, "content");
 		return this;

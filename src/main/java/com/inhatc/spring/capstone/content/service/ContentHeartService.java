@@ -31,12 +31,15 @@ public class ContentHeartService {
 		
 		ContentHeart contentHeart = new ContentHeart(content, user);
 		heartRepository.save(contentHeart);
+		content.increaseHeart();
 	}
 	
 	/** 좋아요 취소함 */
 	public void dislikeContent(Long contentId, String email) {
 		ContentHeart contentHeart = heartRepository.findByContent_IdAndLikedUser_Email(contentId, email)
 				.orElseThrow(EntityNotFoundException::new);
+		
+		contentHeart.getContent().decreaseHeart();
 		heartRepository.delete(contentHeart);
 	}
 }
