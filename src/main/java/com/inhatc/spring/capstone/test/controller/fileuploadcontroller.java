@@ -17,13 +17,17 @@ import java.util.UUID;
 @Controller
 public class fileuploadcontroller {
 
+	
     @PostMapping(value="/uploadSummernoteImageFile", produces = "application/json")
     @ResponseBody
     public JsonObject uploadSummernoteImageFile(@RequestParam("file") MultipartFile multipartFile) {
 
+    	System.out.println("-----------------------------------------------------------------------");
+		System.out.println(multipartFile.getOriginalFilename());
+		
         JsonObject jsonObject = new JsonObject();
 
-        String fileRoot = "C:\\summernote_image\\";	//저장될 파일 경로
+        String fileRoot = "";	//저장될 파일 경로
         String originalFileName = multipartFile.getOriginalFilename();	//오리지날 파일명
         String extension = originalFileName.substring(originalFileName.lastIndexOf("."));	//파일 확장자
 
@@ -38,7 +42,8 @@ public class fileuploadcontroller {
             jsonObject.addProperty("url", "/summernoteImage/"+savedFileName);
             jsonObject.addProperty("responseCode", "success");
 
-        } catch (IOException e) {
+        } 
+        catch (IOException e) {
             FileUtils.deleteQuietly(targetFile);	// 실패시 저장된 파일 삭제
             jsonObject.addProperty("responseCode", "error");
             e.printStackTrace();
