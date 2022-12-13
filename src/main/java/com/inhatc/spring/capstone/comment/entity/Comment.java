@@ -13,8 +13,14 @@ import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.user.entity.Users;
 
+import groovy.transform.builder.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "comment")
+@Getter
+@NoArgsConstructor
 /** 댓글 테이블 엔티티 */
 public class Comment extends CreatedAndUpdated {
 	/*
@@ -39,4 +45,14 @@ public class Comment extends CreatedAndUpdated {
 	private Content content; // 댓글이 달린 컨텐츠
 	
 	private String comments; // 댓글 내용
+	
+	public Comment(Users writer, Content content, String comments) {
+		this.writer = writer;
+		this.content = content;
+		this.comments = comments;
+	}
+	
+	public void modifyComment(String commentBody) {
+		this.comments = commentBody;
+	}
 }
