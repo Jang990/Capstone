@@ -80,8 +80,7 @@ public class Content extends CreatedAndUpdated{
 //	@OneToMany(mappedBy = "id", fetch = FetchType.LAZY)
 //	List<SavedFile> files = new ArrayList<>();
 	
-	@OneToMany(cascade = CascadeType.ALL)
-	@JoinColumn(name = "content_id")
+	@OneToMany(mappedBy = "content", cascade = CascadeType.ALL)
 	private Set<ContentTag> tags = new LinkedHashSet<>();
 	
 	public static Content createContent(Users writer, NewContentDTO contentDto) {
