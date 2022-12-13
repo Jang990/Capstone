@@ -11,12 +11,23 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.persistence.UniqueConstraint;
 
 import com.inhatc.spring.capstone.user.entity.Users;
 import com.inhatc.spring.capstone.util.BooleanToYNConverter;
 
+import groovy.transform.builder.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
+@Getter
+@NoArgsConstructor
 @Entity
-@Table(name = "content_heart")
+@Table(name = "content_heart", uniqueConstraints = {
+		@UniqueConstraint(
+		columnNames = {"content_id", "user_id"}
+)
+})
 /** 추천 투표 이력 테이블 엔티티 */
 public class ContentHeart {
 	/*
@@ -31,9 +42,17 @@ public class ContentHeart {
 	
 	@ManyToOne
 	@JoinColumn(name = "content_id")
-	private Content project;
+	private Content content;
 	
 	@ManyToOne(fetch =FetchType.LAZY)
 	@JoinColumn(name = "user_id")
 	private Users likedUser;
+	
+	@Builder
+	public ContentHeart(Content content, Users likedUser) {
+		this.content = content;
+		this.likedUser = likedUser;
+	}
+	
+	
 }
