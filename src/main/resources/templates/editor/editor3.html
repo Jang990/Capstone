@@ -37,23 +37,52 @@ $(document).ready(function() {
             ['view', ['fullscreen', 'help']]
           ],
         fontNames: ['Arial', 'Arial Black', 'Comic Sans MS', 'Courier New','맑은 고딕','궁서','굴림체','굴림','돋움체','바탕체'],
-        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72']
+        fontSizes: ['8','9','10','11','12','14','16','18','20','22','24','28','30','36','50','72'],
+        callbacks : { 
+        	onImageUpload : function(files, editor, welEditable) {
+        // 파일 업로드(다중업로드를 위해 반복문 사용)
+        for (var i = files.length - 1; i >= 0; i--) {
+        uploadSummernoteImageFile(files[i],
+        this);
+        }
+        	}
+        }
 	
         });
 });
+function uploadSummernoteImageFile(file, el) {
+	data = new FormData();
+	data.append("file", file);
+	$.ajax({
+		data : data,
+		type : "POST",
+		url : "uploadSummernoteImageFile",
+		contentType : false,
+		enctype : 'multipart/form-data',
+		processData : false,
+		success : function(data) {
+			$(el).summernote('editor.insertImage', data.url);
+		}
+	});
+}
+
 </script>
 </head>
+
+
 <body layout:fragment="content">
 
 <div style="width: 60%; margin: auto;">
-	<form method="post" action="/test/editor4">
-	<div class="control">
+	
+	<form method="post" action="/editor/editor4">
+  
   <div class="select">
     <select id="selectbox" name="selectbox" >
-      <option>백엔드</option>
-      <option>프론트엔드</option>
+      <option  value="back">백엔드</option>
+      <option  value="front">프론트엔드</option>
     </select>
   </div>
+  
    <div class="select">
     <select id="selectbox" name="Language" >
       <option value="python">파이썬</option>
@@ -62,38 +91,29 @@ $(document).ready(function() {
       <option value="mysql">mysql</option>
       <option value="DBeaver">DBeaver</option>
        </select>
-     </div>  
-     <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">
-     <input class="button" type="submit" value="정보 등록">
-    </div>
-    
+     </div>
+     
+     <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">   
     <p>
-    </form> 
-    
-    
- </div>
- <form method="post" action="/test/editor4">
- <div style="width: 60%; margin: auto;">
  	 <input class="input" type="text"  style="width: 80%;"placeholder="깃허브url">
 	 <input class="button" type="submit" value="깃허브 연결하기"><p>
    <br><br> 
-   </div>
-   </form> 
-   
-   
-   
-   
-   
-   <form method="post" action="/test/editor4">
-   <div style="width: 60%; margin: auto;">
-    <p>
+   <p>
   <input class="input is-medium" name="title" type="text"  style="width: 100%;" placeholder="프로젝트 제목" maxlength="50"></p>
    
 		<textarea id="summernote" name="content" maxlength="2048"></textarea>
-		<input class="button" type="submit" value="글쓰기">
-		</div>
 		
-</form>
+		
+		<input class="button" type="submit" value="글쓰기">
+      </form> 
+     </div>
+ 
+
+   
+   
+   
+
+
 
 
 

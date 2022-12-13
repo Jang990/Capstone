@@ -29,8 +29,6 @@ public class QContent extends EntityPathBase<Content> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> date_created = _super.date_created;
 
-    public final ListPath<com.inhatc.spring.capstone.entity.file.SavedFile, com.inhatc.spring.capstone.entity.file.QSavedFile> files = this.<com.inhatc.spring.capstone.entity.file.SavedFile, com.inhatc.spring.capstone.entity.file.QSavedFile>createList("files", com.inhatc.spring.capstone.entity.file.SavedFile.class, com.inhatc.spring.capstone.entity.file.QSavedFile.class, PathInits.DIRECT2);
-
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final BooleanPath isRecruit = createBoolean("isRecruit");

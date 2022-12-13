@@ -13,10 +13,14 @@ import lombok.Data;
 public class board {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
+	private int people;//백엔드 프론트엔드 언어별 (인원수)
 	
-	private String tilte;
+	private String title;//프로젝트 제목
 	
-	private String content;
+	private String content;//텍스트에디터 값
+	
+	private String Language;//언어
+	
+	private String Selectbox;//백엔드 프론트엔드
 
 }

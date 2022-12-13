@@ -28,8 +28,6 @@ public class QRecruitedMember extends EntityPathBase<RecruitedMember> {
 
     public final NumberPath<Integer> rec_count = createNumber("rec_count", Integer.class);
 
-    public final ListPath<com.inhatc.spring.capstone.entity.Tag.PositionTag, com.inhatc.spring.capstone.entity.Tag.QPositionTag> tags = this.<com.inhatc.spring.capstone.entity.Tag.PositionTag, com.inhatc.spring.capstone.entity.Tag.QPositionTag>createList("tags", com.inhatc.spring.capstone.entity.Tag.PositionTag.class, com.inhatc.spring.capstone.entity.Tag.QPositionTag.class, PathInits.DIRECT2);
-
     public QRecruitedMember(String variable) {
         this(RecruitedMember.class, forVariable(variable), INITS);
     }
