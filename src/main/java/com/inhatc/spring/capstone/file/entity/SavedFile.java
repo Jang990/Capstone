@@ -37,7 +37,7 @@ public class SavedFile {
 	private FileType type; // JPG, PNG, GIF 등등 타입
 	
 	@ManyToOne
-	@JoinColumn(name = "content")
+	@JoinColumn(name = "content_id")
 	private Content projectContent;
 	
 	public SavedFile updateFile(String originalName, String savedName, String url, int width, int height) {

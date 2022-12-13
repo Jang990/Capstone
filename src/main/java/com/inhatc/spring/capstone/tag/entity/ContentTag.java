@@ -38,6 +38,7 @@ public class ContentTag {
 	private Long id;
 	
 	@ManyToOne
+	@JoinColumn(name = "content_id")
 	Content content;
 	
 	@ManyToOne

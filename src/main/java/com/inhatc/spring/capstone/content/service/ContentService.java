@@ -9,11 +9,14 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
+import com.inhatc.spring.capstone.content.dto.DisplayedSummaryContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.exception.ContentErrorDescription;
 import com.inhatc.spring.capstone.content.exception.ContentException;
@@ -226,6 +229,9 @@ public class ContentService {
 		return null;
 	}
 	
-	
+	/** 페이징해서 화면에 필요한 데이터를 보내줌 */
+	public Page<DisplayedSummaryContentDTO> getSummaryContents(Pageable pageable) {
+		return contentRepository.getSummaryContentPage(pageable);
+	}
 	
 }
