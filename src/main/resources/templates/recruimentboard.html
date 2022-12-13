@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+
+<th:block layout:fragment="css">
+	<!--  content에 스타일 주기 -->
+	<style>
+main {
+	background: #ffffff;
+	min-height: 650px;
+}
+
+.box1 {
+	width: 385px;
+	height: 240px;
+	margin-right: 8px;
+	margin-left: 8px;
+	margin-bottom: 20px;
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+		rgba(10, 10, 10, 0.02);
+	color: #4a4a4a;
+	display: block;
+	padding: 1.25rem;
+}
+
+img.boardimg {
+	width: 120px;
+	height: 80px;
+}
+
+img.lan {
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+}
+
+td, th {
+	border: 1px solid #dddddd;
+	text-align: left;
+	padding: -1px;
+}
+
+</style>
+</th:block>
+
+<head>
+<title>구인 공고</title>
+
+</head>
+<main layout:fragment="content">
+	
+	<div class="column is-half is-offset-one-quarter" style="margin-bottom: -12px;">
+		<div class="columns is-mobile is-centered mt-6 mb-6">
+			<img src="./img/recruiment.png" width="360" height="160">
+		</div>
+	</div>
+
+	<form class="columns is-mobile" action="/get-test">
+		<div class="column is-10 is-offset-1">
+			<div class="notification is-white">
+				<input class="input is-normal" type="search" name="searchtxt"
+					placeholder="Search">
+
+			</div>
+		</div>
+	</form>
+<div class="columns is-mobile" style="margin-top: 15px; margin-bottom: 10px;">
+<div class="column is-11 is-offset-1">
+	<div class="buttons has-addons">
+  <button class="button is-success is-selected">최신순</button>
+  <button class="button" onclick="location.href=''">좋아요순</button>
+  </div>
+</div>
+</div>
+
+	<table>
+		<tr>
+			<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
+			<td th:each="recruiment : ${recruiment_}">
+				<div style="background-color: blue;">
+					<div style="height:70%;">
+						<table th:each="member : ${recruiment_member}" >
+							<tr>
+								<td><span style="font-size: 10px;" th:text="${member.ends}"></span></td>
+								<td><span style="font-size: 10px;" th:text="${member.usedLanguage}"></span></td>
+								<td><span style="font-size: 10px;" th:text="${member.count}"></span></td>
+							</tr>
+						</table>
+					</div>
+					<div>
+						<strong><span th:text="${recruiment.title}"></span></strong>
+						<div style="margin-top: 7px; vertical-align: bottom;">
+							<span style="font-size: 5px;" th:text="${recruiment.email}"></span>
+								<span style="font-size: 5px;" th:text="${recruiment.writer}"></span>
+						</div>
+					</div>
+					<div style="vertical-align: bottom;">
+						<p style="text-align: right; font-size: 10px;">
+							<span th:text="${recruiment.viewCount}"></span>
+						</p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</main>
+
+
+</html>

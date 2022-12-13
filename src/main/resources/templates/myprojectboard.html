@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+
+<th:block layout:fragment="css">
+	<!--  content에 스타일 주기 -->
+	<style>
+main {
+	background: #ffffff;
+	min-height: 650px;
+}
+
+.box1 {
+	width: 385px;
+	height: 240px;
+	margin-right: 8px;
+	margin-left: 8px;
+	margin-bottom: 20px;
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+		rgba(10, 10, 10, 0.02);
+	color: #4a4a4a;
+	display: block;
+	padding: 1.25rem;
+}
+
+img.boardimg {
+	width: 120px;
+	height: 80px;
+}
+
+img.lan {
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+}
+</style>
+</th:block>
+
+<head>
+<title>마이페이지:프로젝트</title>
+
+</head>
+<main layout:fragment="content">
+<div class="column is-half is-offset-one-quarter" style="margin-bottom: -12px;">
+		<div class="columns is-mobile is-centered mt-6 mb-6">
+			<img src="./img/mypage.png" width="360" height="160">
+		</div>
+	</div>
+
+<div class="columns is-mobile" style="margin-top: 15px; margin-bottom: 10px;">
+<div class="column is-11 is-offset-1">
+	<div class="buttons has-addons">
+  <button class="button is-success is-selected">프로젝트</button>
+  <button class="button" onclick="location.href='/myrecruimentboard'">구인공고</button>
+  </div>
+</div>
+</div>
+<div>
+	<table>
+		<tr>
+			<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
+			<td th:each="project : ${myproject_}">
+				<div class="box1">
+					<img class="boardimg "
+						src="https://bulma.io/images/placeholders/128x128.png"> <img
+						class="lan" align="right"
+						src="devicon/icons/java/java-original-wordmark.svg">
+					<div>
+						<strong><span th:text="${project.title}"></span></strong>
+						<div style="margin-top: 7px;">
+							<span style="font-size: 5px;" th:text="${project.email}"></span>
+							<span style="font-size: 5px;" th:text="${project.writer}"></span>
+						</div>
+					</div>
+					<div style="vertical-align: bottom;">
+						<p
+							style="vertical-align: right; margin-bottom: -1px; font-size: 10px; text-align: right;">
+							<span th:text="${project.accessDate}"></span>
+						</p>
+						<p
+							style="vertical-align: right; font-size: 10px; text-align: right;">
+							좋아요 <span th:text="${project.viewCount}"></span>개
+						</p>
+					</div>
+				</div>
+			</td>
+		</tr>
+	</table>
+</main>
+</div>
+
+</html>

@@ -15,10 +15,14 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
+import com.inhatc.spring.capstone.content.dto.DisplayedSummaryContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.content.repository.ContentRepository;
 import com.inhatc.spring.capstone.content.service.ContentService;
@@ -246,5 +250,19 @@ class ContentServiceTest {
 		// 추가된 태그는 taggedCount가 1이 된다.
 		assertEquals(modifiedContent.getTags().stream().findFirst().get().getTag().getTaggedCount(), 1);
 	}
+	
+	@Test
+	@Transactional
+	@DisplayName("querydsl테스트")
+	void aaa() throws IOException {
+		createMultiProjectContent();
+		
+		Pageable pageable = PageRequest.of(0, 6);
+		Page<DisplayedSummaryContentDTO> page = contentRepository.getSummaryContentPage(pageable);
+		System.out.println("로그찍어보기===========");
+		page.getContent().forEach(System.out::println);
+	}
+	
+	
 	
 }
