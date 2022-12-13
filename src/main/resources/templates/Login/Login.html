@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+	
+ <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+    <script type="text/javascript">
+          $.ajaxSetup({
+            beforeSend : function(xhr, settings) {
+              if (settings.type == 'POST' || settings.type == 'PUT'
+                  || settings.type == 'DELETE') {
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                    .test(settings.url))) {
+                  // Only send the token to relative URLs i.e. locally.
+                  xhr.setRequestHeader("X-XSRF-TOKEN", Cookies
+                      .get('XSRF-TOKEN'));
+                }
+              }
+            }
+          });
+          $.get("/api/user", function(data) {
+              $("#user").html(data.name);
+              $(".unauthenticated").hide();
+              $(".authenticated").show();
+          });
+          var logout = function() {
+            $.post("/logout", function() {
+              $("#user").html('');
+              $(".unauthenticated").show();
+              $(".authenticated").hide();
+            })
+            return true;
+          }
+        </script>
+        
+<main layout:fragment="content">
+
+
+
+	<div class="column is-half is-offset-one-quarter">
+		<div class="columns is-mobile is-centered mt-6 mb-6">
+			<img src="./img/rogo.png" width="360" height="240">
+		</div>
+
+		<div class="column is-4 is-offset-4" style="margin-top: 55px;">
+				<p style="margin-bottom: 15px;"><button style="width: 100%;"class="button" onclick="location.href='/oauth2/authorization/google'">
+					<span class="icon" style="vertical-align: middle;"> <img src="./img/google.ico">
+					</span> <span style="font-size: 15px;">Google 로그인</span>
+				</button></p>
+				
+				<p style="margin-bottom: 15px;"><button style="width: 100%;"class="button is-success">
+					<span class="icon" style="vertical-align: middle;"> <img src="./img/naver.ico">
+					</span> <span style="font-size: 15px;">네이버 로그인</span>
+				</button></p>
+				
+				<p style="margin-bottom: 15px;"><button style="width: 100%;"class="button is-danger">
+					<span class="icon" style="vertical-align: middle;"> <img src="./img/google.ico">
+					</span> <span style="font-size: 15px;">Google 로그인</span>
+				</button></p>
+		</div>
+	</div>
+
+</main>
+
+</html>

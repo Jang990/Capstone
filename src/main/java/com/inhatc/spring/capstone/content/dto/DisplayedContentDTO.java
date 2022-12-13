@@ -28,6 +28,7 @@ public class DisplayedContentDTO {
 	private boolean isRecruit;
 	private int viewCount; // 조회 수
 	
+	
 	List<DisplayedCommentDTO> comments;
 	List<DisplayedFileDTO> files = new ArrayList<>();
 	List<DisplayedTagDTO> tags = new ArrayList<>();
