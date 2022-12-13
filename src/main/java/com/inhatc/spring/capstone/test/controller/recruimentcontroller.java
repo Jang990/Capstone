@@ -52,7 +52,7 @@ public class recruimentcontroller {
 		}
 	}
 	
-	@GetMapping("/test/recruimentboard")
+	@GetMapping("/recruimentboard")
 	public String recruimentboard(Model model) {
 		
 
