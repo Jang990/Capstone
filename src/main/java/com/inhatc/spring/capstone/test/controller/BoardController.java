@@ -2,6 +2,7 @@ package com.inhatc.spring.capstone.test.controller;
 
 
 import java.io.IOException;
+
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ import groovy.util.logging.Log4j2;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import com.inhatc.spring.capstone.content.service.ContentService;
 
 @Controller
 
@@ -39,6 +41,8 @@ public class BoardController {
 		
 		return "editor/editor3";
 	}
+    
+    
 	@PostMapping("/editor/editor4")
 	public String boardWritePro(board board){
 		
