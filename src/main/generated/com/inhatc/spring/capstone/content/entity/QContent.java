@@ -29,6 +29,8 @@ public class QContent extends EntityPathBase<Content> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> date_created = _super.date_created;
 
+    public final NumberPath<Integer> heartCount = createNumber("heartCount", Integer.class);
+
     public final NumberPath<Long> id = createNumber("id", Long.class);
 
     public final BooleanPath isRecruit = createBoolean("isRecruit");
@@ -36,13 +38,13 @@ public class QContent extends EntityPathBase<Content> {
     //inherited
     public final DateTimePath<java.time.LocalDateTime> last_updated = _super.last_updated;
 
+    public final SetPath<com.inhatc.spring.capstone.tag.entity.ContentTag, com.inhatc.spring.capstone.tag.entity.QContentTag> tags = this.<com.inhatc.spring.capstone.tag.entity.ContentTag, com.inhatc.spring.capstone.tag.entity.QContentTag>createSet("tags", com.inhatc.spring.capstone.tag.entity.ContentTag.class, com.inhatc.spring.capstone.tag.entity.QContentTag.class, PathInits.DIRECT2);
+
     public final StringPath title = createString("title");
 
     public final StringPath usedLanguage = createString("usedLanguage");
 
     public final NumberPath<Integer> viewCount = createNumber("viewCount", Integer.class);
-
-    public final NumberPath<Integer> voteCount = createNumber("voteCount", Integer.class);
 
     public final com.inhatc.spring.capstone.user.entity.QUsers writer;
 
