@@ -35,6 +35,7 @@ class CommentServiceTest {
 		Users createUser = createUser();
 		NewContentDTO contentDTO = createContentDTO(createUser, "테스트");
 		DisplayedContentDTO projectContent = contentService.createProjectContent(contentDTO);
+		
 	}
 
 	@Test
