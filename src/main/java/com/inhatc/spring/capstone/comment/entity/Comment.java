@@ -1,6 +1,6 @@
-package com.inhatc.spring.capstone.content.entity;
+package com.inhatc.spring.capstone.comment.entity;
 
-import javax.persistence.Column;
+import javax.persistence.Column; 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,6 +9,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.entity.base.CreatedAndUpdated;
 import com.inhatc.spring.capstone.user.entity.Users;
 
@@ -27,15 +28,15 @@ public class Comment extends CreatedAndUpdated {
 	@Id
 	@Column(name = "comment_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
+	private Long id; // 댓글 ID
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id")
-	private Users writer;
+	private Users writer; // 작성자 
 	
 	@ManyToOne
 	@JoinColumn(name = "content_id")
-	private Content project;
+	private Content content; // 댓글이 달린 컨텐츠
 	
-	private String comments;
+	private String comments; // 댓글 내용
 }
