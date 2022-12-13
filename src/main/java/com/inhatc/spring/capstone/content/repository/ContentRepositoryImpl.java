@@ -7,6 +7,7 @@ import static com.inhatc.spring.capstone.tag.entity.QTag.tag;
 import static com.inhatc.spring.capstone.user.entity.QUsers.users;
 import static com.querydsl.core.group.GroupBy.list;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.data.domain.Page;
@@ -97,6 +98,11 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 									)
 						)
 				);
+		
+		for (DisplayedSummaryContentDTO summaryContent : summaryContentList) {
+			if(summaryContent.getTags().get(0).getTagId() == null)
+				summaryContent.setTags(new ArrayList<>());
+		}
 		
 		
 		long total = query.select(content1.count()).from(content1).fetchOne();
