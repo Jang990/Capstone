@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+
+<th:block layout:fragment="css">
+	<!--  content에 스타일 주기 -->
+	<style>
+main {
+	background: #ffffff;
+	min-height: 650px;
+}
+
+.box1 {
+	width: 385px;
+	height: 240px;
+	margin-right: 8px;
+	margin-left: 8px;
+	margin-bottom: 20px;
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+		rgba(10, 10, 10, 0.02);
+	color: #4a4a4a;
+	display: block;
+	padding: 1.25rem;
+}
+
+img.boardimg {
+	width: 120px;
+	height: 80px;
+}
+
+img.lan {
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+}
+</style>
+</th:block>
+
+<head>
+
+<meta charset="EUC-KR">
+<title>게시글 상세 페이지</title>
+</head>
+
+<body layout:fragment="content">
+<div style="width: 60%; margin: auto;">
+<h1 th:text="${board.title}">제목입니다.</h1>
+
+<p th:text="${board.content}">내용이 들어갈 부분입니다.</p>
+
+
+
+  
+  <div class="select">
+    <select id="selectbox" name="selectbox" >
+      <option  value="back">백엔드</option>
+      <option  value="front">프론트엔드</option>
+    </select>
+  </div>
+  
+   <div class="select">
+    <select id="selectbox" name="usedLanguage" >
+      <option value="python">파이썬</option>
+      <option value="java">자바</option>
+      <option value="C">c언어</option>
+      <option value="mysql">mysql</option>
+      <option value="DBeaver">DBeaver</option>
+       </select>
+     </div>
+     
+     <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="필요인원">   
+    <p>
+ 	 <input class="input" type="text"  style="width: 80%;"placeholder="깃허브url">
+	 <input class="button" type="submit" value="깃허브 연결하기"><p>
+   <br><br> 
+   <p>
+  <input class="input is-medium" name="title" type="text"  style="width: 100%;" placeholder="프로젝트 제목" maxlength="50"></p>
+   
+		<textarea id="summernote" name="content" maxlength="2048"></textarea>
+		
+		
+		<input class="button" type="submit" value="글쓰기">
+      </form> 
+     </div>
+</body>
+</html>

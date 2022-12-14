@@ -28,6 +28,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import com.inhatc.spring.capstone.content.service.ContentService;
+import com.inhatc.spring.capstone.content.entity.Content;
 
 @Controller
 
@@ -41,23 +42,28 @@ public class BoardController {
 		
 		return "editor/editor3";
 	}
+    @GetMapping("/boardview")
+    public String boardView() {
+    	return "boardview";
+    }
     
     
 	@PostMapping("/editor/editor4")
-	public String boardWritePro(board board){
+	public String boardWritePro(Content content){
 		
 		//boardservice.write(board);
 		System.out.println("-----------------------------------------------------------------------");
 		//System.out.println(formtest.getPeople());
-		System.out.println("백엔드,프론트엔드:"+board.getSelectbox());
-		System.out.println("언어:"+board.getLanguage());
-		System.out.println("백엔드 프론트엔드(언어별 인원수):"+board.getPeople());
-		System.out.println("프로젝트 제목:"+board.getTitle());
-        System.out.println("텍스트에디터 값:"+board.getContent());
+		System.out.println("백엔드,프론트엔드:"+content.getSelectbox());
+		System.out.println("언어:"+content.getUsedLanguage());
+		System.out.println("백엔드 프론트엔드(언어별 인원수):"+content.getPeople());
+		System.out.println("프로젝트 제목:"+content.getTitle());
+        System.out.println("텍스트에디터 값:"+content.getContent());
 		System.out.println("-----------------------------------------------------------------------");
 		return "/main";
 	
 	}
+	
 	
 	
 	}

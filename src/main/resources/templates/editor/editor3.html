@@ -49,21 +49,19 @@ $(document).ready(function() {
       })
       
       function sendFile(file, el) {
-      
         var form_data = new FormData();
-        form_data.append('file', file);
+        form_data.append('img', file);
         $.ajax({
           data: form_data,
           type: "POST",
-          url: '/test/images/temporary',
+          url: '/test/api/image',
           cache: false,
           contentType: false,
           enctype: 'multipart/form-data',
           processData: false,
-          success: function(url) {
-            $(editor).summernote('editor.insertImage',url);
-            $('#imageBoard > ul').append('<li><img src=""'+url+'" width="480" height="auto"/></li>');
-          },
+          success: function(tempImg) {
+              $('#summernote').summernote('insertImage', tempImg.savedPath, tempImg.originalName);
+            },
         })
       }
       
@@ -87,7 +85,7 @@ $(document).ready(function() {
   </div>
   
    <div class="select">
-    <select id="selectbox" name="Language" >
+    <select id="selectbox" name="usedLanguage" >
       <option value="python">파이썬</option>
       <option value="java">자바</option>
       <option value="C">c언어</option>
