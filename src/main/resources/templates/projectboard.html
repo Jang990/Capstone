@@ -6,6 +6,7 @@
 <th:block layout:fragment="css">
 	<!--  content에 스타일 주기 -->
 	<style>
+
 main {
 	background: #ffffff;
 	min-height: 650px;
@@ -18,8 +19,9 @@ main {
 	margin-left: 8px;
 	margin-bottom: 20px;
 	background-color: white;
+	border: 1px solid black;
 	border-radius: 6px;
-	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 2px
 		rgba(10, 10, 10, 0.02);
 	color: #4a4a4a;
 	display: block;
@@ -37,7 +39,51 @@ img.lan {
 	height: 50px;
 }
 </style>
+
 </th:block>
+<th:block layout:fragment="script">
+<script th:inline="javascript">
+$(document).ready(function () {
+    let likeVal = document.getElementById('like_check').value
+    const boardId = $("#content_id").val();
+    const memberId = $("#user_id").val();
+    console.log(memberId);
+    console.log(likeVal);
+    const likeImg = document.getElementById("likeImg")
+
+    if (likeVal > 0) {
+        likeImg.src = "./img/heart.png";
+    } else {
+        likeImg.src = "./img/heart_blank.png";
+    }
+    // 좋아요 버튼을 클릭 시 실행되는 코드
+    $("#likeImg").on("click", function () {
+        $.ajax({
+            url: '/board/like',
+            type: 'POST',
+            data: {'boardId': boardId, 'memberId': memberId},
+            success: function (data) {
+                if (data == 1) {
+                    $("#likeImg").attr("src", "/assets/img/like_click.png");
+                    location.href="/board/"+boardId;
+
+                } else {
+                    $("#likeImg").attr("src", "/assets/img/like_empty.png");
+                    location.href="/board/"+boardId;
+                }
+            }, error: function () {
+                $("#likeImg").attr("src", "/assets/img/like_click.png");
+                console.log('오타 찾으세요')
+            }
+
+        });
+
+    });
+});
+
+	</script>
+</th:block>
+
 
 <head>
 <title>캡스톤 디자인</title>
@@ -45,7 +91,8 @@ img.lan {
 </head>
 <main layout:fragment="content">
 
-<div class="column is-half is-offset-one-quarter" style="margin-bottom: -12px;">
+	<div class="column is-half is-offset-one-quarter"
+		style="margin-bottom: -12px;">
 		<div class="columns is-mobile is-centered mt-6 mb-6">
 			<img src="./img/project.png" width="360" height="160">
 		</div>
@@ -68,37 +115,49 @@ img.lan {
 			</div>
 		</div>
 	</div>
+	<div class="columns is-mobile">
+		<div class="column is-10 is-offset-1">
+			<table>
+				<tr>
+					<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
+					<td th:each="project : ${project_}">
+						<div class="box1">
+							<img class="boardimg "
+								src="https://bulma.io/images/placeholders/128x128.png"> <img
+								class="lan" align="right"
+								src="devicon/icons/java/java-original-wordmark.svg">
+							<div>
+								<strong><span th:text="${project.title}"></span></strong>
+								<div style="margin-top: 7px;">
 
-	<table>
-		<tr>
-			<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
-			<td th:each="project : ${project_}">
-				<div class="box1">
-					<img class="boardimg "
-						src="https://bulma.io/images/placeholders/128x128.png"> <img
-						class="lan" align="right"
-						src="devicon/icons/java/java-original-wordmark.svg">
-					<div>
-						<strong><span th:text="${project.title}"></span></strong>
-						<div style="margin-top: 7px;">
-							<span style="font-size: 5px;" th:text="${project.email}"></span>
-							<span style="font-size: 5px;" th:text="${project.writer}"></span>
+									<span th:each="tag : ${project.tags}"
+										class="tag is-primary is-light"> <span
+										th:text="${tag.tagName}"></span>
+									</span> <span style="font-size: 5px;" th:text="${project.username}"></span>
+								</div>
+							</div>
+							<div style="vertical-align: bottom;">
+								<p
+									style="vertical-align: right; margin-bottom: -1px; font-size: 10px; text-align: right;">
+									<span th:text="${project.heart}"></span>
+								</p>
+								<div
+									style="vertical-align: right; font-size: 10px; text-align: right;">
+									<div class="right_area" style="text-align: right;">
+										 <span
+											style="vertical-align: top; text-align: right;"
+											th:text="${project.hits}"></span>개
+										
+									</div>
+
+								</div>
+							</div>
 						</div>
-					</div>
-					<div style="vertical-align: bottom;">
-						<p
-							style="vertical-align: right; margin-bottom: -1px; font-size: 10px; text-align: right;">
-							<span th:text="${project.accessDate}"></span>
-						</p>
-						<p
-							style="vertical-align: right; font-size: 10px; text-align: right;">
-							좋아요 <span th:text="${project.viewCount}"></span>개
-						</p>
-					</div>
-				</div>
-			</td>
-		</tr>
-	</table>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
 </main>
 
 
