@@ -257,16 +257,17 @@ class ContentServiceTest {
 	@Transactional
 	@DisplayName("querydsl테스트")
 	void aaa() throws IOException {
-		createMultiProjectContent();
+//		createMultiProjectContent();
 		
 		List<Sort.Order> orders = new ArrayList<Sort.Order>();
 //		orders.add(Order.desc("createdDate"));
 		orders.add(Order.desc("heart"));
-		Pageable pageable = PageRequest.of(0, 6, Sort.by(orders));
+		Pageable pageable = PageRequest.of(0, 1, Sort.by(orders));
+		
 		
 		List<String> searchList = new ArrayList<>();
-		searchList.add("spring");
-		searchList.add("csharp");
+//		searchList.add("spring");
+//		searchList.add("csharp");
 		Page<DisplayedSummaryContentDTO> page = contentRepository.getSummaryContentPage(pageable, searchList, null);
 		System.out.println("로그찍어보기===========");
 		page.getContent().forEach(System.out::println);

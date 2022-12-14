@@ -1,6 +1,6 @@
 package com.inhatc.spring.capstone.content.repository;
 
-import static com.inhatc.spring.capstone.content.entity.QContent.content1;
+import static com.inhatc.spring.capstone.content.entity.QContent.content1; 
 import static com.inhatc.spring.capstone.file.entity.QSavedFile.savedFile;
 import static com.inhatc.spring.capstone.tag.entity.QContentTag.contentTag;
 import static com.inhatc.spring.capstone.tag.entity.QTag.tag;
@@ -14,7 +14,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import com.inhatc.spring.capstone.content.dto.DisplayedCommentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
@@ -91,6 +91,7 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 				.orderBy(contentSort(pageable))
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
+				.groupBy(content1.id)
 				.transform(
 						GroupBy.groupBy(content1.id).list(
 								new QDisplayedSummaryContentDTO(
@@ -98,6 +99,7 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 										content1.title, 
 										savedFile.savedPath, 
 										list(
+//												Projections.fields(DisplayedTagDTO.class)
 												new QDisplayedTagDTO(tag.id, tag.name, tag.type.stringValue())
 										), 
 										users.name, 
@@ -109,11 +111,32 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 						)
 				);
 		
-		for (DisplayedSummaryContentDTO summaryContent : summaryContentList) {
-			if(summaryContent.getTags().get(0).getTagId() == null)
-				summaryContent.setTags(new ArrayList<>());
+		/*
+		 * 콘텐츠 내용들~~~			태그 내용
+		 * 1번 콘텐츠 ~~			1번태그
+		 * 1번 콘텐츠 ~~			2번태그
+		 * 
+		 * 페이징을 할 때도 이런식으로 태그만 다른 중복 데이터가 이뤄져서 어떻게 변환할지 아직은 잘 모르겠음.
+		 * 나중에 꼭 알아볼 것
+		 */
+		//임시방편 - 태그 쿼리 또 보내기
+		for (DisplayedSummaryContentDTO content : summaryContentList) {
+			if(content.getTags().get(0).getTagId() == null) {
+				content.setTags(new ArrayList<>());
+				continue;
+			}
+			
+			List<DisplayedTagDTO> tags = query.selectFrom(contentTag)
+					.join(contentTag.tag, tag)
+					.where(contentTag.content.id.eq(content.getContentId()))
+					.transform(
+							GroupBy.groupBy(contentTag.id).list(
+									new QDisplayedTagDTO(tag.id, tag.name, tag.type.stringValue())
+							)
+						);
+			
+			content.setTags(tags);
 		}
-		
 		
 		long total = query.select(content1.count()).from(content1).fetchOne();
 		
@@ -151,15 +174,17 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 		}
 		
 		for (String keyword : keywords) {
-			builder.or(tag.name.containsIgnoreCase(keyword));
-			builder.or(content1.title.containsIgnoreCase(keyword));
+			if(StringUtils.hasText(keyword)) {
+				builder.or(tag.name.containsIgnoreCase(keyword));
+				builder.or(content1.title.containsIgnoreCase(keyword));
+			}
 		}
 		return builder;
 	}
 	
 	// 태그 or 제목 검색 조건
 	private BooleanBuilder searchUserContent(String userEmail) {
-		if(!StringUtils.isEmpty(userEmail)) {
+		if(!StringUtils.hasText(userEmail)) {
 			return null;
 		}
 		
