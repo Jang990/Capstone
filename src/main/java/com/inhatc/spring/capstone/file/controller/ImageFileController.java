@@ -27,7 +27,7 @@ public class ImageFileController {
 	 * 해당 컨트롤러는 임시저장을 위한 컨트롤러이다.
 	 */
 	@ResponseBody
-	@PostMapping("/api/image")
+    @RequestMapping(value="/images/temporary")
 	public ResponseEntity<DisplayedImageDTO> saveTempImg(MultipartFile img) {
 		if(img == null || img.isEmpty()) {
 			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
