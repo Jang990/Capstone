@@ -65,7 +65,10 @@ public class ContentTagService {
 		
 		Set<Tag> savedTags = new LinkedHashSet<>();
 		for (DisplayedTagDTO savedTag : tags) {
-			if(savedTag.getTagType().equals(TagType.NEW.toString())) {
+			if(savedTag.getTagType().equals(TagType.UNKNOWN.toString())) {
+				savedTags.add(tagService.getUnknownTag(savedTag));
+			}
+			else if(savedTag.getTagType().equals(TagType.NEW.toString())) {
 				savedTags.add(tagService.createCustomTag(savedTag));
 			}
 			else {
