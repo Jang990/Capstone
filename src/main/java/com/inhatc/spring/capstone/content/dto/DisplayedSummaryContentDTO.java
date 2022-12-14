@@ -35,6 +35,7 @@ public class DisplayedSummaryContentDTO {
 	private int hits; // 조회 수
 	private int heart; // 하트 수
 	private String createdDate;
+	private String techImgPath;
 	
 	@QueryProjection
 	public DisplayedSummaryContentDTO(Long contentId, String title, String imgSavedPath, List<DisplayedTagDTO> tags,

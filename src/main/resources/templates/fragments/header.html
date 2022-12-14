@@ -1,8 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+<html lang="ko" 
+	xmlns:th="http://www.thymeleaf.org"
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<th:block layout:fragment="script">
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+          var logout = function() {
+            $.post("/logout", function() {
+              $("#user").html('');
+              $(".unauthenticated").show();
+              $(".authenticated").hide();
+            })
+            return true;
+          }
+        </script>
+</th:block>
+
 <div th:fragment="header">
 	<nav class="navbar" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
@@ -19,7 +34,7 @@
 			<div class="navbar-start">
 				<a class="navbar-item" href="/projectboard"> 프로젝트 </a>
 				<!-- <a class="navbar-item" href="/recruimentboard"> 구인공고 </a> -->
-					<a class="navbar-item" sec:authorize="isAuthenticated()" href=" /myprojectboard"> 마이페이지 </a>
+					<a class="navbar-item" sec:authorize="hasAnyAuthority('ROLE_USER')" href=" /myprojectboard"> 마이페이지 </a>
 
 			</div>
 
@@ -29,12 +44,15 @@
 					 <!--    <span th:text="${#authentication.name} 님" id="user"style="margin-right: 25px; font-size: 17px;
 					    vertical-align: middle;"></span>
 					     사용자 정보 출력-->
-						<a class="button is-primary" sec:authorize="isAuthenticated()"> <strong>로그아웃</strong>
-						</a> <a class="button is-primary is-light" sec:authorize="isAnonymous()" href="/loginpage" > 로그인 </a>
+						<button class="button is-primary" sec:authorize="isAuthenticated()" onclick="louout()"> <strong>로그아웃</strong>
+						</button> <a class="button is-primary is-light" sec:authorize="isAnonymous()" href="/loginpage" > 로그인 </a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</nav>
 </div>
+
+
+
 </html>

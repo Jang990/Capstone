@@ -21,7 +21,7 @@ main {
 .contai {
 	display: grid;
 	grid-template-rows: 1fr 1fr;
-	grid-template-columns: 1fr 1fr;
+	grid-template-columns: 1fr 1fr 1fr;
 }
 
 .box1 {
@@ -72,10 +72,10 @@ img.lan {
 			var keywords = $("#keywords").val();
 			if(keywords === undefined)
 			{keywords = "";}
-			console.log("/projectboard?page=" + page + "&size=2&keywords="
+			console.log("/projectboard?page=" + page + "&size=6&keywords="
 					+ keywords);
 
-			location.href = "/projectboard?page=" + page + "&size=2&keywords="
+			location.href = "/projectboard?page=" + page + "&size=6&keywords="
 					+ keywords;
 			
 		}
@@ -107,7 +107,7 @@ img.lan {
 				
 			</div>
 		</div>
-		<div class="columns is-mobile"
+	<!-- 	<div class="columns is-mobile"
 			style="margin-top: 15px; margin-bottom: 10px;">
 			<div class="column is-11 is-offset-1">
 				<div class="buttons has-addons">
@@ -115,8 +115,8 @@ img.lan {
 					<button class="button" onclick="location.href=''">좋아요순</button>
 				</div>
 			</div>
-		</div>
-		<div class="columns is-mobile">
+		</div> -->
+		<div class="columns is-mobile" style="margin-top: 40px;">
 			<div class="column is-10 is-offset-1 container">
 				<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
 				<div th:each="project, status : ${project_.getContent()}">
@@ -124,8 +124,8 @@ img.lan {
 						<div>
 							<img class="boardimg" style="text-align: left;"
 								src="https://bulma.io/images/placeholders/128x128.png"> <img
-								class="lan" align="right"
-								src="devicon/icons/@{project.tagName}/@{project.tagName}-original-wordmark.svg"> <span
+								class="lan" align="right" 
+								src=""> <span
 								style="margin-left: 30px; font-size: 5px;"
 								th:text="${project.email}"></span> <span
 								style="font-size: 5px; text-align: right;"
