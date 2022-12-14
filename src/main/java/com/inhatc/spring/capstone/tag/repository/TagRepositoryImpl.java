@@ -1,12 +1,12 @@
 package com.inhatc.spring.capstone.tag.repository;
 
-import static com.inhatc.spring.capstone.tag.entity.QTag.tag;
+import static com.inhatc.spring.capstone.tag.entity.QTag.tag; 
 import static com.querydsl.core.group.GroupBy.groupBy;
 
 import java.util.List;
 
 import org.springframework.data.domain.Pageable;
-import org.thymeleaf.util.StringUtils;
+import org.springframework.util.StringUtils;
 
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 import com.inhatc.spring.capstone.tag.dto.QDisplayedTagDTO;
@@ -21,7 +21,7 @@ public class TagRepositoryImpl implements TagRepositoryCustom {
 	
 	public List<DisplayedTagDTO> getSimilarTags(String tagKeyword, Pageable pageable) {
 		BooleanBuilder builder = new BooleanBuilder();
-		if(!StringUtils.isEmpty(tagKeyword)) {
+		if(StringUtils.hasText(tagKeyword)) {
 			builder.or(tag.name.contains(tagKeyword));
 		}
 		

@@ -8,9 +8,17 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller
-public class Maincontroller {
+import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
+import com.inhatc.spring.capstone.tag.service.TagService;
 
+import lombok.RequiredArgsConstructor;
+
+@Controller
+@RequiredArgsConstructor
+public class Maincontroller {
+	
+	private final TagService tagService;
+	
 	@GetMapping
 	public String main(Model model) {
 			String tag1 = "자바";//태그 1위 가장많이 적힌 태그 순위
@@ -25,8 +33,12 @@ public class Maincontroller {
 			tag.add(tag3);
 			tag.add(tag4);
 			tag.add(tag5);
-			model.addAttribute("tags", tag);
+//			model.addAttribute("tags", tag);
 		
+			
+			List<DisplayedTagDTO> Top5_Tags = tagService.searchTop5Tags();
+			model.addAttribute("tags",Top5_Tags);
+			
 		return "main";
 	}
 	
