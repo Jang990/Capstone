@@ -49,6 +49,8 @@ public class SecurityConfig {
 					.defaultSuccessUrl("/") // 기본 메인페이지로 리다이렉트
 					.userInfoEndpoint().userService(OAuthUserService)
 			);
+		
+		
 
         return http.build();
     }
