@@ -56,14 +56,19 @@ public class BoardController {
     
     
 	@PostMapping("editor/editor4")
-	public String boardWritePro(NewContentDTO content){
-		
+	public String boardWritePro(NewContentDTO content, String tag){
+		System.out.println(tag);
+		System.out.println(content);
 		System.out.println(content.getTitle());
 		System.out.println(content.getContent());
 		System.out.println(content.getUsedLanguage());
         content.setUserEmail("simbonggyo@gmail.com");
-        content.setUserId(null);
         content.setRecruit(false);
+        try {
+			contentService.createProjectContent(content);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		return "/main";
 	
 	}

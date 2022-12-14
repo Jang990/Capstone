@@ -97,18 +97,16 @@ $(document).ready(function() {
 				<nav class="panel" style="width:150px">
 					<input class="input" type="text" name="usedLanguage" id="language-Search" placeholder="사용언어">
 					
-					
 					<div id="similar-tag-list">
 					</div>
 				</nav>
-				<input type="hidden" id="icon-path" value="">
-				<input type="hidden" id="used-language-id" value="">
+				<input type="hidden" id="icon-path" name="iconPath" value="">
  			</div> 
 			
 			<br>
-			 <input class="input" type="text" style="width: 100%;"
+			 <!-- <input class="input" type="text" style="width: 100%;"
 				placeholder="깃허브url"> <input class="button"
-				th:onclick="getTags()" type="button" value="깃허브 연결하기">
+				th:onclick="getTags()" type="button" value="깃허브 연결하기"> -->
 			<p>
 				<br><br>
 				<ul id="tag-list"></ul>
@@ -149,7 +147,7 @@ $(document).ready(function() {
     const languageImg = document.getElementById('language-img');
     const iconPath = document.getElementById('icon-path');
     const usedLanguageId = document.getElementById('used-language-id');
-    console.log(searchInput);
+    
     let timeout = null;
 
     searchInput.addEventListener('input', () => {
@@ -184,9 +182,9 @@ $(document).ready(function() {
 		    	searchInput.value=tag.text.trim();
 		    	//이미지 세팅
 		    	languageImg.src=str;
-		    	//태그 세팅
 		    	iconPath.value = str;
-		    	usedLanguageId.value=tagId;
+		    	//태그 세팅
+		    	// usedLanguageId.value=tag.text.trim();
 		    	// 지우기
 		    	similarTagList.replaceChildren();
 			},
