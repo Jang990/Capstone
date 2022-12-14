@@ -36,7 +36,7 @@ main {
 	<div class="column is-half is-offset-one-quarter">
 		<div class="columns is-mobile is-centered">
 			<span th:each="tag: ${tags}" class="tag is-primary is-light is-large" style="margin-right:20px;">
-				<b th:text=${tag}></b>
+				<a th:text=${tag.tagName}></a>
 			</span>
 
 		</div>
