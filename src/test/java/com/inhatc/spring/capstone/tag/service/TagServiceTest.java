@@ -41,7 +41,11 @@ class TagServiceTest {
 			}
 		}
 		
-		List<DisplayedTagDTO> simlarTags = tagRepository.getSimilarTags("테스트관련Ta", PageRequest.of(0, 10));
+		List<DisplayedTagDTO> simlarTags = tagRepository.getSimilarTags("태그", PageRequest.of(0, 5));
+		for (DisplayedTagDTO displayedTagDTO : simlarTags) {
+			System.out.println(displayedTagDTO);
+		}
+		
 	}
 	
 	@Test

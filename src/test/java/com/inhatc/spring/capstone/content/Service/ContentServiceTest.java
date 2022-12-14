@@ -18,6 +18,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Order;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.inhatc.spring.capstone.content.dto.NewContentDTO;
@@ -255,14 +257,21 @@ class ContentServiceTest {
 	@Transactional
 	@DisplayName("querydsl테스트")
 	void aaa() throws IOException {
-		createMultiProjectContent();
+//		createMultiProjectContent();
 		
-		Pageable pageable = PageRequest.of(0, 6);
-		Page<DisplayedSummaryContentDTO> page = contentRepository.getSummaryContentPage(pageable);
+		List<Sort.Order> orders = new ArrayList<Sort.Order>();
+//		orders.add(Order.desc("createdDate"));
+		orders.add(Order.desc("heart"));
+		Pageable pageable = PageRequest.of(0, 1, Sort.by(orders));
+		
+		
+		List<String> searchList = new ArrayList<>();
+//		searchList.add("spring");
+//		searchList.add("csharp");
+		Page<DisplayedSummaryContentDTO> page = contentRepository.getSummaryContentPage(pageable, searchList, null);
 		System.out.println("로그찍어보기===========");
 		page.getContent().forEach(System.out::println);
 	}
-	
 	
 	
 }

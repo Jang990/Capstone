@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityNotFoundException;
 
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,12 @@ public class TagService {
 	/** 유사한 태그 검색 */
 	public List<DisplayedTagDTO> searchSimilarTags(String tag, Pageable pageable) {
 		return tagRepository.getSimilarTags(tag, pageable);
+	}
+	
+	/** 상위 태그 5개 검색 */
+	public List<DisplayedTagDTO> searchTop5Tags() {
+		Pageable pageable = PageRequest.of(0, 5);
+		return tagRepository.getSimilarTags(null, pageable);
 	}
 	
 	/** 커스텀 태그 저장 */
