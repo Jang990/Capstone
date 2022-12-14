@@ -43,43 +43,6 @@ img.lan {
 </th:block>
 <th:block layout:fragment="script">
 <script th:inline="javascript">
-$(document).ready(function () {
-    let likeVal = document.getElementById('like_check').value
-    const boardId = $("#content_id").val();
-    const memberId = $("#user_id").val();
-    console.log(memberId);
-    console.log(likeVal);
-    const likeImg = document.getElementById("likeImg")
-
-    if (likeVal > 0) {
-        likeImg.src = "./img/heart.png";
-    } else {
-        likeImg.src = "./img/heart_blank.png";
-    }
-    // 좋아요 버튼을 클릭 시 실행되는 코드
-    $("#likeImg").on("click", function () {
-        $.ajax({
-            url: '/board/like',
-            type: 'POST',
-            data: {'boardId': boardId, 'memberId': memberId},
-            success: function (data) {
-                if (data == 1) {
-                    $("#likeImg").attr("src", "/assets/img/like_click.png");
-                    location.href="/board/"+boardId;
-
-                } else {
-                    $("#likeImg").attr("src", "/assets/img/like_empty.png");
-                    location.href="/board/"+boardId;
-                }
-            }, error: function () {
-                $("#likeImg").attr("src", "/assets/img/like_click.png");
-                console.log('오타 찾으세요')
-            }
-
-        });
-
-    });
-});
 
 	</script>
 </th:block>
@@ -144,6 +107,8 @@ $(document).ready(function () {
 								<div
 									style="vertical-align: right; font-size: 10px; text-align: right;">
 									<div class="right_area" style="text-align: right;">
+									<span th:text="${project.email}"></span>
+									<span th:text="${project.createdDate}"></span>
 										 <span
 											style="vertical-align: top; text-align: right;"
 											th:text="${project.hits}"></span>개

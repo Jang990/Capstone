@@ -55,7 +55,7 @@ public class projectcontroller {
 		tag.add(a);
 		
 		List<DisplayedSummaryContentDTO> projectList = new ArrayList<>();//프로젝트 리스트
-		DisplayedSummaryContentDTO test1 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨",3,50);
+		DisplayedSummaryContentDTO test1 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
 //		projectDto test2 = new projectDto("이메일 관리", "1email@mail.com", "길드", "2012-12-17", "python", 79);
 //		projectDto test3 = new projectDto("드론 프로젝트", "3email@mail.com", "라이트", "2012-12-14", "C", 77);
 		
