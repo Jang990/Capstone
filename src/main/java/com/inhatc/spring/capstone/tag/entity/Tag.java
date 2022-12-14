@@ -42,7 +42,8 @@ public class Tag {
 	private int taggedCount;
 	
 	public static Tag createCustomTag(DisplayedTagDTO tagDto) {
-		if(!tagDto.getTagType().toUpperCase().equals(TagType.NEW.toString())) {
+		TagType type = TagType.valueOf(tagDto.getTagType());
+		if(type != TagType.NEW && type != TagType.UNKNOWN) {
 			throw new IllegalArgumentException();
 		}
 		
