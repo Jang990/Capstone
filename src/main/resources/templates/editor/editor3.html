@@ -101,6 +101,7 @@ $(document).ready(function() {
 					</div>
 				</nav>
 				<input type="hidden" id="icon-path" name="iconPath" value="">
+				<input type="hidden" id="used-language-id" name="usedLangId" value="">
  			</div> 
 			
 			<br>
@@ -184,7 +185,7 @@ $(document).ready(function() {
 		    	languageImg.src=str;
 		    	iconPath.value = str;
 		    	//태그 세팅
-		    	// usedLanguageId.value=tag.text.trim();
+		    	usedLanguageId.value=tagId;
 		    	// 지우기
 		    	similarTagList.replaceChildren();
 			},
