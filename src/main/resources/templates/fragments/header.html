@@ -4,9 +4,8 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block layout:fragment="script">
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-<script type="text/javascript" src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
-<script type="text/javascript">
+ <script th:inline="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script th:inline="text/javascript">
           var logout = function() {
             $.post("/logout", function() {
               $("#user").html('');
@@ -35,11 +34,8 @@
 
 				<a class="navbar-item" href=" /projectboard"> 프로젝트 </a>
 				<a class="navbar-item"> 프로젝트 작성 </a>
-				<a class="navbar-item"> 구인공고 </a>
-				<a class="navbar-item"> 구인글 작성 </a>
-
-				<a class="navbar-item" href="/projectboard"> 프로젝트 </a>
-				<!-- <a class="navbar-item" href="/recruimentboard"> 구인공고 </a> -->
+<!-- 				<a class="navbar-item"> 구인공고 </a>
+				<a class="navbar-item"> 구인글 작성 </a> -->
 					<a class="navbar-item" sec:authorize="hasAnyAuthority('ROLE_USER')" href=" /myprojectboard"> 마이페이지 </a>
 
 			</div>
