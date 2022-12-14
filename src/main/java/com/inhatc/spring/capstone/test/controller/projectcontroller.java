@@ -3,8 +3,10 @@ package com.inhatc.spring.capstone.test.controller;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -71,44 +73,26 @@ public class projectcontroller {
 	// 	DisplayedSummaryContentDTO test4 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
 	// 	DisplayedSummaryContentDTO test5 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
 		
-	@GetMapping("/projectboard")
+	@GetMapping({"/projectboard","/project/{page}"})
 	public String projectboard(Model model,
-			@PageableDefault(page = 0, size = 6) 
+			@PageableDefault(page = 0, size = 9) 
 			@SortDefault.SortDefaults({ @SortDefault(sort = "heart", direction = Sort.Direction.DESC)}) 
 			Pageable pageable,
 			@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords,
-			@RequestParam(value = "email", required = false, defaultValue = "") String email
-	) {
+			@RequestParam(value = "email", required = false, defaultValue = "") String email,
+			Optional<Integer> page
+			) {
+		
+		
+		
 		Page<DisplayedSummaryContentDTO> summaryContents = contentService.getSummaryContents(pageable, keywords, email);
 		model.addAttribute("project_", summaryContents); // 정보
 		model.addAttribute("keywords", keywords); // 검색어 
+		model.addAttribute("maxPage", 5);
 		
+		
+		return "/projectboard";
+	}
 	
-		return "/projectboard_t";
-	}
-	@GetMapping("/projectboard_t")
-	public String projectboard2(Model model) {
-		Long bb = null;
-		List<DisplayedTagDTO> tag = new ArrayList<>();
-		DisplayedTagDTO a = new DisplayedTagDTO(bb,"java","Tech");
-		tag.add(a);
-		
-		List<DisplayedSummaryContentDTO> projectList = new ArrayList<>();//프로젝트 리스트
-		DisplayedSummaryContentDTO test1 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
-		DisplayedSummaryContentDTO test2 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
-		DisplayedSummaryContentDTO test3 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
-		DisplayedSummaryContentDTO test4 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
-		DisplayedSummaryContentDTO test5 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
-		
-		
-		projectList.add(test1);
-		projectList.add(test2);
-		projectList.add(test3);
-		projectList.add(test4);
-		projectList.add(test5);
-		
-		model.addAttribute("project_",projectList);
-		return "/projectboard_t";
-	}
 	
 }

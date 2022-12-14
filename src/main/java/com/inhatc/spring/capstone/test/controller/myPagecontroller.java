@@ -64,18 +64,10 @@ public class myPagecontroller {
 		String loginEmail = (String) user.getAttributes().get("email");
 		
 		Page<DisplayedSummaryContentDTO> summaryContents = contentService.getSummaryContents(pageable, null, loginEmail);
-		model.addAttribute("summaryDto", summaryContents); // 정보
-
-		List<myprojectDto> myprojectList = new ArrayList<>();//프로젝트 리스트
-		myprojectDto test1 = new myprojectDto("캡스톤 디자인관리", "email@mail.com", "김상덕", "2012-12-12", "자바", 76);
-		myprojectDto test2 = new myprojectDto("이메일 관리", "1email@mail.com", "길드", "2012-12-17", "python", 79);
-		myprojectDto test3 = new myprojectDto("드론 프로젝트", "3email@mail.com", "라이트", "2012-12-14", "C", 77);
+		model.addAttribute("myproject_", summaryContents); // 정보
 		
-		myprojectList.add(test1);
-		myprojectList.add(test2);
-		myprojectList.add(test3);
 		
-		model.addAttribute("myproject_",myprojectList);
+	
 		return "/myprojectboard";
 	}
 
