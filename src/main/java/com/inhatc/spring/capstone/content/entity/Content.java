@@ -74,8 +74,7 @@ public class Content extends CreatedAndUpdated{
 	private String usedLanguage; // 사용 언어 - 나중에 GitHub API를 사용하면서 타입을 바꿀 것
 	private int viewCount; // 조회수 - 쿠키로 조회수 중복을 제거할 것이다.
 	private int heartCount; // 하트 카운트
-	private int People;//언어별 인원
-	private int Selectbox;//언어별 인원
+	
 
 
 	

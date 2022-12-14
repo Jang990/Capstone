@@ -3,6 +3,8 @@ package com.inhatc.spring.capstone.test.controller;
 
 import java.io.IOException;
 
+
+
 import java.io.InputStream;
 
 import javax.servlet.http.HttpServletRequest;
@@ -28,11 +30,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import com.inhatc.spring.capstone.content.service.ContentService;
+import com.inhatc.spring.capstone.content.dto.NewContentDTO;
 import com.inhatc.spring.capstone.content.entity.Content;
 
 @Controller
 
 public class BoardController {
+	
+	@Autowired
+	private ContentService contentService;
 	
 	@Autowired
 	private boardservice boardservice;
@@ -49,18 +55,15 @@ public class BoardController {
     }
     
     
-	@PostMapping("/editor/editor4")
-	public String boardWritePro(Content content){
+	@PostMapping("editor/editor4")
+	public String boardWritePro(NewContentDTO content){
 		
-		//boardservice.write(board);
-		System.out.println("-----------------------------------------------------------------------");
-		//System.out.println(formtest.getPeople());
-		System.out.println("백엔드,프론트엔드:"+content.getSelectbox());
-		System.out.println("언어:"+content.getUsedLanguage());
-		System.out.println("백엔드 프론트엔드(언어별 인원수):"+content.getPeople());
-		System.out.println("프로젝트 제목:"+content.getTitle());
-        System.out.println("텍스트에디터 값:"+content.getContent());
-		System.out.println("-----------------------------------------------------------------------");
+		System.out.println(content.getTitle());
+		System.out.println(content.getContent());
+		System.out.println(content.getUsedLanguage());
+        content.setUserEmail("simbonggyo@gmail.com");
+        content.setUserId(null);
+        content.setRecruit(false);
 		return "/main";
 	
 	}

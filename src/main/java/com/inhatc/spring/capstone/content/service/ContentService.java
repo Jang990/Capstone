@@ -44,7 +44,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class ContentService {
 	private final String contentSavedFolderName = "content"; 
-	
+
 	private final ContentRepository contentRepository;
 	private final UsersRepository userRepository;
 	
@@ -56,11 +56,14 @@ public class ContentService {
 	/** 프로젝트 게시글 생성 */
 	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) throws IOException {
 		Users user = userRepository.findById(contentDto.getUserId())
-				.orElseThrow(
+				
+				
+				.orElseThrow( 
 						() -> new UsersException(UserErrorDescription.NOT_FOUND_USER, 
 										String.valueOf(contentDto.getUserId())
 									)
 					);
+		
 		
 		Content content = Content.createContent(user, contentDto);
 		
@@ -74,6 +77,7 @@ public class ContentService {
 		
 		List<DisplayedTagDTO> tags = contentDto.getTags();
 		// 컨텐츠와 관련된 태그들 저장하고 가져오기
+		
 		Set<Tag> savedTags = contentTagService.saveContentTags(tags);
 		content.setSavedTags(savedTags);
 		
