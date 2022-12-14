@@ -85,7 +85,7 @@ $(document).ready(function() {
 
 <body layout:fragment="content">
 
-<div style="width: 60%; margin: auto;">
+<div class ="card" style="width: 60%; margin: auto;">
 	
 	<form method="post" name="editorjungbo" action="/editor/editor4">
   
@@ -96,7 +96,6 @@ $(document).ready(function() {
  	 <input class="input" type="text"  style="width: 100%;"placeholder="깃허브url">
 	 <input class="button" type="submit" value="깃허브 연결하기"><p>
    <br><br> 
-   <ul id="tag-list"></ul>
   <input class="input is-medium" name="title" type="text"  style="width: 100%;" placeholder="프로젝트 제목" maxlength="50"></p>
    
 		<textarea id="summernote" name="content" maxlength="2048"></textarea>

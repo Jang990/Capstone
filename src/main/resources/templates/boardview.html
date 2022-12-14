@@ -40,10 +40,23 @@ table {
     width: 100%;
     border: 1px solid #444444;
   }
+textarea {
+    right: 0;
+    width: 200px;
+    height: 20px;
+    border: 3px solid #73AD21;
+}
+.list-group-item{
+display:flex;
+}
+.d-flex{
+display:flex;
+}
 </style>
 </th:block>
 
 <head>
+
 <title>게시글 상세 페이지</title>
 </head>
 
@@ -52,7 +65,7 @@ table {
 
 <div  class="row mt-1 header" style="width: 60%; margin: auto;">
 
-    <table border="0"class="board_view"style="table-layout-fixed">
+    <table class="board_view"style="table-layout-fixed">
       
         
         <colgroup>
@@ -86,6 +99,38 @@ table {
     
     <button class="button"id="list" >목록으로</button>
     <button class="button"id="modify" >수정하기</button>
-    </div>
+    <dl></dl>
+    <div class="card">
+    <form method="post" name="deagul" action="/boardview">
+     <textarea class="textarea is-small" name = "comment" placeholder="댓글입력"></textarea>
+     <input class="button" type="submit" value="등록">
+          </form>
+     
+     </div>
+     
+   <br/>
+<div class ="card">
+<div class="card-header">
+<div class="card-header-title">댓글 리스트</div>
+</div>
+
+<div class ='list'>
+<ul id="comment--box">
+<li id="comment--1"class="d-flex is justify-content-between">
+<div>댓글내용입니다!.</div>
+
+<div class = "d-flex" >작성자:simbonggyo:&ngsp;</div>
+<button class="button is-small is-right">삭제</button>
+
+</li>
+</ul>
+</div>
+</div>
+   </div>
+ 
+    
+
+
+
 </body>
 </html>

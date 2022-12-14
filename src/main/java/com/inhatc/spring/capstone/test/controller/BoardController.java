@@ -6,6 +6,7 @@ import java.io.IOException;
 
 
 import java.io.InputStream;
+import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +38,10 @@ import com.inhatc.spring.capstone.content.entity.Content;
 
 public class BoardController {
 	
+	
+	
+	
+	
 	@Autowired
 	private ContentService contentService;
 	
@@ -49,11 +54,8 @@ public class BoardController {
 		return "editor/editor3";
 	}
     
-    @GetMapping("/boardview")
-    public String boardView() {
-    	return "boardview";
-    }
     
+   
     
 	@PostMapping("editor/editor4")
 	public String boardWritePro(NewContentDTO content){
