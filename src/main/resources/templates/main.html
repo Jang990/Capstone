@@ -55,7 +55,7 @@ main {
 			<span th:each="tag: ${tags}" class="tag is-primary is-light is-large" style="margin-right:20px;">
 				<a th:text=${tag.tagName}></a>
 			</span>
-
+<span sec:authentication="principal.user.username"></span>님이 로그인 상태 
 		</div>
 	</div>
 </main>

@@ -4,8 +4,26 @@
 	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <th:block layout:fragment="script">
- <script th:inline="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-<script th:inline="text/javascript">
+<script th:inline="javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script th:inline="javascript">
+          $.ajaxSetup({
+            beforeSend : function(xhr, settings) {
+              if (settings.type == 'POST' || settings.type == 'PUT'
+                  || settings.type == 'DELETE') {
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                    .test(settings.url))) {
+                  // Only send the token to relative URLs i.e. locally.
+                  xhr.setRequestHeader("X-XSRF-TOKEN", Cookies
+                      .get('XSRF-TOKEN'));
+                }
+              }
+            }
+          });
+          $.get("/api/user", function(data) {
+              $("#user").html(data.name);
+              $(".unauthenticated").hide();
+              $(".authenticated").show();
+          });
           var logout = function() {
             $.post("/logout", function() {
               $("#user").html('');
