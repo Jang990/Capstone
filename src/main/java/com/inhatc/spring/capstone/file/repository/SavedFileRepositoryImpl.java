@@ -2,6 +2,7 @@ package com.inhatc.spring.capstone.file.repository;
 
 import static com.inhatc.spring.capstone.file.entity.QSavedFile.savedFile;
 
+
 import java.util.List;
 
 import com.inhatc.spring.capstone.file.entity.SavedFile;

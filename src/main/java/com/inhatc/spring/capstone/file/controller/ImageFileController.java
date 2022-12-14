@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,20 +28,18 @@ public class ImageFileController {
 	 * 해당 컨트롤러는 임시저장을 위한 컨트롤러이다.
 	 */
 	@ResponseBody
-	@PostMapping("/api/image")
-	public ResponseEntity<DisplayedImageDTO> saveTempImg(MultipartFile img) {
-		if(img == null || img.isEmpty()) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-		
-		DisplayedImageDTO imgDTO = null;
-		try {
-			imgDTO = tempImageService.saveTemporaryImage(img);
-		} catch (IOException e) {
-			return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
-		}
-		
-		return new ResponseEntity<>(imgDTO, HttpStatus.OK);
-	}
+    @PostMapping("/api/image")
+    public ResponseEntity<DisplayedImageDTO> saveTempImg(MultipartFile img) {
+        if(img == null || img.isEmpty()) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        DisplayedImageDTO imgDTO = null;
+        try {
+            imgDTO = tempImageService.saveTemporaryImage(img);
+        } catch (IOException e) {
+            return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
+        }
+        return new ResponseEntity<>(imgDTO, HttpStatus.OK);
+    }
 	
 }

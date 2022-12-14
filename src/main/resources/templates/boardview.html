@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout/layout1}">
+
+<th:block layout:fragment="css">
+	<!--  content에 스타일 주기 -->
+	<style>
+main {
+	background: #ffffff;
+	min-height: 650px;
+}
+
+.box1 {
+	width: 385px;
+	height: 240px;
+	margin-right: 8px;
+	margin-left: 8px;
+	margin-bottom: 20px;
+	background-color: white;
+	border-radius: 6px;
+	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
+		rgba(10, 10, 10, 0.02);
+	color: #4a4a4a;
+	display: block;
+	padding: 1.25rem;
+}
+
+img.boardimg {
+	width: 120px;
+	height: 80px;
+}
+
+img.lan {
+	vertical-align: top;
+	width: 50px;
+	height: 50px;
+}
+table {
+    width: 100%;
+    border: 1px solid #444444;
+  }
+</style>
+</th:block>
+
+<head>
+<title>게시글 상세 페이지</title>
+</head>
+
+
+<body layout:fragment="content">
+
+<div  class="row mt-1 header" style="width: 60%; margin: auto;">
+
+    <table border="0"class="board_view"style="table-layout-fixed">
+      
+        
+        <colgroup>
+            <col width="15%">
+            <col width="35%">
+            <col width="15%">
+            <col width="*">
+        </colgroup>
+         
+        <tbody>
+            <tr>
+                <th>제목</th>
+                <td>${content.TITLE}</td>
+                <th>조회수</th>
+                <td>${content.TITLE}</td>
+            </tr>
+            <tr>
+                <th>작성자</th>
+                <td>${map.CREA_ID }</td>
+                <th>작성시간</th>
+                <td>${map.CREA_DTM }</td>
+            </tr>
+            <tr>
+                <th>내용</th>
+                <td colspan="3">
+                    ${content.CONTENTS }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button class="button"id="list" >목록으로</button>
+    <button class="button"id="modify" >수정하기</button>
+    </div>
+</body>
+</html>

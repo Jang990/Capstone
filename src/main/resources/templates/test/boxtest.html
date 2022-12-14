@@ -5,8 +5,9 @@
 
 
 <th:block layout:fragment="css">
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
-	
+	<link rel="stylesheet"
+		href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<link th:href="@{/table.css}" rel="stylesheet">
 
@@ -40,9 +41,44 @@ img.lan {
 	width: 50px;
 	height: 50px;
 }
+form {
+	width: 500px;
+}
+table {
+	border-collapse:collapse;
+	margin-bottom: 10px;
+}
+th, td {
+	padding: 3px 10px;
+}
+.off-screen {
+	display: none;
+}
+#nav {
+	width: 500px;
+	text-align: center;
+}
+#nav a {
+	display: inline-block;
+	padding: 3px 5px;
+	margin-right: 10px;
+	font-family:Tahoma;
+	background: #ccc;
+	color: #000;
+	text-decoration: none;
+}
+#nav a.active {
+	background: #333;
+	color: #fff;
+}
 </style>
 </th:block>
-
+<script>
+	i=0;
+	while(i<10){
+	
+	} 
+</script>
 <head>
 <title>캡스톤 디자인</title>
 
@@ -65,70 +101,82 @@ img.lan {
 		</div>
 	</div>
 
-	<div class="columns is-mobile">
-		<div
-			class="column is-10 is-offset-1 is-three-quarters-mobile is-two-thirds-tablet is-half-desktop is-one-third-widescreen is-one-quarter-fullhd">
-			<table class="table is-hoverable">
-				<colgroup>
-				<col style="width: 10%">
-				<col style="width: 20%">
-				<col style="width: 40%">
-				<col style="width: 15%">
-				<col style="width: 15%">
-			</colgroup>
+	<div>
+		<table id="products" border="1">
+			<caption>
+				product list
+				<form action="" id="setRows">
+					<p>
+						showing <input type="text" name="rowPerPage" value="3">
+						item per page
+					</p>
+				</form>
+
+			</caption>
+
+			<thead>
 				<tr>
-					<td>
-						<div class="columns">
-							<div class="column is-narrow">
-								<div class="box1"
-									onclick="location.href='https://www.naver.com/'">
-									<img class="boardimg "
-										src="https://bulma.io/images/placeholders/128x128.png">
-									<img class="lan" align="right"
-										src="./java/java-original-wordmark.svg">
-
-
-									<p>
-										<strong>프로젝트 명</strong>
-									</p>
-
-									<p style="margin-top: 7px">학번이름</p>
-									<p style="vertical-align: right; text-align: right;">좋아요76개</p>
-
-								</div>
-							</div>
-					</td>
-					<td>
-						<div class="columns">
-							<div class="column is-narrow">
-								<div class="box1">
-									<p class="title is-5">Narrow column2</p>
-									<p class="subtitle">This column is only 200px wide.</p>
-								</div>
-							</div>
-					</td>
-					<td>
-						<div class="columns">
-							<div class="column is-narrow">
-								<div class="box1">
-									<p class="title is-5">Narrow column3</p>
-									<p class="subtitle">This column is only 200px wide.</p>
-								</div>
-							</div>
-					</td>
-					<td>
-						<div class="columns">
-							<div class="column is-narrow">
-								<div class="box1">
-									<p class="title is-5">Narrow column3</p>
-									<p class="subtitle">This column is only 200px wide.</p>
-								</div>
-							</div>
-					</td>
+					<th>No</th>
+					<th>Category</th>
+					<th>Product</th>
 				</tr>
-			</table>
-		</div>
+			</thead>
+			<tbody>
+				<tr>
+					<td>1</td>
+					<td>Clothing</td>
+					<td>Jacket</td>
+				</tr>
+				<tr>
+					<td>2</td>
+					<td>life</td>
+					<td>dish</td>
+				</tr>
+				<tr>
+					<td>3</td>
+					<td>Clothing</td>
+					<td>shocks</td>
+				</tr>
+				<tr>
+					<td>4</td>
+					<td>Clothing</td>
+					<td>sports</td>
+				</tr>
+				<tr>
+					<td>5</td>
+					<td>shoes</td>
+					<td>nike</td>
+				</tr>
+				<tr>
+					<td>6</td>
+					<td>shoes</td>
+					<td>addidas</td>
+				</tr>
+				<tr>
+					<td>7</td>
+					<td>Bags</td>
+					<td>backpack</td>
+				</tr>
+				<tr>
+					<td>8</td>
+					<td>Clothing</td>
+					<td>Jacket</td>
+				</tr>
+				<tr>
+					<td>9</td>
+					<td>shoes</td>
+					<td>bonie</td>
+				</tr>
+				<tr>
+					<td>10</td>
+					<td>Clothing</td>
+					<td>Jacket</td>
+				</tr>
+			</tbody>
+
+		</table>
 	</div>
+
 </main>
 
 
