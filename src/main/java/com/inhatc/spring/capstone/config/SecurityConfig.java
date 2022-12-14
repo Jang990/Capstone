@@ -10,7 +10,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.inhatc.spring.capstone.user.service.CustomOAuthUserService;
 
@@ -28,7 +27,6 @@ public class SecurityConfig {
 		http
 			.authorizeRequests(a -> a
 				.antMatchers("/", "/error", "/webjars/**").permitAll()
-				.antMatchers("/myprojectboard").hasAnyRole("ADMIN","USER")
 				.mvcMatchers("/css/**", "/js/**", "/img/**", "/images/**").permitAll()
                 .mvcMatchers("/", "/users/**", "/item/**", "/images/**").permitAll()
                 .mvcMatchers("/login").permitAll()
@@ -45,16 +43,12 @@ public class SecurityConfig {
 				.disable()
 			)
 			.logout(l -> l
-				.logoutSuccessUrl("/")
-				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/").permitAll()
 			)
 			.oauth2Login(o -> o
-					.defaultSuccessUrl("/") // 기본 메인페이지로 리다이렉트
-					
+					.defaultSuccessUrl("/login") // oauth 테스트를 위해 해당 html로 자동 리다이렉트
 					.userInfoEndpoint().userService(OAuthUserService)
 			);
-		
-		
 
         return http.build();
     }
