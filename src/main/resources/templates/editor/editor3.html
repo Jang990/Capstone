@@ -24,7 +24,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.11/summernote-bs4.js"></script>
 <!-- include summernote-ko-KR -->
 <script src="js/summernote-ko-KR.js"></script>
-<script type="module" src="/tag_create.js"></script>
 
 <title>글쓰기</title>
 
@@ -85,26 +84,44 @@ $(document).ready(function() {
 
 <body layout:fragment="content">
 
-<div style="width: 60%; margin: auto;">
-	
-	<form method="post" name="editorjungbo" action="/editor/editor4">
-  
-     <input class="input" type="text" name="tag"  style="width: 100%;" placeholder="해시태그">   
-<br><br>
-     <input class="input" type="text" name="usedLanguage"  style="width: 100%;" placeholder="사용언어">   
-    <br><br>
- 	 <input class="input" type="text"  style="width: 100%;"placeholder="깃허브url">
-	 <input class="button" type="submit" value="깃허브 연결하기"><p>
-   <br><br> 
-   <ul id="tag-list"></ul>
-  <input class="input is-medium" name="title" type="text"  style="width: 100%;" placeholder="프로젝트 제목" maxlength="50"></p>
-   
-		<textarea id="summernote" name="content" maxlength="2048"></textarea>
-		
-		
-		<input class="button" type="submit" value="글쓰기">
-      </form> 
-     </div>
+	<div style="width: 60%; margin: auto;">
+
+		<form method="post" name="editorjungbo" action="/editor/editor4">
+
+			<input class="input" type="text" name="tag" style="width: 100%;"
+				placeholder="해시태그"> 
+				<br><br> 
+				
+			<div id="language-section">
+				<img id="language-img" src="/img/question-mark.png" style="width:50px; margin-bottom:10px"/>
+				<nav class="panel" style="width:150px">
+					<input class="input" type="text" name="usedLanguage" id="language-Search" placeholder="사용언어">
+					
+					
+					<div id="similar-tag-list">
+					</div>
+				</nav>
+				<input type="hidden" id="icon-path" value="">
+				<input type="hidden" id="used-language-id" value="">
+ 			</div> 
+			
+			<br>
+			 <input class="input" type="text" style="width: 100%;"
+				placeholder="깃허브url"> <input class="button"
+				th:onclick="getTags()" type="button" value="깃허브 연결하기">
+			<p>
+				<br><br>
+				<ul id="tag-list"></ul>
+				<input class="input is-medium" name="title" type="text"
+					style="width: 100%;" placeholder="프로젝트 제목" maxlength="50">
+			</p>
+
+			<textarea id="summernote" name="content" maxlength="2048"></textarea>
+
+
+			<input class="button" type="submit" value="글쓰기">
+		</form>
+	</div>
  
 
    
@@ -115,75 +132,68 @@ $(document).ready(function() {
   		
 
 
-<script>
+<script th:inline="javascript"> // 4.
+    function getTags() {
+    	$.ajax({
+            type: "GET",
+            url: '/api/tech-tag/resource-loc/10',
+			success: function(str) {
+               console.log(str);
+			},
+		});
+	}
+	
+    const languageSection = document.getElementById('language-section');
+    const searchInput = document.getElementById('language-Search');
+    const similarTagList = document.getElementById('similar-tag-list');
+    const languageImg = document.getElementById('language-img');
+    const iconPath = document.getElementById('icon-path');
+    const usedLanguageId = document.getElementById('used-language-id');
+    console.log(searchInput);
+    let timeout = null;
 
-
-$(document)
-.ready(function () {
-
-  var tag = {};
-  var counter = 0;
-
-  // 태그를 추가한다.
-  function addTag(value) {
-    tag[counter] = value; // 태그를 Object 안에 추가
-    counter++; // counter 증가 삭제를 위한 del-btn 의 고유 id 가 된다.
-  }
-
-  // 최종적으로 서버에 넘길때 tag 안에 있는 값을 array type 으로 만들어서 넘긴다.
-  function marginTag() {
-    return Object.values(tag)
-      .filter(function (word) {
-        return word !== "";
-      });
-  }
-
-  $("#tag")
-    .on("keyup", function (e) {
-      var self = $(this);
-      console.log("keypress");
-
-      // input 에 focus 되있을 때 엔터 및 스페이스바 입력시 구동
-      if (e.key === "Enter" || e.keyCode == 32) {
-
-        var tagValue = self.val(); // 값 가져오기
-
-        // 값이 없으면 동작 안합니다.
-        if (tagValue !== "") {
-
-          // 같은 태그가 있는지 검사한다. 있다면 해당값이 array 로 return 된다.
-          var result = Object.values(tag)
-            .filter(function (word) {
-              return word === tagValue;
-            })
-
-          // 태그 중복 검사
-          if (result.length == 0) {
-            $("#tag-list")
-              .append("<li class='tag-item'>" + tagValue + "<span class='del-btn' idx='" + counter + "'>x</span></li>");
-            addTag(tagValue);
-            self.val("");
-          } else {
-            alert("태그값이 중복됩니다.");
-          }
-        }
-        e.preventDefault(); // SpaceBar 시 빈공간이 생기지 않도록 방지
-      }
+    searchInput.addEventListener('input', () => {
+      clearTimeout(timeout);
+      timeout = setTimeout(() => {
+    	if(searchInput.value != "") {
+	    	$.ajax({
+				type: "GET",
+				url: '/api/tag/similar?tag='+searchInput.value,
+				success: function(tags) {
+					const tagList = tags.tagList;
+					similarTagList.replaceChildren();
+					console.log(tags)
+					for(let i = 0; i < tagList.length; i++) {
+						similarTagList.innerHTML += "<a class='panel-block' onclick='clickTag("+tagList[i].tagId+")' id='_"+tagList[i].tagId+"'> <span class='panel-icon'> <i class='fas fa-book' aria-hidden='true'></i></span>"+tagList[i].tagName+"</a>"
+					}
+				},
+	  		});
+    	}
+    	else {
+    		similarTagList.replaceChildren();
+    	}
+      }, 500);
     });
+    
+    function clickTag(tagId) {
+    	$.ajax({
+            type: "GET",
+            url: '/api/tech-tag/resource-loc/'+tagId,
+			success: function(str) {
+				const tag = document.getElementById('_'+tagId);
+		    	searchInput.value=tag.text.trim();
+		    	//이미지 세팅
+		    	languageImg.src=str;
+		    	//태그 세팅
+		    	iconPath.value = str;
+		    	usedLanguageId.value=tagId;
+		    	// 지우기
+		    	similarTagList.replaceChildren();
+			},
+		});
+    }
 
-  // 삭제 버튼
-  // 삭제 버튼은 비동기적 생성이므로 document 최초 생성시가 아닌 검색을 통해 이벤트를 구현시킨다.
- 
-  $(document)
-    .on("click", ".del-btn", function (e) {
-      var index = $(this)
-        .attr("idx");
-      tag[index] = "";
-      $(this)
-        .parent()
-        .remove();
-    });
-})
+
 </script>
 
 

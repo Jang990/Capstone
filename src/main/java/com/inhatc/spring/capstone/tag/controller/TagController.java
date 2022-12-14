@@ -20,7 +20,7 @@ import com.inhatc.spring.capstone.tag.service.TagService;
 import lombok.RequiredArgsConstructor;
 
 @RestController
-@RequestMapping("/test/api/tag")
+@RequestMapping("/api/tag")
 @RequiredArgsConstructor
 public class TagController {
 	
@@ -31,7 +31,7 @@ public class TagController {
 	@GetMapping("/similar")
 	/** 현재 태그와 유사한 태그를 10개 검색해서 보내준다. */
 	public ResponseEntity<TagListDTO> craeteCustomTag(String tag,
-			@PageableDefault(page = 0, size = 10) Pageable pageable) {
+			@PageableDefault(page = 0, size = 3) Pageable pageable) {
 		List<DisplayedTagDTO> similarTagList = tagService.searchSimilarTags(tag, pageable);
 		return new ResponseEntity<>(new TagListDTO(similarTagList), HttpStatus.OK);
 	}

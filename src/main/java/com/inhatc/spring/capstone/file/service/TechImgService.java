@@ -39,7 +39,7 @@ public class TechImgService {
 			String fileName = file2.getName();
 			String ext = fileName.substring(fileName.lastIndexOf(".") + 1);
 			if(ext.equals("svg")) {
-				return "./devicon/icons/"+tag.getName()+"/"+fileName;
+				return "/devicon/icons/"+tag.getName()+"/"+fileName;
 			}
 		}
 		
