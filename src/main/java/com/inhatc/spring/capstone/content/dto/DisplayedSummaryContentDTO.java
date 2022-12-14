@@ -1,5 +1,7 @@
 package com.inhatc.spring.capstone.content.dto;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
@@ -29,12 +31,14 @@ public class DisplayedSummaryContentDTO {
 	private String imgSavedPath; // 대표 이미지 리소스 접근 위치
 	private List<DisplayedTagDTO> tags; // 지정 태그
 	private String username; // 사용자 이름
+	private String email; // 사용자 이메일 -추가
 	private int hits; // 조회 수
 	private int heart; // 하트 수
+	private String createdDate;
 	
 	@QueryProjection
 	public DisplayedSummaryContentDTO(Long contentId, String title, String imgSavedPath, List<DisplayedTagDTO> tags,
-			String username, int hits, int heart) {
+			String username, String email, int hits, int heart, LocalDateTime createdDate) {
 		this.contentId = contentId;
 		this.title = title;
 		this.imgSavedPath = imgSavedPath;
@@ -42,5 +46,7 @@ public class DisplayedSummaryContentDTO {
 		this.username = username;
 		this.hits = hits;
 		this.heart = heart;
+		this.email = email;
+		this.createdDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(createdDate);
 	}
 }

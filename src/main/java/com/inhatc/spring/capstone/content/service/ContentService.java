@@ -232,7 +232,7 @@ public class ContentService {
 	
 	/** 페이징해서 화면에 필요한 데이터를 보내줌 */
 	public Page<DisplayedSummaryContentDTO> getSummaryContents(Pageable pageable) {
-		return contentRepository.getSummaryContentPage(pageable);
+		return contentRepository.getSummaryContentPage(pageable, null, null);
 	}
 	
 }
