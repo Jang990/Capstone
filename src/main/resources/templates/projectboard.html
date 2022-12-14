@@ -67,13 +67,20 @@ img.lan {
 		});
 
 		function page(page) {
-			var searchDateType = $("#keywoard").val();
+			console.log(page);
+			
+			var keywords = $("#keywords").val();
+			if(keywords === undefined)
+			{keywords = "";}
+			console.log("/projectboard?page=" + page + "&size=2&keywords="
+					+ keywords);
 
-
-			location.href = "/projectboard/" + page + "?searchDateType="
-					+ searchDateType
+			location.href = "/projectboard?page=" + page + "&size=2&keywords="
+					+ keywords;
+			
 		}
 	</script>
+	<script src="https://code.jquery.com/jquery-3.6.2.slim.min.js" integrity="sha256-E3P3OaTZH+HlEM7f1gdAT3lHAn4nWBZXuYe89DFg2d0=" crossorigin="anonymous"></script>
 </th:block>
 
 
@@ -82,7 +89,7 @@ img.lan {
 
 </head>
 <main layout:fragment="content">
-	<form th:action="@{'project' + ${project_.number}}" role="form"
+	<form th:action="@{'/projectboard'}" role="form"
 		method="get" th:object="${project_}">
 		<div class="column is-half is-offset-one-quarter"
 			style="margin-bottom: -12px;">
@@ -93,10 +100,11 @@ img.lan {
 		<div class="columns is-mobile" th:object="${keywords}">
 			<div class="column is-10 is-offset-1">
 				<div class="notification is-white">
-					<input class="input is-normal" type="search" name="searchtxt"
-						placeholder="Search">
+					<input class="input is-normal" type="text" name="keywords" placeholder="검색어를 입력해 주세요">
+						
 
 				</div>
+				
 			</div>
 		</div>
 		<div class="columns is-mobile"
@@ -161,22 +169,21 @@ img.lan {
 			</div>
 
 <div class="columns is-mobile">
-		<div class="column is-2 is-offset-5"
+		<div class="column is-4 is-offset-5"
 		th:with="start=${(project_.number/maxPage)*maxPage + 1}, 
 			 end=(${(project_.totalPages == 0) ? 1 : (start + (maxPage - 1) < project_.totalPages ? start + (maxPage - 1) : project_.totalPages)})" >
-            <ul class="pagination justify-content-center">
+            <ul class="buttons has-addons" style="vertical-align: middle;">
 
-			   <li th:classappend="${project_.first}?'disabled'">
+			   <li class="button" th:classappend="${project_.first}?'disabled'">
                     <a th:onclick="'javascript:page(' + ${project_.number - 1} + ')'" aria-label='Previous'>
                         <span aria-hidden='true'>Previous</span>
                     </a>
                 </li>
-
-                <li th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${project_.number eq page-1}?'active':''">
+                <li class="button" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${project_.number eq page-1}?'active':''">
                     <a th:onclick="'javascript:page(' + ${page - 1} + ')'" th:inline="text">[[${page}]]</a>
                 </li>
 
-                <li th:classappend="${project_.last}?'disabled'">
+                <li class="button" th:classappend="${project_.last}?'disabled'">
                     <a th:onclick="'javascript:page(' + ${project_.number + 1} + ')'" aria-label='Next'>
                         <span aria-hidden='true'>Next</span>
                     </a>

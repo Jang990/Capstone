@@ -56,7 +56,7 @@ public class myPagecontroller {
 	@GetMapping("/myprojectboard")
 	public String myprojectboard(Model model, 
 			@PageableDefault(page = 0, size = 6) 
-			@SortDefault.SortDefaults({ @SortDefault(sort = "heart", direction = Sort.Direction.DESC)}) 
+			@SortDefault.SortDefaults({ @SortDefault(sort = "createdDate", direction = Sort.Direction.DESC)}) 
 			Pageable pageable,
 			Authentication authentication
 	) {

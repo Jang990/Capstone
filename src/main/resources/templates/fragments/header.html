@@ -18,7 +18,7 @@
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-start">
 				<a class="navbar-item" href="/projectboard"> 프로젝트 </a>
-				<a class="navbar-item" href="/recruimentboard"> 구인공고 </a>
+				<!-- <a class="navbar-item" href="/recruimentboard"> 구인공고 </a> -->
 					<a class="navbar-item" sec:authorize="isAuthenticated()" href=" /myprojectboard"> 마이페이지 </a>
 
 			</div>
@@ -26,8 +26,9 @@
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
-					    <span id="user"style="margin-right: 25px; font-size: 17px;
-					    vertical-align: middle;">님</span>
+					 <!--    <span th:text="${#authentication.name} 님" id="user"style="margin-right: 25px; font-size: 17px;
+					    vertical-align: middle;"></span>
+					     사용자 정보 출력-->
 						<a class="button is-primary" sec:authorize="isAuthenticated()"> <strong>로그아웃</strong>
 						</a> <a class="button is-primary is-light" sec:authorize="isAnonymous()" href="/loginpage" > 로그인 </a>
 					</div>

@@ -13,6 +13,22 @@ main {
 </style>
 </th:block>
 
+<th:block layout:fragment="script">
+	<script th:inline="javascript">
+		function page(page) {
+			
+			var keywords = $("#keywords").val();
+			if(keywords === undefined)
+			{keywords = "";}
+
+
+			location.href = "/projectboard?page=" + page + "&size=2&keywords="
+					+ keywords;
+			
+		}
+	</script>
+	<script src="https://code.jquery.com/jquery-3.6.2.slim.min.js" integrity="sha256-E3P3OaTZH+HlEM7f1gdAT3lHAn4nWBZXuYe89DFg2d0=" crossorigin="anonymous"></script>
+</th:block>
 <head>
 <title>캡스톤 디자인</title>
 
@@ -23,11 +39,12 @@ main {
 			<img src="./img/rogo.png" width="360" height="240">
 		</div>
 	</div>
-	<form class="columns is-mobile" action="test/search_action">
+	<form class="columns is-mobile" th:action="@{'/projectboard'}" role="form"
+		method="get">
 		<!-- 테스트 붙여줘야 권한이 나옴 -->
 		<div class="column is-half is-offset-one-quarter">
 			<div class="notification is-white">
-				<input class="input is-normal" type="search" name="searchtxt"
+				<input class="input is-normal" type="search" name="keywords"
 					placeholder="Search">
 
 			</div>

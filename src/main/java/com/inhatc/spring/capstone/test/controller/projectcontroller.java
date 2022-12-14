@@ -75,7 +75,7 @@ public class projectcontroller {
 		
 	@GetMapping({"/projectboard","/project/{page}"})
 	public String projectboard(Model model,
-			@PageableDefault(page = 0, size = 9) 
+			@PageableDefault(page = 0, size = 2) 
 			@SortDefault.SortDefaults({ @SortDefault(sort = "heart", direction = Sort.Direction.DESC)}) 
 			Pageable pageable,
 			@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords,
