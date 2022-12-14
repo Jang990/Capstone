@@ -42,6 +42,7 @@ public class BoardController {
 		
 		return "editor/editor3";
 	}
+    
     @GetMapping("/boardview")
     public String boardView() {
     	return "boardview";

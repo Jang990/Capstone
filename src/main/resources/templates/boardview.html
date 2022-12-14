@@ -4,7 +4,7 @@
 	layout:decorate="~{layout/layout1}">
 
 <th:block layout:fragment="css">
-	<!--  content¿¡ ½ºÅ¸ÀÏ ÁÖ±â -->
+	<!--  contentì— ìŠ¤íƒ€ì¼ ì£¼ê¸° -->
 	<style>
 main {
 	background: #ffffff;
@@ -36,54 +36,56 @@ img.lan {
 	width: 50px;
 	height: 50px;
 }
+table {
+    width: 100%;
+    border: 1px solid #444444;
+  }
 </style>
 </th:block>
 
 <head>
-
-<meta charset="EUC-KR">
-<title>°Ô½Ã±Û »ó¼¼ ÆäÀÌÁö</title>
+<title>ê²Œì‹œê¸€ ìƒì„¸ í˜ì´ì§€</title>
 </head>
 
+
 <body layout:fragment="content">
-<div style="width: 60%; margin: auto;">
-<h1 th:text="${board.title}">Á¦¸ñÀÔ´Ï´Ù.</h1>
 
-<p th:text="${board.content}">³»¿ëÀÌ µé¾î°¥ ºÎºĞÀÔ´Ï´Ù.</p>
+<div class="row mt-1 header" style="width: 60%; margin: auto;">
 
-
-
-  
-  <div class="select">
-    <select id="selectbox" name="selectbox" >
-      <option  value="back">¹é¿£µå</option>
-      <option  value="front">ÇÁ·ĞÆ®¿£µå</option>
-    </select>
-  </div>
-  
-   <div class="select">
-    <select id="selectbox" name="usedLanguage" >
-      <option value="python">ÆÄÀÌ½ã</option>
-      <option value="java">ÀÚ¹Ù</option>
-      <option value="C">c¾ğ¾î</option>
-      <option value="mysql">mysql</option>
-      <option value="DBeaver">DBeaver</option>
-       </select>
-     </div>
-     
-     <input class="input is-link" type="text" name="people"  style="width: 10%;" placeholder="ÇÊ¿äÀÎ¿ø">   
-    <p>
- 	 <input class="input" type="text"  style="width: 80%;"placeholder="±êÇãºêurl">
-	 <input class="button" type="submit" value="±êÇãºê ¿¬°áÇÏ±â"><p>
-   <br><br> 
-   <p>
-  <input class="input is-medium" name="title" type="text"  style="width: 100%;" placeholder="ÇÁ·ÎÁ§Æ® Á¦¸ñ" maxlength="50"></p>
-   
-		<textarea id="summernote" name="content" maxlength="2048"></textarea>
-		
-		
-		<input class="button" type="submit" value="±Û¾²±â">
-      </form> 
-     </div>
+    <table border="0"class="board_view"style="table-layout-fixed">
+       
+        
+        <colgroup>
+            <col width="15%">
+            <col width="35%">
+            <col width="15%">
+            <col width="*">
+        </colgroup>
+         
+        <tbody>
+            <tr>
+                <th>ì œëª©</th>
+                <td>${content.TITLE}</td>
+                <th>ì¡°íšŒìˆ˜</th>
+                <td>${content.TITLE}</td>
+            </tr>
+            <tr>
+                <th>ì‘ì„±ì</th>
+                <td>${map.CREA_ID }</td>
+                <th>ì‘ì„±ì‹œê°„</th>
+                <td>${map.CREA_DTM }</td>
+            </tr>
+            <tr>
+                <th>ë‚´ìš©</th>
+                <td colspan="3">
+                    ${content.CONTENTS }
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    
+    <button class="button"id="list" >ëª©ë¡ìœ¼ë¡œ</button>
+    <button class="button"id="modify" >ìˆ˜ì •í•˜ê¸°</button>
+    </div>
 </body>
 </html>
