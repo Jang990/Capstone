@@ -6,23 +6,26 @@
 <th:block layout:fragment="css">
 	<!--  content에 스타일 주기 -->
 	<style>
-
+.container {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	grid-template-rows: repeat(3, 1fr);
+}
 main {
 	background: #ffffff;
 	min-height: 650px;
 }
 .contai{
 display: grid;
-grid-template-rows: 1fr 1fr 1fr;
-grid-template-columns: 1fr 1fr 1fr;
+grid-template-rows: 1fr 1fr;
+grid-template-columns: 1fr 1fr;
 }
 
 .box1 {
-	width: 385px;
-	height: 240px;
-	margin-right: 8px;
-	margin-left: 8px;
-	margin-bottom: 20px;
+	width: 500px;
+	height: 320px;
+	margin-right: 25px;
+	margin-bottom: 30px;
 	background-color: white;
 	border: 1px solid black;
 	border-radius: 6px;
@@ -32,10 +35,13 @@ grid-template-columns: 1fr 1fr 1fr;
 	display: block;
 	padding: 1.25rem;
 }
+.namemail{
+font-size: 7px;
 
+}
 img.boardimg {
-	width: 120px;
-	height: 80px;
+	width: 240px;
+	height: 160px;
 }
 
 img.lan {
@@ -84,16 +90,19 @@ img.lan {
 		</div>
 	</div>
 	<div class="columns is-mobile">
-		<div class="column is-10 is-offset-1">
-			<table>
-				<tr>
+		<div class="column is-10 is-offset-1 container">
 					<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
-					<td th:each="project : ${project_}">
-						<div class="box1">
-							<img class="boardimg "
+					<div th:each="project : ${project_}">
+						<div class="box1 contai">
+						<div>
+							<img class="boardimg" style="text-align: left;"
 								src="https://bulma.io/images/placeholders/128x128.png"> <img
 								class="lan" align="right"
 								src="devicon/icons/java/java-original-wordmark.svg">
+								<span style="margin-left: 30px;" th:text="${project.email}"></span>
+								<span style="font-size: 5px;text-align: right;" th:text="${project.username}"></span>
+									
+							</div>
 							<div>
 								<strong><span th:text="${project.title}"></span></strong>
 								<div style="margin-top: 7px;">
@@ -101,31 +110,27 @@ img.lan {
 									<span th:each="tag : ${project.tags}"
 										class="tag is-primary is-light"> <span
 										th:text="${tag.tagName}"></span>
-									</span> <span style="font-size: 5px;" th:text="${project.username}"></span>
+									</span> 
 								</div>
+								<div style="margin-top:7px; font-size: 5px;"></span>
+								
 							</div>
 							<div style="vertical-align: bottom;">
-								<p
-									style="vertical-align: right; margin-bottom: -1px; font-size: 10px; text-align: right;">
-									<span th:text="${project.heart}"></span>
-								</p>
+							
 								<div
 									style="vertical-align: right; font-size: 10px; text-align: right;">
-									<div class="right_area" style="text-align: right;">
-									<span th:text="${project.email}"></span>
 									<span th:text="${project.createdDate}"></span>
-										 <span
+									<div class="right_area" style="text-align: right;">
+									<span th:text="${project.heart}"></span>좋아요
+										 조회수<span
 											style="vertical-align: top; text-align: right;"
-											th:text="${project.hits}"></span>개
+											th:text="${project.hits}"></span>회
 										
 									</div>
 
 								</div>
 							</div>
-						</div>
-					</td>
-				</tr>
-			</table>
+						</div></div>
 		</div>
 	</div>
 </main>

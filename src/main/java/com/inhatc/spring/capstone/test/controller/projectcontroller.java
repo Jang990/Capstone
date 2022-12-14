@@ -56,39 +56,44 @@ public class projectcontroller {
 		
 		List<DisplayedSummaryContentDTO> projectList = new ArrayList<>();//프로젝트 리스트
 		DisplayedSummaryContentDTO test1 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
-//		projectDto test2 = new projectDto("이메일 관리", "1email@mail.com", "길드", "2012-12-17", "python", 79);
-//		projectDto test3 = new projectDto("드론 프로젝트", "3email@mail.com", "라이트", "2012-12-14", "C", 77);
+		DisplayedSummaryContentDTO test2 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test3 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test4 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test5 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		
 		
 		projectList.add(test1);
-//		projectList.add(test2);
-//		projectList.add(test3);
+		projectList.add(test2);
+		projectList.add(test3);
+		projectList.add(test4);
+		projectList.add(test5);
 		
 		model.addAttribute("project_",projectList);
 		return "/projectboard";
 	}
-//
-//	@GetMapping("{boardId}")
-//    public String findById(@PathVariable("boardId") Long boardId, Model model, HttpSession session){
-//        BoardDetailDTO boardDetailDTO = bs.findById(boardId);
-//        List<CommentDetailDTO> commentList = cs.findAll(boardId);
-//        // memberId 세션값 가져오기
-//        Long memberId = (Long) session.getAttribute(LOGIN_ID);
-//
-//        model.addAttribute("board",boardDetailDTO);
-//        model.addAttribute("commentList",commentList);
-//
-//        bs.findLike(boardId,memberId);
-//
-//        int like = bs.findLike(boardId,memberId);
-//        model.addAttribute("like",like);
-//
-//        return "/board/findById";
-//    }
-////좋아요
-//    @PostMapping("/like")
-//    public @ResponseBody int like(Long boardId, Long memberId) {
-//        int result = bs.saveLike(boardId,memberId);
-//        return result;
-//    }
+	@GetMapping("/projectboard_t")
+	public String projectboard2(Model model) {
+		Long bb = null;
+		List<DisplayedTagDTO> tag = new ArrayList<>();
+		DisplayedTagDTO a = new DisplayedTagDTO(bb,"java","Tech");
+		tag.add(a);
+		
+		List<DisplayedSummaryContentDTO> projectList = new ArrayList<>();//프로젝트 리스트
+		DisplayedSummaryContentDTO test1 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test2 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test3 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test4 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		DisplayedSummaryContentDTO test5 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
+		
+		
+		projectList.add(test1);
+		projectList.add(test2);
+		projectList.add(test3);
+		projectList.add(test4);
+		projectList.add(test5);
+		
+		model.addAttribute("project_",projectList);
+		return "/projectboard_t";
+	}
 	
 }
