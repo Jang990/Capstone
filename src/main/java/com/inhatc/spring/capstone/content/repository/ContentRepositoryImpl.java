@@ -13,6 +13,8 @@ import java.util.List;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.thymeleaf.util.StringUtils;
 
 import com.inhatc.spring.capstone.content.dto.DisplayedCommentDTO;
 import com.inhatc.spring.capstone.content.dto.DisplayedContentDTO;
@@ -24,7 +26,10 @@ import com.inhatc.spring.capstone.content.entity.Content;
 import com.inhatc.spring.capstone.tag.dto.DisplayedTagDTO;
 import com.inhatc.spring.capstone.tag.dto.QDisplayedTagDTO;
 import com.inhatc.spring.capstone.user.dto.DisplayedUserDTO;
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.group.GroupBy;
+import com.querydsl.core.types.Order;
+import com.querydsl.core.types.OrderSpecifier;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
@@ -72,15 +77,18 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 		return contentDetail;
 	}
 	
-	public Page<DisplayedSummaryContentDTO> getSummaryContentPage(Pageable pageable) {
+	public Page<DisplayedSummaryContentDTO> getSummaryContentPage(Pageable pageable, List<String> search, String userEmail) {
 		List<DisplayedSummaryContentDTO> summaryContentList = query
 				.selectFrom(content1)
 				.join(content1.writer, users)
 				.leftJoin(contentTag).on(contentTag.content.eq(content1))
 				.leftJoin(tag).on(tag.eq(contentTag.tag))
 				.leftJoin(savedFile).on(savedFile.projectContent.eq(content1))
-//				.where(null) // 이 부분은 완성하고 테스트한다음 검색 기능 하면서 수정
-				.orderBy(content1.heartCount.desc())
+				.where(
+						searchTitleOrTag(search),
+						searchUserContent(userEmail)
+				)
+				.orderBy(contentSort(pageable))
 				.offset(pageable.getOffset())
 				.limit(pageable.getPageSize())
 				.transform(
@@ -93,8 +101,10 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 												new QDisplayedTagDTO(tag.id, tag.name, tag.type.stringValue())
 										), 
 										users.name, 
+										users.email,
 										content1.viewCount, 
-										content1.heartCount
+										content1.heartCount,
+										content1.date_created
 									)
 						)
 				);
@@ -108,5 +118,53 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 		long total = query.select(content1.count()).from(content1).fetchOne();
 		
 		return new PageImpl<DisplayedSummaryContentDTO>(summaryContentList, pageable, total);
+	}
+	
+	// 정렬 조건
+	private OrderSpecifier<?> contentSort(Pageable pageable) {
+		if(pageable.getSort().isEmpty()) {
+			return null;
+		}
+		
+//		content1.heartCount.desc()
+		Sort sort = pageable.getSort();
+		for (Sort.Order order : sort) {
+			Order direction = order.getDirection().isAscending() ? Order.ASC : Order.DESC;
+			
+			switch (order.getProperty()) {
+				case "createdDate":
+					return new OrderSpecifier(direction, content1.date_created);// 최신순
+				case "heart":
+					return new OrderSpecifier(direction, content1.heartCount); // 하트순
+			}
+		}
+		
+		return null;
+	}
+
+	// 태그 or 제목 검색 조건
+	private BooleanBuilder searchTitleOrTag(List<String> keywords) {
+		BooleanBuilder builder = new BooleanBuilder();
+		
+		if(keywords.size() < 1) {
+			return null;
+		}
+		
+		for (String keyword : keywords) {
+			builder.or(tag.name.containsIgnoreCase(keyword));
+			builder.or(content1.title.containsIgnoreCase(keyword));
+		}
+		return builder;
+	}
+	
+	// 태그 or 제목 검색 조건
+	private BooleanBuilder searchUserContent(String userEmail) {
+		if(!StringUtils.isEmpty(userEmail)) {
+			return null;
+		}
+		
+		BooleanBuilder builder = new BooleanBuilder();
+		builder.or(users.email.eq(userEmail));
+		return builder;
 	}
 }
