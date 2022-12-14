@@ -36,6 +36,7 @@ public class CustomOAuthUserService implements OAuth2UserService<OAuth2UserReque
 	/** 타 플랫폼으로 부터 받은 UserRequest를 처리해서 사용자로 회원가입 */
 	@Override
 	public OAuth2User loadUser(OAuth2UserRequest userRequest) throws OAuth2AuthenticationException {
+		System.out.println("여길 탑니다");
 		 OAuth2UserService<OAuth2UserRequest, OAuth2User> delegate = new DefaultOAuth2UserService();
 		 OAuth2User oAuth2User = delegate.loadUser(userRequest);
 

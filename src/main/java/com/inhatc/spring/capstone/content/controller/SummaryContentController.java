@@ -28,7 +28,7 @@ public class SummaryContentController {
 		@SortDefault.SortDefaults({ @SortDefault(sort = "date_created", direction = Sort.Direction.DESC)}) Pageable pageable,
 		 @RequestParam(value = "search", required = false) String search) {
 		if(search == null) {
-			contentService.getSummaryContents(pageable);
+			contentService.getSummaryContents(pageable,null,null);
 		}
 		else {
 			// 일단 검색기능은 컨트롤러 만들고 설정하기

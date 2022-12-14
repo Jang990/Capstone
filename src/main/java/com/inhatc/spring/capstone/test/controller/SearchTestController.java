@@ -32,9 +32,6 @@ public class SearchTestController {
 			Pageable pageable,
 			@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords,
 			@RequestParam(value = "email", required = false, defaultValue = "") String email
-			 
-			,
-			 @RequestParam(value = "search", required = false) String search
 	) {
 		List<String> keywordList;
 		if(keywords == null)
@@ -42,7 +39,6 @@ public class SearchTestController {
 		else
 			keywordList = Arrays.asList(keywords.split(" "));
 		
-		System.out.println("요기도");
 		for (String string : keywordList) {
 			System.out.println(string);
 		}

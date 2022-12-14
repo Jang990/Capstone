@@ -3,6 +3,7 @@ package com.inhatc.spring.capstone.content.service;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
@@ -235,8 +236,14 @@ public class ContentService {
 	}
 	
 	/** 페이징해서 화면에 필요한 데이터를 보내줌 */
-	public Page<DisplayedSummaryContentDTO> getSummaryContents(Pageable pageable) {
-		return contentRepository.getSummaryContentPage(pageable, null, null);
+	public Page<DisplayedSummaryContentDTO> getSummaryContents(Pageable pageable, String keywords, String userEmail) {
+		List<String> keywordList;
+		if(keywords == null)
+			keywordList = new ArrayList<>();
+		else
+			keywordList = Arrays.asList(keywords.split(" "));
+		
+		return contentRepository.getSummaryContentPage(pageable, keywordList, userEmail);
 	}
 	
 }
