@@ -44,8 +44,10 @@ main {
 }
 
 img.boardimg {
+    border-radius: 6px;
 	width: 240px;
 	height: 160px;
+	border: 0.1px solid black;
 }
 
 img.lan {
@@ -123,7 +125,7 @@ img.lan {
 					<a class="box1 contai" th:href="'/projectboard/'+${project.contentId}">
 						<div>
 							<img class="boardimg" style="text-align: left;"
-								src="https://bulma.io/images/placeholders/128x128.png"> <img th:src="${project.techImgPath}"
+								th:src="${project.imgSavedPath}"> <img th:src="${project.techImgPath}"
 								class="lan" align="right" 
 								> 
 								

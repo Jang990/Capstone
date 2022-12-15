@@ -84,7 +84,9 @@ display:flex;
             </tr>
             <tr>
                 <th>해시태그</th>
-                <td th:text="${content.tags}"> </td>
+                <td th:each="tag :${content.tags}"> 
+                <span th:text="${tag.tagName}"> </span>
+                </td>
                 <th>사용자언어</th>
                 <td th:text="${content.usedLanguage}"></td>
             </tr>
