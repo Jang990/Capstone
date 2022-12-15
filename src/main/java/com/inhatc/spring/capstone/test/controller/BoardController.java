@@ -60,8 +60,8 @@ public class BoardController {
     	
     	
      }
-    
-    
+	
+	
 	@PostMapping("editor/editor4")
 	public String boardWritePro(Authentication authentication, NewContentDTO content, String tag, Long usedLangId){
 		OAuth2User user = (OAuth2User) authentication.getPrincipal();
@@ -75,17 +75,21 @@ public class BoardController {
 		}
         content.setTags(tagList);
         
-        
+        DisplayedContentDTO createProjectContent = null;
         try {
-			contentService.createProjectContent(content);
+			createProjectContent = contentService.createProjectContent(content);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		return "/main";
+        
+        if(createProjectContent == null) {
+        	return "/main"; // 에러페이지로 이동
+        }
+        else {
+        	return "redirect:/projectboard/" + createProjectContent.getContentId();
+        }
 	
 	}
-	
-	
 	
 	}
 
