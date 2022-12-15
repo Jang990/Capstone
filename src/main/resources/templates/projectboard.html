@@ -44,8 +44,10 @@ main {
 }
 
 img.boardimg {
-	width: 240px;
-	height: 160px;
+   border-radius: 6px;
+	width: 280px;
+	height: 170px;
+	border: 0.1px solid black;
 }
 
 img.lan {
@@ -120,21 +122,23 @@ img.lan {
 			<div class="column is-10 is-offset-1 container">
 				<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
 				<div th:each="project, status : ${project_.getContent()}">
-					<div class="box1 contai">
+					<a class="box1 contai" th:href="'/projectboard/'+${project.contentId}">
 						<div>
 							<img class="boardimg" style="text-align: left;"
-								src="https://bulma.io/images/placeholders/128x128.png"> <img th:src="${project.techImgPath}"
+								th:src="${project.imgSavedPath}"> <img th:src="${project.techImgPath}"
 								class="lan" align="right" 
 								> 
-								<span
-								style="margin-left: 30px; font-size: 5px;"
-								th:text="${project.email}"></span> <span
-								style="font-size: 5px; text-align: right;"
-								th:text="${project.username}"></span>
-
+								
 						</div>
 						<div>
-							<strong><span th:text="${project.title}"></span></strong>
+							<strong><span style="display: inline-block; width: 200px;" th:text="${project.title}"></span></strong>
+							
+							<span
+								style="margin-left: 110px; font-size: 5px;"
+								th:text="${project.email}" ></span> <span
+								style="font-size: 5px; text-align: right;"
+								th:text="${project.username}"></span>
+							
 							<div style="margin-top: 7px;">
 
 								<span th:each="tag : ${project.tags}"
@@ -161,7 +165,7 @@ img.lan {
 								</div>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 			
