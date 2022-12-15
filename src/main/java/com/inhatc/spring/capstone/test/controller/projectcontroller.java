@@ -73,27 +73,7 @@ public class projectcontroller {
 	// 	DisplayedSummaryContentDTO test4 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
 	// 	DisplayedSummaryContentDTO test5 = new DisplayedSummaryContentDTO(bb,"이메일관리 ","in",tag,"김씨","mail.comn",3,50,LocalDateTime.now());
 		
-	@GetMapping({"/projectboard","/project/{page}"})
-	public String projectboard(Model model,
-			@PageableDefault(page = 0, size = 6) 
-			@SortDefault.SortDefaults({ @SortDefault(sort = "heart", direction = Sort.Direction.DESC)}) 
-			Pageable pageable,
-			@RequestParam(value = "keywords", required = false, defaultValue = "") String keywords,
-			@RequestParam(value = "email", required = false, defaultValue = "") String email,
-			Optional<Integer> page
-			) {
-		
-		
-		
-		
-		Page<DisplayedSummaryContentDTO> summaryContents = contentService.getSummaryContents(pageable, keywords, email);
-		model.addAttribute("project_", summaryContents); // 정보
-		model.addAttribute("keywords", keywords); // 검색어 
-		model.addAttribute("maxPage", 5);
-		
-		
-		return "/projectboard";
-	}
+	
 	
 	
 }
