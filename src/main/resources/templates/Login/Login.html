@@ -4,9 +4,9 @@
 	layout:decorate="~{layout/layout1}">
 	
 	
-
-<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
-<script type="text/javascript">
+<th:block layout:fragment="script">
+<script th:inline="javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script th:inline="javascript">
           $.ajaxSetup({
             beforeSend : function(xhr, settings) {
               if (settings.type == 'POST' || settings.type == 'PUT'
@@ -34,7 +34,7 @@
             return true;
           }
         </script>
-
+</th:block>
 <main layout:fragment="content">
 
 
