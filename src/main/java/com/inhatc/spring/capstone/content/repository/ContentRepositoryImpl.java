@@ -106,7 +106,8 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 										users.email,
 										content1.viewCount, 
 										content1.heartCount,
-										content1.date_created
+										content1.date_created,
+										content1.iconPath
 									)
 						)
 				);
