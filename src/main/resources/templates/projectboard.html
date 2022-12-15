@@ -123,9 +123,10 @@ img.lan {
 					<div class="box1 contai">
 						<div>
 							<img class="boardimg" style="text-align: left;"
-								src="https://bulma.io/images/placeholders/128x128.png"> <img
+								src="https://bulma.io/images/placeholders/128x128.png"> <img th:src="${project.techImgPath}"
 								class="lan" align="right" 
-								src=""> <span
+								> 
+								<span
 								style="margin-left: 30px; font-size: 5px;"
 								th:text="${project.email}"></span> <span
 								style="font-size: 5px; text-align: right;"
