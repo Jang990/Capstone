@@ -57,7 +57,8 @@ main {
 		method="get" class="column is-half is-offset-one-quarter">
 		<div class="columns is-mobile is-centered">
 			<span th:each="tag: ${tags}" class="tag is-primary is-light is-large" style="margin-right:20px;">
-				<span th:text="${tag.tagName}" name="keywords" onclick="page(0)"></span>
+				<a th:href="'/projectboard?keywords='+${tag.tagName}"><span th:text="${tag.tagName}" name="keywords"></span></a>
+				
 			</span>
 
 		</div>
