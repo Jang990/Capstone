@@ -18,7 +18,7 @@ public class DisplayedTagDTO {
 	@Builder
 	public DisplayedTagDTO(Long tagId, String tagName, String tagType) {
 		this.tagId = tagId;
-		if(tagName.length() >= 1) {
+		if(tagName != null && tagName.length() >= 1) {
 			this.tagName = tagName.substring(0, 1).toUpperCase() + tagName.substring(1).toLowerCase();
 		}
 		else {
