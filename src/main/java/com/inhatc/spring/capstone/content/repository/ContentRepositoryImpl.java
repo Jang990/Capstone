@@ -112,6 +112,11 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 						)
 				);
 		
+		System.out.println("중요");
+		for (DisplayedSummaryContentDTO displayedSummaryContentDTO : summaryContentList) {
+			System.out.println(displayedSummaryContentDTO);
+		}
+		
 		/*
 		 * 콘텐츠 내용들~~~			태그 내용
 		 * 1번 콘텐츠 ~~			1번태그

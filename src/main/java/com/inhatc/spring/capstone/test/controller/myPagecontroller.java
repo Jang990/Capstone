@@ -64,10 +64,9 @@ public class myPagecontroller {
 		String loginEmail = (String) user.getAttributes().get("email");
 		
 		Page<DisplayedSummaryContentDTO> summaryContents = contentService.getSummaryContents(pageable, null, loginEmail);
-		model.addAttribute("myproject_", summaryContents); // 정보
+		model.addAttribute("content", summaryContents); // 정보
+		model.addAttribute("maxPage", 5);
 		
-		
-	
 		return "/myprojectboard";
 	}
 
