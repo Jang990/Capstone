@@ -50,12 +50,13 @@ public class BoardController {
     
     @GetMapping("/boardview")
     public String boardView(Model model,Integer id) {
-    	
+    	System.out.println("===============>확인");
        	DisplayedUserDTO user = new DisplayedUserDTO("Sim", "sim@gmail.com");
         List<DisplayedFileDTO> files = new ArrayList<DisplayedFileDTO>();
         List<DisplayedCommentDTO> comments = new ArrayList<DisplayedCommentDTO>();
         List<DisplayedTagDTO> tags = new ArrayList<DisplayedTagDTO>();
-        DisplayedContentDTO content = new DisplayedContentDTO(1L, user, "제목", "내용", LocalDateTime.now(), "Java", false, 3, comments, files, 3, tags);    	model.addAttribute("content", content);
+        DisplayedContentDTO content = new DisplayedContentDTO(1L, user, "제목", "내용", LocalDateTime.now(), "Java", false, 3, comments, files, 3, tags, "s");    	
+        model.addAttribute("content", content);
     	return "/boardview";
     	
     	

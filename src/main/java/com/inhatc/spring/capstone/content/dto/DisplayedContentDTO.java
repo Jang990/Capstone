@@ -28,7 +28,7 @@ public class DisplayedContentDTO {
 	private String usedLanguage; // 사용 언어
 	private boolean isRecruit;
 	private int viewCount; // 조회 수
-	
+	private String techImgPath; // 언어 아이콘 이미지 위치
 	
 	List<DisplayedCommentDTO> comments;
 	List<DisplayedFileDTO> files = new ArrayList<>();
@@ -57,7 +57,7 @@ public class DisplayedContentDTO {
 	public DisplayedContentDTO(Long contentId, DisplayedUserDTO writer, String title, 
 			String content, LocalDateTime accessDate, String usedLanguage, 
 			boolean isRecruit, int viewCount, List<DisplayedCommentDTO> comments, 
-			List<DisplayedFileDTO> files, int heartCount, List<DisplayedTagDTO> tags) {
+			List<DisplayedFileDTO> files, int heartCount, List<DisplayedTagDTO> tags, String techImgPath) {
 		this.contentId = contentId;
 		this.writer = writer;
 		this.title = title;
@@ -70,6 +70,7 @@ public class DisplayedContentDTO {
 		this.files = files;
 		this.heartCount = heartCount;
 		this.tags = tags;
+		this.techImgPath = techImgPath;
 	}
 	
 	

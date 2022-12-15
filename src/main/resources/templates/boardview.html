@@ -62,6 +62,9 @@ display:flex;
 
 
 <body layout:fragment="content">
+<br>
+<br>
+<br>
 
 <div  class="row mt-1 header" style="width: 60%; margin: auto;">
 
@@ -77,23 +80,22 @@ display:flex;
          
         <tbody>
             <tr>
-                <th >제목</th>
-                <td th:text="${content.title}"> </td>
-                <th>이메일</th>
-                <td > </td>
+                <th style="text-align: center; vertical-align: middle;" >제목</th>
+                <td th:text="${content.title}" style="text-align: center; vertical-align: middle;"> </td>
+                <th style="text-align: center; vertical-align: middle;">이메일</th>
+                <td th:text="${content.writer.email}"> </td>
             </tr>
             <tr>
-                <th>해시태그</th>
-                <td th:each="tag :${content.tags}"> 
-                <span th:text="${tag.tagName}"> </span>
-                </td>
-                <th>사용자언어</th>
-                <td th:text="${content.usedLanguage}"></td>
+                <th style="text-align: center; vertical-align: middle;">해시태그</th>
+                	<td style="text-align: center; vertical-align: middle;"><span th:each="tag :${content.tags}"><span th:text="${tag.tagName}" class="tag is-primary is-light"></span> </span></td>
+                <th style="text-align: center; vertical-align: middle;">사용자언어</th>
+                <td style="text-align: center; vertical-align: middle;"><div><img style="width:50px" th:src="${content.techImgPath}"></div></td>
             </tr>
             <tr>
-                <th>내용</th>
+                <th style="text-align: center; vertical-align: middle;">내용</th>
                 <td colspan="3" >
-                <tr></tr><td th:text="${content.content}" width=300 height=600 style='table-layout:fixed'> </td>
+                <tr></tr>
+                <td th:utext="${content.content}" width=300 height=600 style='table-layout:fixed'> </td>
                 </td>
             </tr>
         </tbody>
@@ -131,7 +133,9 @@ display:flex;
 </div>
 </div>
    </div>
- 
+ <br>
+ <br>
+ <br>
     
 
 

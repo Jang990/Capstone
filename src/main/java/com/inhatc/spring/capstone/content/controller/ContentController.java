@@ -59,6 +59,7 @@ public class ContentController {
 	public String viewContent(Model model, @PathVariable("contentId")Long contentId) {
 		// Cookie를 이용한 조회수 증가 확인 - 추후 구현
 		DisplayedContentDTO viewProjectContent = contentService.viewProjectContent(contentId);
+		System.out.println(viewProjectContent);
 		model.addAttribute("content",viewProjectContent);
 		return "/boardview";
 	}

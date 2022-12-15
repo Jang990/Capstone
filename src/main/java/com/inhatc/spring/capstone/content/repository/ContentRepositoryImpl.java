@@ -69,7 +69,8 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 										list(
 //												Projections.fields(DisplayedTagDTO.class)
 												new QDisplayedTagDTO(tag.id, tag.name, tag.type.stringValue())
-										)
+										),
+										content1.iconPath
 								)
 						)
 				).get(0);
