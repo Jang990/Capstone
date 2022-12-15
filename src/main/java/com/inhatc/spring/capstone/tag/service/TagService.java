@@ -44,7 +44,7 @@ public class TagService {
 		
 		Tag existTag = tagRepository.findById(contentTagDto.getTagId()).orElseThrow(EntityNotFoundException::new);
 		
-		if(!existTag.getName().equals(contentTagDto.getTagName())
+		if(!existTag.getName().equals(contentTagDto.getTagName().toLowerCase()) 
 				|| !existTag.getType().toString().equals(contentTagDto.getTagType().toUpperCase()))
 			throw new IllegalArgumentException();
 		
