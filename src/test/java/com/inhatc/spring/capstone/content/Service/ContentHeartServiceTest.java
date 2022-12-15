@@ -50,7 +50,7 @@ class ContentHeartServiceTest {
 		}
 		str += "</div>";
 
-		return NewContentDTO.builder().userId(user.getId()).userEmail(user.getEmail()).title(title).content(str)
+		return NewContentDTO.builder().userEmail(user.getEmail()).title(title).content(str)
 				.usedLanguage("JAVA").isRecruit(false).build();
 	}
 

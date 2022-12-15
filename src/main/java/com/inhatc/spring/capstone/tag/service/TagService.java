@@ -52,4 +52,11 @@ public class TagService {
 		return existTag;
 	}
 	
+	/** 있는지 없는지 알 수 없는 태그 검색해서 만들려면 만들기 */
+	public Tag getUnknownTag(DisplayedTagDTO contentTagDto) {
+		Tag tag = tagRepository.findByName(contentTagDto.getTagName())
+				.orElseGet(() -> createCustomTag(contentTagDto));
+		return tag;
+	}
+	
 }
