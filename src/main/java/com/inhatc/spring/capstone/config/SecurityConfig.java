@@ -10,6 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.inhatc.spring.capstone.user.service.CustomOAuthUserService;
 
@@ -43,7 +44,8 @@ public class SecurityConfig {
 				.disable()
 			)
 			.logout(l -> l
-				.logoutSuccessUrl("/").permitAll()
+				.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+				.logoutSuccessUrl("/")
 			)
 			.oauth2Login(o -> o
 					.defaultSuccessUrl("/login") // oauth 테스트를 위해 해당 html로 자동 리다이렉트
