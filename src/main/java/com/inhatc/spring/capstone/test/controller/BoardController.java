@@ -62,19 +62,6 @@ public class BoardController {
      }
     
     
-    
-   
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 	@PostMapping("editor/editor4")
 	public String boardWritePro(Authentication authentication, NewContentDTO content, String tag, Long usedLangId){
 		OAuth2User user = (OAuth2User) authentication.getPrincipal();
