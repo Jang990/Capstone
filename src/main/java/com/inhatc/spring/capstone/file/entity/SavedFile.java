@@ -1,5 +1,6 @@
 package com.inhatc.spring.capstone.file.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -36,7 +37,7 @@ public class SavedFile {
 	@Enumerated(EnumType.STRING)
 	private FileType type; // JPG, PNG, GIF 등등 타입
 	
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "content_id")
 	private Content projectContent;
 	
