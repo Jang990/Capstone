@@ -15,12 +15,6 @@ main {
 
 <th:block layout:fragment="script">
 	<script th:inline="javascript">
-	$(document).ready(function() {
-		$("#searchBtn").on("click", function(e) {
-			e.preventDefault();
-			page(0);
-		});
-	});
 
 	function page(page) {
 		console.log(page);
@@ -63,7 +57,7 @@ main {
 		method="get" class="column is-half is-offset-one-quarter">
 		<div class="columns is-mobile is-centered">
 			<span th:each="tag: ${tags}" class="tag is-primary is-light is-large" style="margin-right:20px;">
-				<span th:text="${tag.tagName}" name="keywords" onclick="page()"></span>
+				<span th:text="${tag.tagName}" name="keywords" onclick="page(0)"></span>
 			</span>
 
 		</div>
