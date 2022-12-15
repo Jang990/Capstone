@@ -120,7 +120,7 @@ img.lan {
 			<div class="column is-10 is-offset-1 container">
 				<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
 				<div th:each="project, status : ${project_.getContent()}">
-					<div class="box1 contai">
+					<a class="box1 contai" th:href="'/projectboard/'+${project.contentId}">
 						<div>
 							<img class="boardimg" style="text-align: left;"
 								src="https://bulma.io/images/placeholders/128x128.png"> <img th:src="${project.techImgPath}"
@@ -163,7 +163,7 @@ img.lan {
 								</div>
 							</div>
 						</div>
-					</div>
+					</a>
 				</div>
 			</div>
 			
