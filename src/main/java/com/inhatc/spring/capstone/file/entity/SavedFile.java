@@ -27,9 +27,9 @@ public class SavedFile {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	private Long byteSize; // 사진 바이트 크기
-	private int width; // 사진 너비
-	private int height; // 사진 높이
+//	private Long byteSize; // 사진 바이트 크기
+//	private int width; // 사진 너비
+//	private int height; // 사진 높이
 	
 	private String originalName; // 원본 이름
 	private String savedPath; // 저장된 이름
@@ -49,8 +49,8 @@ public class SavedFile {
 		this.originalName = originalName;
 		this.savedPath = savedName;
 //		this.url = url;
-		this.width = width;
-		this.height = height;
+//		this.width = width;
+//		this.height = height;
 		
 		return this;
 	}
@@ -59,9 +59,9 @@ public class SavedFile {
 	
 	public static SavedFile createSavedImg(Content content,DisplayedImageDTO imgDto) {
 		return SavedFile.builder()
-				.byteSize(imgDto.getByteSize())
-				.width(imgDto.getWidth())
-				.height(imgDto.getHeight())
+//				.byteSize(imgDto.getByteSize())
+//				.width(imgDto.getWidth())
+//				.height(imgDto.getHeight())
 				.originalName(imgDto.getOriginalName())
 				.savedPath(imgDto.getSavedPath())
 				.projectContent(content)
@@ -70,10 +70,10 @@ public class SavedFile {
 
 
 	@Builder
-	private SavedFile(Long byteSize, int width, int height, String originalName, String savedPath, Content projectContent) {
-		this.byteSize = byteSize;
-		this.width = width;
-		this.height = height;
+	private SavedFile(String originalName, String savedPath, Content projectContent) {
+//		this.byteSize = byteSize;
+//		this.width = width;
+//		this.height = height;
 		this.originalName = originalName;
 		this.savedPath = savedPath;
 		this.projectContent = projectContent;
@@ -81,10 +81,11 @@ public class SavedFile {
 		this.type = FileType.PNG; // 꼭 필요한가?
 	}
 	
-	/** 화면에 표시되는 width height 변경 */
+	/** 화면에 표시되는 width height 변경 - 제거 예정 */
 	public SavedFile modifySavedImgSize(DisplayedImageDTO modifiedImg) {
-		this.width = modifiedImg.getWidth();
-		this.height = modifiedImg.getHeight();
+		
+//		this.width = modifiedImg.getWidth();
+//		this.height = modifiedImg.getHeight();
 		return this;
 	}
 }
