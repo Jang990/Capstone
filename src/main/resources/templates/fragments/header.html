@@ -1,8 +1,40 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<html lang="ko" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<th:block layout:fragment="script">
+<script th:inline="javascript" src="https://cdn.jsdelivr.net/npm/js-cookie@3.0.1/dist/js.cookie.min.js"></script>
+<script th:inline="javascript">
+          $.ajaxSetup({
+            beforeSend : function(xhr, settings) {
+              if (settings.type == 'POST' || settings.type == 'PUT'
+                  || settings.type == 'DELETE') {
+                if (!(/^http:.*/.test(settings.url) || /^https:.*/
+                    .test(settings.url))) {
+                  // Only send the token to relative URLs i.e. locally.
+                  xhr.setRequestHeader("X-XSRF-TOKEN", Cookies
+                      .get('XSRF-TOKEN'));
+                }
+              }
+            }
+          });
+          $.get("/api/user", function(data) {
+              $("#user").html(data.name);
+              $(".unauthenticated").hide();
+              $(".authenticated").show();
+          });
+          var logout = function() {
+            $.post("/logout", function() {
+              $("#user").html('');
+              $(".unauthenticated").show();
+              $(".authenticated").hide();
+            })
+            return true;
+          }
+        </script>
+</th:block>
+
 <div th:fragment="header">
 	<nav class="navbar" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
@@ -20,26 +52,27 @@
 
 				<a class="navbar-item" href=" /projectboard"> 프로젝트 </a>
 				<a class="navbar-item"> 프로젝트 작성 </a>
-				<a class="navbar-item"> 구인공고 </a>
-				<a class="navbar-item"> 구인글 작성 </a>
-
-				<a class="navbar-item" href="/projectboard"> 프로젝트 </a>
-				<a class="navbar-item" href="/recruimentboard"> 구인공고 </a>
-					<a class="navbar-item" sec:authorize="isAuthenticated()" href=" /myprojectboard"> 마이페이지 </a>
+<!-- 				<a class="navbar-item"> 구인공고 </a>
+				<a class="navbar-item"> 구인글 작성 </a> -->
+					<a class="navbar-item" sec:authorize="hasAnyAuthority('ROLE_USER')" href=" /myprojectboard"> 마이페이지 </a>
 
 			</div>
 
 			<div class="navbar-end">
 				<div class="navbar-item">
 					<div class="buttons">
-					    <span id="user"style="margin-right: 25px; font-size: 17px;
-					    vertical-align: middle;">님</span>
-						<a class="button is-primary" sec:authorize="isAuthenticated()"> <strong>로그아웃</strong>
-						</a> <a class="button is-primary is-light" sec:authorize="isAnonymous()" href="/loginpage" > 로그인 </a>
+					 <!--    <span th:text="${#authentication.name} 님" id="user"style="margin-right: 25px; font-size: 17px;
+					    vertical-align: middle;"></span>
+					     사용자 정보 출력-->
+						<button class="button is-primary" sec:authorize="isAuthenticated()" onclick="louout()"> <strong>로그아웃</strong>
+						</button> <a class="button is-primary is-light" sec:authorize="isAnonymous()" href="/loginpage" > 로그인 </a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</nav>
 </div>
+
+
+
 </html>

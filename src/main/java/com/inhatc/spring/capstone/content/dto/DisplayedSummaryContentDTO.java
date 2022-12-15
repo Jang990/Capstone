@@ -35,10 +35,11 @@ public class DisplayedSummaryContentDTO {
 	private int hits; // 조회 수
 	private int heart; // 하트 수
 	private String createdDate;
+	private String techImgPath;
 	
 	@QueryProjection
 	public DisplayedSummaryContentDTO(Long contentId, String title, String imgSavedPath, List<DisplayedTagDTO> tags,
-			String username, String email, int hits, int heart, LocalDateTime createdDate) {
+			String username, String email, int hits, int heart, LocalDateTime createdDate, String techImgPath) {
 		this.contentId = contentId;
 		this.title = title;
 		this.imgSavedPath = imgSavedPath;
@@ -47,6 +48,7 @@ public class DisplayedSummaryContentDTO {
 		this.hits = hits;
 		this.heart = heart;
 		this.email = email;
-		this.createdDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss").format(createdDate);
+		this.createdDate = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm").format(createdDate);
+		this.techImgPath = techImgPath;
 	}
 }

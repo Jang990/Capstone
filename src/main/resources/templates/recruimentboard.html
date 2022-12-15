@@ -12,18 +12,19 @@ main {
 }
 
 .box1 {
-	width: 385px;
+	width: 425px;
 	height: 240px;
 	margin-right: 8px;
 	margin-left: 8px;
 	margin-bottom: 20px;
 	background-color: white;
+	border: 1px black;
 	border-radius: 6px;
 	box-shadow: 0 0.5em 1em -0.125em rgba(10, 10, 10, 0.1), 0 0px 0 1px
 		rgba(10, 10, 10, 0.02);
 	color: #4a4a4a;
 	display: block;
-	padding: 1.25rem;
+	padding: 10px;
 }
 
 img.boardimg {
@@ -37,10 +38,9 @@ img.lan {
 	height: 50px;
 }
 
-td, th {
-	border: 1px solid #dddddd;
-	text-align: left;
-	padding: -1px;
+table.memb{
+	table-layout: fixed;
+	height: 140px;
 }
 
 </style>
@@ -76,17 +76,22 @@ td, th {
 </div>
 </div>
 
-	<table>
-		<tr>
+	<table style="padding: 0px;">
+		<tr >
 			<!-- 컨트롤러로 부터 프로젝트 데이터 받기 -->
 			<td th:each="recruiment : ${recruiment_}">
-				<div style="background-color: blue;">
-					<div style="height:70%;">
-						<table th:each="member : ${recruiment_member}" >
+				<div class="box1">
+					<div>
+						<table class="memb">
 							<tr>
-								<td><span style="font-size: 10px;" th:text="${member.ends}"></span></td>
-								<td><span style="font-size: 10px;" th:text="${member.usedLanguage}"></span></td>
-								<td><span style="font-size: 10px;" th:text="${member.count}"></span></td>
+								<td style="width: 150px;height:10px; "><strong><span style="font-size: 10px;" th:text="${recruiment.fend}"></span></strong></td>
+								<td style="width: 50px; height:10px;"> <span style="font-size: 10px;" th:text="${recruiment.fusedLanguage}"></span></td>
+								<td style="width: 50px; height:10px;"><span style="font-size: 10px;" th:text="${recruiment.fcount}">명</span></td>
+							</tr>
+							<tr>
+								<td><strong><span style="font-size: 10px;" th:text="${recruiment.bend}"></span></strong></td>
+								<td><span style="font-size: 10px;" th:text="${recruiment.busedLanguage}"></span></td>
+								<td><span style="font-size: 10px;" th:text="${recruiment.bcount}"></span></td>
 							</tr>
 						</table>
 					</div>
@@ -97,7 +102,7 @@ td, th {
 								<span style="font-size: 5px;" th:text="${recruiment.writer}"></span>
 						</div>
 					</div>
-					<div style="vertical-align: bottom;">
+					<div style="vertical-align:text-bottom;  position: relative; bottom: -10px;">
 						<p style="text-align: right; font-size: 10px;">
 							<span th:text="${recruiment.viewCount}"></span>
 						</p>

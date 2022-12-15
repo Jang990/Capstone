@@ -106,7 +106,8 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 										users.email,
 										content1.viewCount, 
 										content1.heartCount,
-										content1.date_created
+										content1.date_created,
+										content1.iconPath
 									)
 						)
 				);
@@ -165,7 +166,6 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 		return null;
 	}
 
-	// 태그 or 제목 검색 조건
 	private BooleanBuilder searchTitleOrTag(List<String> keywords) {
 		BooleanBuilder builder = new BooleanBuilder();
 		
@@ -181,8 +181,6 @@ public class ContentRepositoryImpl implements ContentRepositoryCustom {
 		}
 		return builder;
 	}
-	
-	// 태그 or 제목 검색 조건
 	private BooleanBuilder searchUserContent(String userEmail) {
 		if(!StringUtils.hasText(userEmail)) {
 			return null;

@@ -8,4 +8,5 @@ import com.inhatc.spring.capstone.content.entity.ContentHeart;
 
 public interface ContentHeartRepository extends JpaRepository<ContentHeart, Long> {
 	Optional<ContentHeart> findByContent_IdAndLikedUser_Email(Long id, String email);
+//	void  deleteByBoardEntity_IdAndMemberEntity_Id(Long id, String email);
 }

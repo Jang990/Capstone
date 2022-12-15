@@ -83,7 +83,6 @@ class CommentServiceTest {
 		str += "</div>";
 		
 		return NewContentDTO.builder()
-				.userId(user.getId())
 				.userEmail(user.getEmail())
 				.title(title)
 				.content(str)

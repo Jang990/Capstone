@@ -56,12 +56,10 @@ public class ContentService {
 	
 	/** 프로젝트 게시글 생성 */
 	public DisplayedContentDTO createProjectContent(NewContentDTO contentDto) throws IOException {
-		Users user = userRepository.findById(contentDto.getUserId())
-				
-				
+		Users user = userRepository.findByEmail(contentDto.getUserEmail())
 				.orElseThrow( 
 						() -> new UsersException(UserErrorDescription.NOT_FOUND_USER, 
-										String.valueOf(contentDto.getUserId())
+										String.valueOf(contentDto.getUserEmail())
 									)
 					);
 		

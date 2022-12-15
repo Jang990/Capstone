@@ -63,7 +63,6 @@ class ContentImageServiceTest {
 		str +=  "<div>필요 없는 값" + "<h3>제목내용</h3>" + "</div>";;
 
 		return NewContentDTO.builder()
-				.userId(user.getId())
 				.userEmail(user.getEmail())
 				.title(title)
 				.content(str)
@@ -118,7 +117,6 @@ class ContentImageServiceTest {
 		
 		NewContentDTO newContent = NewContentDTO.builder()
 				.contentId(contentDetails.getContentId())
-				.userId(null)
 				.userEmail(contentDetails.getWriter().getEmail())
 				.title(contentDetails.getTitle())
 				.content(modifiedContent)
@@ -140,7 +138,6 @@ class ContentImageServiceTest {
 		
 		NewContentDTO newContent = NewContentDTO.builder()
 				.contentId(contentDetails.getContentId())
-				.userId(null)
 				.userEmail(contentDetails.getWriter().getEmail())
 				.title(contentDetails.getTitle())
 				.content(modifiedContent)

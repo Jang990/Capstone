@@ -23,30 +23,33 @@ public class ContentDocumentService {
 	
 	/** 이미지 요소의 내용을 추출 */
 	public List<DisplayedImageDTO> extractImageElement(String contentBody) {
+		System.out.println("=============");
+		System.out.println(contentBody);
 		Document doc = Jsoup.parse(contentBody);
 		Elements elements =  doc.getElementsByTag("img");
 		
 		List<DisplayedImageDTO> tempImgs = new ArrayList<>();
-		String[] styles;
+//		String[] styles;
 		int width, height;
 		for (Element element : elements) {
 			// style 속성에서 width와 heigth 뽑아내기
-			styles = element.attr("style").split(";");
+//			styles = element.attr("style").split(";");
 			width = 0;
 			height = 0;
-			for (String str : styles) {
-				if(str.contains("width") && !str.contains("width-") && !str.contains("-width")) {
-					width = Integer.valueOf(str.split("=")[1].replace("px", "").trim());
-				}
-				else if(str.contains("height") && !str.contains("height-") && !str.contains("-height")) {
-					height = Integer.valueOf(str.split("=")[1].replace("px", "").trim());
-				}
-			}
+//			for (String str : styles) {
+//				if(str.contains("width") && !str.contains("width-") && !str.contains("-width")) {
+//					width = Integer.valueOf(str.split("=")[1].replace("px", "").trim());
+//				}
+//				else if(str.contains("height") && !str.contains("height-") && !str.contains("-height")) {
+//					height = Integer.valueOf(str.split("=")[1].replace("px", "").trim());
+//				}
+//			}
 			
 			tempImgs.add(DisplayedImageDTO.builder()
 					.savedPath(element.attr("src"))
-					.originalName(element.attr("alt"))
-					.byteSize(Long.valueOf(element.attr("bytesize")))
+					.originalName(element.attr("data-filename"))
+					.byteSize(null)
+//					.byteSize(Long.valueOf(element.attr("bytesize")))
 					.width(width)
 					.height(height)
 					.build());
