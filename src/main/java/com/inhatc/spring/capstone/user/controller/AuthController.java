@@ -12,6 +12,6 @@ public class AuthController {
 	 * 프론트 작업 끝나면 변경할 것 
 	 * */
 	public String oauthTest() {
-		return "/Login";
+		return "/Login/Login";
 	}
 }
