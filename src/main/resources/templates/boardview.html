@@ -86,27 +86,25 @@ display:flex;
                 <th>ID</th>
                 <td th:text="${content.contentId}"> </td>
                 <th>사용자언어</th>
-                <td>${map.CREA_DTM }</td>
+                <td th:text="${content.usedLanguage}"></td>
             </tr>
             <tr>
                 <th>내용</th>
-                <td colspan="3">
-              
-                   <td th:text="${content.content}"> </td>
+                <td colspan="3" >
+                <tr></tr><td th:text="${content.content}" width=300 height=600 style='table-layout:fixed'> </td>
                 </td>
             </tr>
         </tbody>
     </table>
     
-    <button class="button"id="list" >목록으로</button>
+    <button class="button"id="list" onClick="location.href='/projectboard'" >목록으로</button>
     
-    <button class="button"id="modify" >수정하기</button>
-    
+      
     <dl></dl>
     <div class="card">
     
     <form method="post" action="/editor/editor5">
-     <input class="textarea is-small" name = "comment" cols="50"rows="5"></input>
+     <input class="textarea is-small" name = "comment">
      <input class="button" type="submit" value="댓글입력">
      </form>
      
@@ -137,4 +135,5 @@ display:flex;
 
 
 </body>
+
 </html>
