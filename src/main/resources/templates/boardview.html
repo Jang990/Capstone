@@ -77,34 +77,38 @@ display:flex;
          
         <tbody>
             <tr>
-                <th>제목</th>
-                <td>${content.TITLE}</td>
-                <th>조회수</th>
-                <td>${content.TITLE}</td>
+                <th >제목</th>
+                <td th:text="${content.title}"> </td>
+                <th>이메일</th>
+                <td > </td>
             </tr>
             <tr>
-                <th>작성자</th>
-                <td>${map.CREA_ID }</td>
-                <th>작성시간</th>
+                <th>ID</th>
+                <td th:text="${content.contentId}"> </td>
+                <th>사용자언어</th>
                 <td>${map.CREA_DTM }</td>
             </tr>
             <tr>
                 <th>내용</th>
                 <td colspan="3">
-                    ${content.CONTENTS }
+              
+                   <td th:text="${content.content}"> </td>
                 </td>
             </tr>
         </tbody>
     </table>
     
     <button class="button"id="list" >목록으로</button>
+    
     <button class="button"id="modify" >수정하기</button>
+    
     <dl></dl>
     <div class="card">
-    <form method="post" name="deagul" action="/boardview">
-     <textarea class="textarea is-small" name = "comment" placeholder="댓글입력"></textarea>
-     <input class="button" type="submit" value="등록">
-          </form>
+    
+    <form method="post" action="/editor/editor5">
+     <input class="textarea is-small" name = "comment" cols="50"rows="5"></input>
+     <input class="button" type="submit" value="댓글입력">
+     </form>
      
      </div>
      

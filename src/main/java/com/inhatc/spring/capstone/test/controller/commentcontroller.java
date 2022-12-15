@@ -12,7 +12,7 @@ import com.inhatc.spring.capstone.content.dto.DisplayedCommentDTO;
 public class commentcontroller {
 
 		
-	@RequestMapping(value = "/boardview", method = RequestMethod.POST)
+	@PostMapping("/editor/editor5")
 	public String posttWirte(DisplayedCommentDTO comment) throws Exception {
 		
 		System.out.println(comment.getComment());
