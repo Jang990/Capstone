@@ -12,7 +12,7 @@
 
 ## 프로젝트 개요 및 소개
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/e9f107b0-e8c8-4d01-b744-771dc32a6ab8/Untitled.png)
+![image](https://user-images.githubusercontent.com/88225377/218295498-483d5f69-4ea3-41d0-a2ac-507f17f7452f.png)
 
 해당 프로젝트는 프로젝트를 진행할 때는 프로젝트의 내용을 업로드해서 다른 사람들에게 보여줄 수 있고, <br>
 프로젝트에 주제를 잡지 못할 때는 다른 사람들이 진행한프로젝트에 주제를 참고할 수 있는 서비스를 만드는 것입니다.
@@ -31,4 +31,4 @@
 
 ## DB 구조
 
-![Untitled](https://s3-us-west-2.amazonaws.com/secure.notion-static.com/29b14bd9-eae2-4cee-986c-91723080f568/Untitled.png)
+![image](https://user-images.githubusercontent.com/88225377/218295506-ee9c0381-cb7c-4a3d-bfa3-80292e17298a.png)
