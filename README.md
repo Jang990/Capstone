@@ -21,7 +21,7 @@
 
 ## 기술 스택
 
-- Java 1.8
+- Java 17
 - SpringBoot 2.7.3
 - Thymeleaf
 - MySQL
